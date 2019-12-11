@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Pytaco</string>
-    <string name="font">brtitannic-bold</string>
-    <string name="esqueci_senha">&lt;u&gt;Esqueci a senha&lt;/u&gt;</string>
-    <string name="nome_clube">Digite o nome do clube</string>
-</resources>
