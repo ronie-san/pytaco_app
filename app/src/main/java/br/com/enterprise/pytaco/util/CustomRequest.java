@@ -21,14 +21,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
 import br.com.enterprise.pytaco.activity.IActivity;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public abstract class CustomRequest {
 
@@ -61,12 +57,12 @@ public abstract class CustomRequest {
         this.errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ConnectivityManager connectivityManager = (ConnectivityManager)activity.getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager connectivityManager = (ConnectivityManager) activity.getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
                         connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
                     activity.onError(new VolleyError("Sem conexão com a internet."));
-                } else{
+                } else {
                     activity.onError(error);
                 }
             }
@@ -141,7 +137,7 @@ public abstract class CustomRequest {
         makeRequest(request);
     }
 
-    private void makeRequest(Request request){
+    private void makeRequest(Request request) {
         DefaultRetryPolicy policy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
 

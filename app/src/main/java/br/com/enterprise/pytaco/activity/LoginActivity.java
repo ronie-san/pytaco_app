@@ -1,26 +1,17 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.android.volley.VolleyError;
 
@@ -28,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.PytacoRequest;
 
 public class LoginActivity extends BaseActivity implements IActivity {
@@ -114,7 +106,7 @@ public class LoginActivity extends BaseActivity implements IActivity {
             return false;
         }
 
-        if (edtSenha.getText().toString().trim().equals("")){
+        if (edtSenha.getText().toString().trim().equals("")) {
             edtSenha.requestFocus();
             Toast.makeText(this, "Digite sua senha.", Toast.LENGTH_SHORT).show();
             return false;
@@ -138,10 +130,12 @@ public class LoginActivity extends BaseActivity implements IActivity {
 
             try {
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("idUsuario", response.getJSONArray("entry").getJSONObject(0).getString("id_usuario"));
-                intent.putExtra("chaveAcesso", response.getJSONArray("entry").getJSONObject(0).getString("chaveacesso"));
-                intent.putExtra("qtdPytacoGlobal", response.getJSONArray("entry").getJSONObject(0).getString("qtdpytacosglobal"));
-                intent.putExtra("qtdFichaGloabl", response.getJSONArray("entry").getJSONObject(0).getString("qtdfichasglobal"));
+                Usuario usuario = new Usuario();
+                usuario.setId(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("id_usuario")));
+                usuario.setChaveAcesso(response.getJSONArray("entry").getJSONObject(0).getString("chaveacesso"));
+                usuario.setQtdPytaco(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdpytacosglobal")));
+                usuario.setQtdFicha(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdfichasglobal")));
+                intent.putExtra("usuario", usuario);
                 startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();

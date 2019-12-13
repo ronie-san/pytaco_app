@@ -2,7 +2,6 @@ package br.com.enterprise.pytaco.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +16,12 @@ import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.PytacoRequest;
 
 public class MainActivity extends BaseActivity implements IActivity {
 
-    private int idUsuario;
-    private String chaveAcesso;
+    private Usuario usuario;
     private TextView lblQtdPytacoGlobal;
     private TextView lblQtdFichaGlobal;
     private AlertDialog dialogNovoClube;
@@ -34,19 +33,13 @@ public class MainActivity extends BaseActivity implements IActivity {
 
         lblQtdPytacoGlobal = findViewById(R.id.main_lblQtdPytacoGlobal);
         lblQtdFichaGlobal = findViewById(R.id.main_lblQtdFichaGlobal);
+        usuario = new Usuario();
 
         if (savedInstanceState == null) {
             Bundle bundle = getIntent().getExtras();
-            idUsuario = Integer.parseInt(bundle.getString("idUsuario"));
-            chaveAcesso = bundle.getString("chaveAcesso");
-            lblQtdPytacoGlobal.setText(bundle.getString("qtdPytacoGlobal"));
-            lblQtdFichaGlobal.setText(bundle.getString("qtdFichaGlobal"));
-        }
-        else{
-            idUsuario = Integer.parseInt(savedInstanceState.getString("idUsuario"));
-            chaveAcesso = savedInstanceState.getString("chaveAcesso");
-            lblQtdPytacoGlobal.setText(savedInstanceState.getString("qtdPytacoGlobal"));
-            lblQtdFichaGlobal.setText(savedInstanceState.getString("qtdFichaGlobal"));
+            usuario = (Usuario) bundle.getSerializable("usuario");
+        } else {
+            usuario = (Usuario) savedInstanceState.getSerializable("usuario");
         }
 
         final ImageButton btnNovoClube = findViewById(R.id.main_btnNovoClube);
@@ -83,7 +76,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             @Override
             public void onClick(View v) {
                 PytacoRequest request = new PytacoRequest(MainActivity.this);
-                request.criarClube(idUsuario, chaveAcesso, lblNomeClube.getText().toString(), edtDescricaoClube.getText().toString());
+                request.criarClube(usuario.getId(), usuario.getChaveAcesso(), lblNomeClube.getText().toString(), edtDescricaoClube.getText().toString());
             }
         });
         dialogNovoClube.show();
@@ -94,7 +87,7 @@ public class MainActivity extends BaseActivity implements IActivity {
         pCancelDialog();
         pEnableScreen();
 
-        if(dialogNovoClube.isShowing()){
+        if (dialogNovoClube.isShowing()) {
             dialogNovoClube.cancel();
         }
     }
@@ -104,7 +97,7 @@ public class MainActivity extends BaseActivity implements IActivity {
         pCancelDialog();
         pEnableScreen();
 
-        if(dialogNovoClube.isShowing()){
+        if (dialogNovoClube.isShowing()) {
             dialogNovoClube.cancel();
         }
     }
