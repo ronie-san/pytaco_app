@@ -13,6 +13,31 @@
         android:scaleType="fitStart"
         android:src="@drawable/cabecalho" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/main_pnlCabecalho">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icone_clube" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/icone_buscar" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/main_pnlCabecalho"
         android:layout_width="match_parent"
@@ -32,26 +57,71 @@
             android:scaleType="fitStart"
             android:src="@drawable/escudo_pitaco" />
 
-        <ImageView
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="80"
-            android:adjustViewBounds="true"
             android:paddingStart="15dp"
-            android:paddingTop="40dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/fichas" />
+            android:paddingTop="40dp">
+
+            <ImageView
+                android:id="@+id/main_imgFundoPytaco"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/main_imgFundoFicha"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/main_imgFundoPytaco"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/main_imgPytaco"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/main_imgFundoPytaco"
+                android:padding="5dp"
+                android:src="@drawable/bola_pytaco" />
+
+            <ImageView
+                android:id="@+id/main_imgFicha"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/main_imgFundoFicha"
+                android:padding="5dp"
+                android:src="@drawable/ficha_pytaco" />
+
+            <TextView
+                android:id="@+id/main_lblQtdPytacoGlobal"
+                style="@style/label_login"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/main_imgPytaco"
+                android:gravity="center"
+                android:text="100"
+                android:textColor="@color/pytaco"
+                android:textSize="10pt" />
+
+            <TextView
+                android:id="@+id/main_lblQtdFichaGlobal"
+                style="@style/label_login"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/main_imgFicha"
+                android:gravity="center"
+                android:text="100"
+                android:textColor="@color/ficha"
+                android:textSize="10pt" />
+        </RelativeLayout>
+
+
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_lblQtdPytacoGlobal"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/main_lblQtdFichaGlobal"/>
 
     <ListView
         android:id="@+id/main_pnlClubes"
@@ -61,31 +131,38 @@
         android:layout_below="@+id/main_pnlCabecalho"
         android:layout_alignParentStart="true" />
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/main_pnlRodape"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:adjustViewBounds="true"-->
-    <!--        android:scaleType="fitEnd"-->
-    <!--        android:src="@drawable/fundo_celula" />-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/main_pnlRodape"
+        android:layout_alignTop="@+id/main_pnlRodape"
+        android:layout_alignEnd="@+id/main_pnlRodape"
+        android:layout_alignBottom="@+id/main_pnlRodape"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/fundo_celula" />
 
     <LinearLayout
         android:id="@+id/main_pnlRodape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#201E1E"
         android:weightSum="90">
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
+            android:layout_marginStart="15dp"
+            android:layout_weight="15"
             android:adjustViewBounds="true"
-            android:background="@android:drawable/screen_background_dark_transparent"
+            android:background="@android:color/transparent"
             android:scaleType="centerInside"
             android:src="@drawable/btn_compras" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15" />
 
         <ImageButton
             android:id="@+id/main_btnNovoClube"
@@ -93,16 +170,22 @@
             android:layout_height="match_parent"
             android:layout_weight="30"
             android:adjustViewBounds="true"
-            android:background="@android:drawable/screen_background_dark_transparent"
+            android:background="@android:color/transparent"
             android:scaleType="centerInside"
             android:src="@drawable/btn_global" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="15" />
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="15"
             android:adjustViewBounds="true"
-            android:background="@android:drawable/screen_background_dark_transparent"
+            android:background="@android:color/transparent"
             android:scaleType="centerInside"
             android:src="@drawable/btn_perfil" />
     </LinearLayout>

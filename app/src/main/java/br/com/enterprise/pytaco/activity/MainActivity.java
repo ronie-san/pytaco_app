@@ -44,6 +44,9 @@ public class MainActivity extends BaseActivity implements IActivity {
             usuario = (Usuario) savedInstanceState.getSerializable("usuario");
         }
 
+        lblQtdPytacoGlobal.setText(usuario.getQtdPytaco().toString());
+        lblQtdFichaGlobal.setText(usuario.getQtdFicha().toString());
+
         final ImageButton btnNovoClube = findViewById(R.id.main_btnNovoClube);
         btnNovoClube.setOnClickListener(new View.OnClickListener() {
             @Override
