@@ -14,11 +14,13 @@ import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.util.APIFootballRequest;
+import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class TesteActivity extends FragmentActivity implements IActivity {
 
     private TextView lblTeste;
     private FrameLayout pnlLoading;
+    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,11 @@ public class TesteActivity extends FragmentActivity implements IActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public PytacoRequestEnum getPytacoRequest() {
+        return pytacoRequestEnum;
     }
 
     @Override

@@ -15,12 +15,14 @@ import org.json.JSONObject;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.util.MaskEditUtil;
 import br.com.enterprise.pytaco.util.PytacoRequest;
+import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class CriarContaActivity extends BaseActivity implements IActivity {
 
     private EditText edtCelular;
     private EditText edtUsuario;
     private EditText edtSenha;
+    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +69,11 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
 
     private void lblVoltarClick() {
         this.onBackPressed();
+    }
+
+    @Override
+    public PytacoRequestEnum getPytacoRequest() {
+        return pytacoRequestEnum;
     }
 
     @Override

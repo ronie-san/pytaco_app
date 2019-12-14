@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.PytacoRequest;
+import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class LoginActivity extends BaseActivity implements IActivity {
 
@@ -29,6 +30,7 @@ public class LoginActivity extends BaseActivity implements IActivity {
     private EditText edtSenha;
     private CheckBox chkLembrar;
     private SharedPreferences preferences;
+    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +115,11 @@ public class LoginActivity extends BaseActivity implements IActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public PytacoRequestEnum getPytacoRequest() {
+        return pytacoRequestEnum;
     }
 
     @Override

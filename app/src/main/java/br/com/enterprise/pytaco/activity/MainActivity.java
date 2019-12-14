@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.PytacoRequest;
+import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class MainActivity extends BaseActivity implements IActivity {
 
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity implements IActivity {
     private TextView lblQtdPytacoGlobal;
     private TextView lblQtdFichaGlobal;
     private AlertDialog dialogNovoClube;
+    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +82,11 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
         dialogNovoClube.show();
+    }
+
+    @Override
+    public PytacoRequestEnum getPytacoRequest() {
+        return pytacoRequestEnum;
     }
 
     @Override
