@@ -85,6 +85,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_edtSenha"
                     style="@style/edit_color"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Senha" />

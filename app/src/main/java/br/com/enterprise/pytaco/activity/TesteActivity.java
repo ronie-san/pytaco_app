@@ -2,6 +2,7 @@ package br.com.enterprise.pytaco.activity;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -116,5 +117,10 @@ public class TesteActivity extends FragmentActivity implements IActivity {
 //                        new LoadingFragment(),
 //                        LoadingFragment.class.getSimpleName())
 //                .commitAllowingStateLoss();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

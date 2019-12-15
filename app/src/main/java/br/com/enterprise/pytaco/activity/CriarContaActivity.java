@@ -1,5 +1,6 @@
 package br.com.enterprise.pytaco.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -118,5 +119,10 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
     public void onStartRequest() {
         pDisableScreen();
         pShowProgress();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

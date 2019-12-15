@@ -53,11 +53,11 @@ public class PytacoRequest extends CustomRequest {
         pGetRequest("CriarClube.php", map);
     }
 
-    public void associcar(int idUsuario, String chaveAcesso, int idClube){
+    public void associar(int idUsuario, String chaveAcesso, String codigoClube){
         HashMap<String, String> map = new HashMap<>();
         map.put("id_usuario", String.valueOf(idUsuario));
         map.put("chaveAcesso", chaveAcesso);
-        map.put("codigoClube", String.valueOf(idClube));
+        map.put("codigoClube", String.valueOf(codigoClube));
         pGetRequest("Associcar.php", map);
     }
 

@@ -73,17 +73,20 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
 
-        final TextView lblNomeClube = view.findViewById(R.id.criar_clube_edtNomeClube);
+        final TextView edtNomeClube = view.findViewById(R.id.criar_clube_edtNomeClube);
         final TextView edtDescricaoClube = view.findViewById(R.id.criar_clube_edtDescricaoClube);
 
         final ImageButton btnCriarClube = view.findViewById(R.id.criar_clube_btnCriarClube);
         btnCriarClube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PytacoRequest request = new PytacoRequest(MainActivity.this);
-                request.criarClube(usuario.getId(), usuario.getChaveAcesso(), lblNomeClube.getText().toString(), edtDescricaoClube.getText().toString());
+                if (!edtNomeClube.getText().toString().trim().equals("") && !edtDescricaoClube.getText().toString().trim().equals("")) {
+                    PytacoRequest request = new PytacoRequest(MainActivity.this);
+                    request.criarClube(usuario.getId(), usuario.getChaveAcesso(), edtNomeClube.getText().toString(), edtDescricaoClube.getText().toString());
+                }
             }
         });
+
         dialogNovoClube.show();
     }
 
@@ -123,5 +126,10 @@ public class MainActivity extends BaseActivity implements IActivity {
     public void onStartRequest() {
         pDisableScreen();
         pShowProgress();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

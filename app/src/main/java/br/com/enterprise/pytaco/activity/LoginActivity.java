@@ -1,9 +1,12 @@
 package br.com.enterprise.pytaco.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -17,6 +20,8 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Usuario;
@@ -152,6 +157,7 @@ public class LoginActivity extends BaseActivity implements IActivity {
 
     @Override
     public void onSucess(String response) {
+        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -167,5 +173,10 @@ public class LoginActivity extends BaseActivity implements IActivity {
     public void onStartRequest() {
         pDisableScreen();
         pShowProgress();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

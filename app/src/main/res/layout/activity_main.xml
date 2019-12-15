@@ -19,6 +19,7 @@
         android:layout_alignBottom="@+id/main_pnlCabecalho">
 
         <ImageButton
+            android:id="@+id/main_btnNovoClube"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -91,14 +92,6 @@
                 android:padding="5dp"
                 android:src="@drawable/bola_pytaco" />
 
-            <ImageView
-                android:id="@+id/main_imgFicha"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignStart="@+id/main_imgFundoFicha"
-                android:padding="5dp"
-                android:src="@drawable/ficha_pytaco" />
-
             <TextView
                 android:id="@+id/main_lblQtdPytacoGlobal"
                 style="@style/label_login"
@@ -108,6 +101,14 @@
                 android:text="100"
                 android:textColor="@color/pytaco"
                 android:textSize="10pt" />
+
+            <ImageView
+                android:id="@+id/main_imgFicha"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/main_imgFundoFicha"
+                android:padding="5dp"
+                android:src="@drawable/ficha_pytaco" />
 
             <TextView
                 android:id="@+id/main_lblQtdFichaGlobal"
@@ -131,16 +132,23 @@
         android:layout_below="@+id/main_pnlCabecalho"
         android:layout_alignParentStart="true" />
 
+<!--    <ImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignStart="@+id/main_pnlRodape"-->
+<!--        android:layout_alignTop="@+id/main_pnlRodape"-->
+<!--        android:layout_alignEnd="@+id/main_pnlRodape"-->
+<!--        android:layout_alignBottom="@+id/main_pnlRodape"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/fundo_celula" />-->
+
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/main_pnlRodape"
-        android:layout_alignTop="@+id/main_pnlRodape"
-        android:layout_alignEnd="@+id/main_pnlRodape"
-        android:layout_alignBottom="@+id/main_pnlRodape"
-        android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/fundo_celula" />
+        android:layout_below="@+id/main_pnlCabecalho"
+        android:src="@drawable/buscar_clube"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:id="@+id/main_pnlRodape"
@@ -165,7 +173,6 @@
             android:layout_weight="15" />
 
         <ImageButton
-            android:id="@+id/main_btnNovoClube"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="30"

@@ -6,8 +6,8 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignStart="@+id/criar_clube_pnlCorpo"
         android:layout_alignTop="@+id/criar_clube_pnlCorpo"
         android:layout_alignEnd="@+id/criar_clube_pnlCorpo"
@@ -85,10 +85,11 @@
 
             <ImageButton
                 android:id="@+id/criar_clube_btnCriarClube"
-                android:layout_marginVertical="15dp"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
