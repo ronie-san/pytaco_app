@@ -129,6 +129,7 @@ public class LoginActivity extends BaseActivity implements IActivity {
 
     @Override
     public void onJsonSuccess(JSONObject response) {
+        Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
         if (!this.isDestroyed()) {
             if (chkLembrar.isChecked()) {
                 SharedPreferences.Editor editor = preferences.edit();

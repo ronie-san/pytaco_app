@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#201E1E">
 
     <FrameLayout
@@ -45,37 +46,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
 
-            <TextView
-                style="@style/label_login"
-                android:text="Usuário"
-                android:textSize="15pt" />
+<!--            <TextView-->
+<!--                style="@style/label_login"-->
+<!--                android:text="Usuário"-->
+<!--                android:textSize="15pt" />-->
 
-            <EditText
-                android:id="@+id/criar_conta_edtUsuario"
-                style="@style/edt_criar_conta"
-                android:hint="Digite um usuário" />
+<!--            <EditText-->
+<!--                android:id="@+id/criar_conta_edtUsuario"-->
+<!--                style="@style/edt_criar_conta"-->
+<!--                android:hint="Digite um usuário" />-->
 
-            <TextView
-                style="@style/label_login"
-                android:text="Senha"
-                android:textSize="15pt" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/input_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@android:color/white"
+                app:hintTextColor="@android:color/white">
 
-            <EditText
-                android:id="@+id/criar_conta_edtSenha"
-                style="@style/edt_criar_conta"
-                android:hint="Digite uma senha"
-                android:inputType="textPassword" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/criar_conta_edtUsuario"
+                    style="@style/edit_color"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Usuário" />
 
-            <TextView
-                style="@style/label_login"
-                android:text="Celular"
-                android:textSize="15pt" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/criar_conta_edtCelular"
-                style="@style/edt_criar_conta"
-                android:hint="(##)#####-#####"
-                android:inputType="number" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/input_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@android:color/white"
+                app:hintTextColor="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/criar_conta_edtSenha"
+                    style="@style/edit_color"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Senha" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/input_color"
+                app:hintAnimationEnabled="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@android:color/white"
+                app:hintTextColor="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/criar_conta_edtCelular"
+                    style="@style/edit_color"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="(##)#####-#####" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
                 android:id="@+id/criar_conta_btnCriarConta"
