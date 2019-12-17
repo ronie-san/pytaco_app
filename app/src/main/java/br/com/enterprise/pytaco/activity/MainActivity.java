@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Usuario;
-import br.com.enterprise.pytaco.util.PytacoRequest;
+import br.com.enterprise.pytaco.activity.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class MainActivity extends BaseActivity implements IActivity {
@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             @Override
             public void onClick(View v) {
                 if (!edtNomeClube.getText().toString().trim().equals("") && !edtDescricaoClube.getText().toString().trim().equals("")) {
-                    PytacoRequest request = new PytacoRequest(MainActivity.this);
+                    PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
                     request.criarClube(usuario.getId(), usuario.getChaveAcesso(), edtNomeClube.getText().toString(), edtDescricaoClube.getText().toString());
                 }
             }

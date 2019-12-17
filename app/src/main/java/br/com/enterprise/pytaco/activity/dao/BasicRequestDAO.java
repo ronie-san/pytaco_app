@@ -1,4 +1,4 @@
-package br.com.enterprise.pytaco.util;
+package br.com.enterprise.pytaco.activity.dao;
 
 import android.app.Application;
 import android.content.Context;
@@ -17,13 +17,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.NoCache;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +31,7 @@ import java.util.Map;
 
 import br.com.enterprise.pytaco.activity.IActivity;
 
-public abstract class CustomRequest extends Application {
+public abstract class BasicRequestDAO extends Application {
 
     protected String baseUrl;
     protected Boolean useKeyHeader;
@@ -43,20 +41,20 @@ public abstract class CustomRequest extends Application {
     private IActivity activity;
 
     //region CONSTRUCTOR
-    public CustomRequest(final IActivity activity) {
+    public BasicRequestDAO(final IActivity activity) {
         this.activity = activity;
 
         this.jsonRespListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                CustomRequest.this.activity.onJsonSuccess(response);
+                BasicRequestDAO.this.activity.onJsonSuccess(response);
             }
         };
 
         this.respListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                CustomRequest.this.activity.onSucess(response);
+                BasicRequestDAO.this.activity.onSucess(response);
             }
         };
 
@@ -94,14 +92,6 @@ public abstract class CustomRequest extends Application {
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-//                try {
-//                    String strResponse;
-//                    strResponse = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-//                    return Response.success(strResponse, HttpHeaderParser.parseCacheHeaders(response));
-//                } catch (UnsupportedEncodingException e) {
-//                    return Response.error(new VolleyError(e.getMessage()));
-//                }
-
                 Cache.Entry entry = HttpHeaderParser.parseCacheHeaders(response);
 
                 if (entry != null) {
@@ -220,7 +210,7 @@ public abstract class CustomRequest extends Application {
         makeRequest(request);
     }
 
-    private void makeRequest(Request request) {
+    private void makeRequest(@NotNull Request request) {
         DefaultRetryPolicy policy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         request.setShouldCache(false);

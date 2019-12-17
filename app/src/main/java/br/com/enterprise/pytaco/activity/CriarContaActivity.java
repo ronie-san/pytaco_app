@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.util.MaskEditUtil;
-import br.com.enterprise.pytaco.util.PytacoRequest;
+import br.com.enterprise.pytaco.activity.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class CriarContaActivity extends BaseActivity implements IActivity {
@@ -51,7 +51,7 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
 
     private void btnCriarContaClick() {
         if (pValidaCampos()) {
-            PytacoRequest request = new PytacoRequest(this);
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
             request.criarConta(edtUsuario.getText().toString().trim(), edtSenha.getText().toString(), edtCelular.getText().toString());
         }
     }

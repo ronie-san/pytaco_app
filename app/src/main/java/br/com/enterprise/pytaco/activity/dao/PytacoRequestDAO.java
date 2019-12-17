@@ -1,12 +1,13 @@
-package br.com.enterprise.pytaco.util;
+package br.com.enterprise.pytaco.activity.dao;
 
 import java.util.HashMap;
 
 import br.com.enterprise.pytaco.activity.IActivity;
+import br.com.enterprise.pytaco.activity.dao.BasicRequestDAO;
 
-public class PytacoRequest extends CustomRequest {
+public class PytacoRequestDAO extends BasicRequestDAO {
 
-    public PytacoRequest(IActivity activity) {
+    public PytacoRequestDAO(IActivity activity) {
         super(activity);
         useKeyHeader = false;
         baseUrl = "http://easycliente.com.br/pitaco/php/";

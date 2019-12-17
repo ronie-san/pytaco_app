@@ -14,7 +14,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.util.APIFootballRequest;
+import br.com.enterprise.pytaco.activity.dao.APIFootballRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class TesteActivity extends FragmentActivity implements IActivity {
@@ -53,12 +53,12 @@ public class TesteActivity extends FragmentActivity implements IActivity {
     }
 
     private void btnSeasonsClick() {
-        APIFootballRequest request = new APIFootballRequest(this);
+        APIFootballRequestDAO request = new APIFootballRequestDAO(this);
         request.getSeasons();
     }
 
     private void btnTimeZoneClick() {
-        APIFootballRequest request = new APIFootballRequest(this);
+        APIFootballRequestDAO request = new APIFootballRequestDAO(this);
         request.getTimeZone();
     }
 

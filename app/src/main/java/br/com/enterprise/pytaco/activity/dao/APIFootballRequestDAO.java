@@ -1,4 +1,4 @@
-package br.com.enterprise.pytaco.util;
+package br.com.enterprise.pytaco.activity.dao;
 
 import android.text.TextUtils;
 
@@ -10,10 +10,11 @@ import java.util.Date;
 import java.util.HashMap;
 
 import br.com.enterprise.pytaco.activity.IActivity;
+import br.com.enterprise.pytaco.activity.dao.BasicRequestDAO;
 
-public class APIFootballRequest extends CustomRequest {
+public class APIFootballRequestDAO extends BasicRequestDAO {
 
-    public APIFootballRequest(IActivity activity) {
+    public APIFootballRequestDAO(IActivity activity) {
         super(activity);
         useKeyHeader = true;
         baseUrl = "https://api-football-v1.p.rapidapi.com/v2/";

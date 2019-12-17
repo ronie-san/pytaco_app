@@ -1,12 +1,10 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,11 +19,9 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Usuario;
-import br.com.enterprise.pytaco.util.PytacoRequest;
+import br.com.enterprise.pytaco.activity.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class LoginActivity extends BaseActivity implements IActivity {
@@ -101,7 +97,7 @@ public class LoginActivity extends BaseActivity implements IActivity {
 
     private void btnEntrarClick() {
         if (pValidaCampos()) {
-            PytacoRequest request = new PytacoRequest(this);
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
             request.login(edtUsuario.getText().toString(), edtSenha.getText().toString());
         }
     }
