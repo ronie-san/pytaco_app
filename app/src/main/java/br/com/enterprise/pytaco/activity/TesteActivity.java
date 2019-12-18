@@ -14,7 +14,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.dao.APIFootballRequestDAO;
+import br.com.enterprise.pytaco.dao.APIFootballRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class TesteActivity extends FragmentActivity implements IActivity {

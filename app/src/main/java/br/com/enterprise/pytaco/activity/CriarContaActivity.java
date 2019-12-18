@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.util.MaskEditUtil;
-import br.com.enterprise.pytaco.activity.dao.PytacoRequestDAO;
+import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class CriarContaActivity extends BaseActivity implements IActivity {

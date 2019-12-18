@@ -1,4 +1,4 @@
-package br.com.enterprise.pytaco.activity.dao;
+package br.com.enterprise.pytaco.dao;
 
 import android.text.TextUtils;
 
@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import br.com.enterprise.pytaco.activity.IActivity;
-import br.com.enterprise.pytaco.activity.dao.BasicRequestDAO;
 
 public class APIFootballRequestDAO extends BasicRequestDAO {
 

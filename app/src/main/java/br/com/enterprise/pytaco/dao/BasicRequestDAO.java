@@ -1,4 +1,4 @@
-package br.com.enterprise.pytaco.activity.dao;
+package br.com.enterprise.pytaco.dao;
 
 import android.app.Application;
 import android.content.Context;
@@ -61,10 +61,10 @@ public abstract class BasicRequestDAO extends Application {
         this.errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ConnectivityManager connectivityManager = (ConnectivityManager) activity.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager cm = (ConnectivityManager) activity.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
-                        connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+                if (cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
+                        cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
                     activity.onError(new VolleyError("Sem conexão com a internet."));
                 } else {
                     activity.onError(error);

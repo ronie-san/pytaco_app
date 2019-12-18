@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Usuario;
-import br.com.enterprise.pytaco.activity.dao.PytacoRequestDAO;
+import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class MainActivity extends BaseActivity implements IActivity {

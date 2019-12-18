@@ -1,9 +1,8 @@
-package br.com.enterprise.pytaco.activity.dao;
+package br.com.enterprise.pytaco.dao;
 
 import java.util.HashMap;
 
 import br.com.enterprise.pytaco.activity.IActivity;
-import br.com.enterprise.pytaco.activity.dao.BasicRequestDAO;
 
 public class PytacoRequestDAO extends BasicRequestDAO {
 
