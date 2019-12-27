@@ -83,29 +83,13 @@ public abstract class BasicRequestDAO extends Application {
         Request<String> request = new Request<String>(Request.Method.GET, baseUrl + url, errorListener) {
             @Override
             public String getUrl() {
-                if (params != null) {
-                    Uri.Builder builder = new Uri.Builder();
-
-                    for (Map.Entry<String, String> pair : params.entrySet()) {
-                        builder.appendQueryParameter(pair.getKey(), pair.getValue());
-                    }
-
-                    return super.getUrl() + builder.build().toString();
-                }
-
-                return super.getUrl();
+                return super.getUrl() + pGetUrlParams(params);
             }
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                try {
-                    return Response.success(new String(response.data, HttpHeaderParser.parseCharset(response.headers)), HttpHeaderParser.parseCacheHeaders(response));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    return Response.error(new ParseError(e));
-                }
+                return Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
             }
-
 
             @Override
             protected void deliverResponse(String response) {
@@ -113,7 +97,7 @@ public abstract class BasicRequestDAO extends Application {
             }
         };
 
-        makeRequest(request);
+        pMakeRequest(request);
     }
 
     protected void pGetJsonRequest(@NonNull String url) {
@@ -136,42 +120,55 @@ public abstract class BasicRequestDAO extends Application {
 
             @Override
             public String getUrl() {
-                if (params != null) {
-                    Uri.Builder builder = new Uri.Builder();
-
-                    for (Map.Entry<String, String> pair : params.entrySet()) {
-                        builder.appendQueryParameter(pair.getKey(), pair.getValue());
-                    }
-
-                    return super.getUrl() + builder.build().toString();
-                }
-
-                return super.getUrl();
+                return super.getUrl() + pGetUrlParams(params);
             }
 
             @Override
-            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+            protected Response<JSONObject> parseNetworkResponse(@NotNull NetworkResponse response) {
                 try {
-                    String jsonString = new String(response.data,
-                            HttpHeaderParser.parseCharset(response.headers));
-                    return Response.success(new JSONObject(jsonString),
-                            HttpHeaderParser.parseCacheHeaders(response));
-                } catch (UnsupportedEncodingException | JSONException e) {
+                    return Response.success(new JSONObject(pNetworkResponseToStr(response)), HttpHeaderParser.parseCacheHeaders(response));
+                } catch (JSONException e) {
                     return Response.error(new ParseError(e));
                 }
             }
         };
 
-        makeRequest(request);
+        pMakeRequest(request);
     }
 
-    private void makeRequest(@NotNull Request request) {
+    private void pMakeRequest(@NotNull Request request) {
         DefaultRetryPolicy policy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         request.setShouldCache(false);
         this.activity.onStartRequest();
         RequestQueue queue = Volley.newRequestQueue(activity.getContext());
         queue.add(request);
+    }
+
+    @NotNull
+    private String pGetUrlParams(@Nullable Map<String, String> params){
+
+        if (params != null) {
+            Uri.Builder builder = new Uri.Builder();
+
+            for (Map.Entry<String, String> pair : params.entrySet()) {
+                builder.appendQueryParameter(pair.getKey(), pair.getValue());
+            }
+
+            return builder.build().toString();
+        }
+
+        return "";
+    }
+
+    @NotNull
+    private String pNetworkResponseToStr(@NotNull NetworkResponse response){
+        try {
+            return new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
     //endregion
 }
