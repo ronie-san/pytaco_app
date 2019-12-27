@@ -20,8 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
+import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class LoginActivity extends BaseActivity implements IActivity {
@@ -125,36 +125,44 @@ public class LoginActivity extends BaseActivity implements IActivity {
 
     @Override
     public void onJsonSuccess(JSONObject response) {
-        Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
         if (!this.isDestroyed()) {
-            if (chkLembrar.isChecked()) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("usuario", edtUsuario.getText().toString());
-                editor.putString("senha", edtSenha.getText().toString());
-                editor.putBoolean("lembrar", chkLembrar.isChecked());
-                editor.apply();
-            } else {
-                preferences.edit().clear().apply();
-            }
-
             try {
-                Intent intent = new Intent(this, MainActivity.class);
-                Usuario usuario = new Usuario();
-                usuario.setId(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("id_usuario")));
-                usuario.setChaveAcesso(response.getJSONArray("entry").getJSONObject(0).getString("chaveacesso"));
-                usuario.setQtdPytaco(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdpytacosglobal")));
-                usuario.setQtdFicha(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdfichasglobal")));
-                intent.putExtra("usuario", usuario);
-                startActivity(intent);
+                if (!response.getJSONArray("entry").getJSONObject(0).getString("id_usuario").equals("")) {
+                    if (chkLembrar.isChecked()) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("usuario", edtUsuario.getText().toString());
+                        editor.putString("senha", edtSenha.getText().toString());
+                        editor.putBoolean("lembrar", chkLembrar.isChecked());
+                        editor.apply();
+                    } else {
+                        preferences.edit().clear().apply();
+                    }
+
+
+                    Intent intent = new Intent(this, MainActivity.class);
+                    Usuario usuario = new Usuario();
+                    usuario.setId(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("id_usuario")));
+                    usuario.setChaveAcesso(response.getJSONArray("entry").getJSONObject(0).getString("chaveacesso"));
+                    usuario.setQtdPytaco(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdpytacosglobal")));
+                    usuario.setQtdFicha(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdfichasglobal")));
+                    intent.putExtra("usuario", usuario);
+                    startActivity(intent);
+                } else {
+                    pCancelDialog();
+                    pEnableScreen();
+                    Toast.makeText(this, "Usuário e/ou senha inválidos.", Toast.LENGTH_LONG).show();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
+                pCancelDialog();
+                pEnableScreen();
+                Toast.makeText(this, "Não foi possível entrar. Houve erro na autenticação", Toast.LENGTH_LONG).show();
             }
         }
     }
 
     @Override
     public void onSucess(String response) {
-        Toast.makeText(this, response, Toast.LENGTH_LONG).show();
     }
 
     @Override

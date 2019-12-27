@@ -4,12 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -82,49 +82,26 @@ public abstract class BasicRequestDAO extends Application {
     protected void pGetRequest(@NonNull String url, @Nullable final Map<String, String> params) {
         Request<String> request = new Request<String>(Request.Method.GET, baseUrl + url, errorListener) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            public String getUrl() {
                 if (params != null) {
-                    return params;
+                    Uri.Builder builder = new Uri.Builder();
+
+                    for (Map.Entry<String, String> pair : params.entrySet()) {
+                        builder.appendQueryParameter(pair.getKey(), pair.getValue());
+                    }
+
+                    return super.getUrl() + builder.build().toString();
                 }
 
-                return super.getParams();
+                return super.getUrl();
             }
 
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                Cache.Entry entry = HttpHeaderParser.parseCacheHeaders(response);
-
-                if (entry != null) {
-                    entry = new Cache.Entry();
-                }
-
-                final long cacheHitButRefreshed = 50;
-                final long cacheExpired = 50;
-
-                long now = System.currentTimeMillis();
-                final long softExpire = now + cacheHitButRefreshed;
-                final long ttl = now + cacheExpired;
-
-                entry.data = response.data;
-                entry.softTtl = softExpire;
-                entry.ttl = ttl;
-                String headerValue = response.headers.get("Date");
-
-                if (headerValue != null) {
-                    entry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                }
-
-                headerValue = response.headers.get("Last-Modified");
-
-                if (headerValue != null) {
-                    entry.lastModified = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                }
-
-                entry.responseHeaders = response.headers;
-
                 try {
-                    return Response.success(new String(entry.data, HttpHeaderParser.parseCharset(response.headers)), entry);
+                    return Response.success(new String(response.data, HttpHeaderParser.parseCharset(response.headers)), HttpHeaderParser.parseCacheHeaders(response));
                 } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
                     return Response.error(new ParseError(e));
                 }
             }
@@ -158,50 +135,28 @@ public abstract class BasicRequestDAO extends Application {
             }
 
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            public String getUrl() {
                 if (params != null) {
-                    return params;
+                    Uri.Builder builder = new Uri.Builder();
+
+                    for (Map.Entry<String, String> pair : params.entrySet()) {
+                        builder.appendQueryParameter(pair.getKey(), pair.getValue());
+                    }
+
+                    return super.getUrl() + builder.build().toString();
                 }
 
-                return super.getParams();
+                return super.getUrl();
             }
 
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-                Cache.Entry entry = HttpHeaderParser.parseCacheHeaders(response);
-
-                if (entry != null) {
-                    entry = new Cache.Entry();
-                }
-
-                final long cacheHitButRefreshed = 50;
-                final long cacheExpired = 50;
-
-                long now = System.currentTimeMillis();
-                final long softExpire = now + cacheHitButRefreshed;
-                final long ttl = now + cacheExpired;
-
-                entry.data = response.data;
-                entry.softTtl = softExpire;
-                entry.ttl = ttl;
-                String headerValue = response.headers.get("Date");
-
-                if (headerValue != null) {
-                    entry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                }
-
-                headerValue = response.headers.get("Last-Modified");
-
-                if (headerValue != null) {
-                    entry.lastModified = HttpHeaderParser.parseDateAsEpoch(headerValue);
-                }
-
-                entry.responseHeaders = response.headers;
-
                 try {
-                    String json = new String(entry.data, HttpHeaderParser.parseCharset(response.headers));
-                    return Response.success(new JSONObject(json), entry);
-                } catch (JSONException | UnsupportedEncodingException e) {
+                    String jsonString = new String(response.data,
+                            HttpHeaderParser.parseCharset(response.headers));
+                    return Response.success(new JSONObject(jsonString),
+                            HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException | JSONException e) {
                     return Response.error(new ParseError(e));
                 }
             }
