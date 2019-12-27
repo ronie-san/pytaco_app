@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignStart="@+id/clube_item_pnlCorpo"
-        android:layout_alignTop="@+id/clube_item_pnlCorpo"
-        android:layout_alignEnd="@+id/clube_item_pnlCorpo"
-        android:layout_alignBottom="@+id/clube_item_pnlCorpo"
-        android:scaleType="centerCrop"
-        android:src="@drawable/backgroud_clube" />
+<!--    <ImageView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_alignStart="@+id/clube_item_pnlCorpo"-->
+<!--        android:layout_alignTop="@+id/clube_item_pnlCorpo"-->
+<!--        android:layout_alignEnd="@+id/clube_item_pnlCorpo"-->
+<!--        android:layout_alignBottom="@+id/clube_item_pnlCorpo"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/backgroud_clube" />-->
 
 
     <LinearLayout
@@ -25,16 +25,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
+            android:layout_weight="70"
             android:orientation="vertical">
 
             <TextView
+                android:padding="5dp"
                 android:id="@+id/clube_item_lblNome"
                 style="@style/label_login"
                 android:text="Nome do clube"
                 android:textSize="9pt" />
 
             <TextView
+                android:padding="5dp"
                 android:id="@+id/clube_item_lblDescricao"
                 style="@style/label_login"
                 android:text="Descrição do clube"
@@ -45,21 +47,21 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
+            android:layout_weight="30"
             android:orientation="vertical"
             android:weightSum="100">
 
 
             <LinearLayout
+                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="20"
+                    android:layout_weight="50"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/bola_pytaco" />
@@ -67,7 +69,7 @@
                 <TextView
                     android:id="@+id/clube_item_lblQtdPytaco"
                     style="@style/label_login"
-                    android:layout_weight="80"
+                    android:layout_weight="50"
                     android:text="100"
                     android:textColor="@color/pytaco"
                     android:textSize="9pt" />
@@ -75,15 +77,15 @@
 
 
             <LinearLayout
+                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="50"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="20"
+                    android:layout_weight="50"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/ficha_pytaco" />
@@ -91,7 +93,7 @@
                 <TextView
                     android:id="@+id/clube_item_lblQtdFicha"
                     style="@style/label_login"
-                    android:layout_weight="80"
+                    android:layout_weight="50"
                     android:text="100"
                     android:textColor="@color/ficha"
                     android:textSize="9pt" />

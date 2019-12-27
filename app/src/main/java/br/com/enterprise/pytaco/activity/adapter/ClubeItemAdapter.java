@@ -48,7 +48,8 @@ public class ClubeItemAdapter extends BaseAdapter {
         lblDescricao.setText(clube.getDescricao());
 
         TextView lblQtdPytaco = view.findViewById(R.id.clube_item_lblQtdPytaco);
-        lblQtdPytaco.setText(clube.getQtdPytaco().toString());
+//        lblQtdPytaco.setText(clube.getQtdPytaco().toString());
+        lblQtdPytaco.setText("0");
 
         TextView lblQtdFicha = view.findViewById(R.id.clube_item_lblQtdFicha);
         lblQtdFicha.setText(clube.getQtdFicha().toString());

@@ -132,23 +132,30 @@
         android:layout_below="@+id/main_pnlCabecalho"
         android:layout_alignParentStart="true" />
 
-<!--    <ImageView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignStart="@+id/main_pnlRodape"-->
-<!--        android:layout_alignTop="@+id/main_pnlRodape"-->
-<!--        android:layout_alignEnd="@+id/main_pnlRodape"-->
-<!--        android:layout_alignBottom="@+id/main_pnlRodape"-->
-<!--        android:adjustViewBounds="true"-->
-<!--        android:scaleType="fitXY"-->
-<!--        android:src="@drawable/fundo_celula" />-->
+    <!--    <ImageView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignStart="@+id/main_pnlRodape"-->
+    <!--        android:layout_alignTop="@+id/main_pnlRodape"-->
+    <!--        android:layout_alignEnd="@+id/main_pnlRodape"-->
+    <!--        android:layout_alignBottom="@+id/main_pnlRodape"-->
+    <!--        android:adjustViewBounds="true"-->
+    <!--        android:scaleType="fitXY"-->
+    <!--        android:src="@drawable/fundo_celula" />-->
 
     <ImageView
-        android:scaleType="fitXY"
-        android:layout_below="@+id/main_pnlCabecalho"
-        android:src="@drawable/buscar_clube"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/main_pnlCabecalho"
+        android:scaleType="fitXY"
+        android:src="@drawable/buscar_clube" />
+
+    <ListView
+        android:id="@+id/main_lsvClubes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_pnlRodape"
+        android:layout_below="@+id/main_pnlCabecalho" />
 
     <LinearLayout
         android:id="@+id/main_pnlRodape"

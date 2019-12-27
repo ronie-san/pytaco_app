@@ -80,15 +80,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxStrokeColor="@android:color/white"
-                app:hintTextColor="@android:color/white">
+                app:hintTextColor="@android:color/white"
+                app:endIconTint="@android:color/white"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_edtSenha"
                     style="@style/edit_color"
-                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Senha" />
+                    android:hint="Senha"
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
