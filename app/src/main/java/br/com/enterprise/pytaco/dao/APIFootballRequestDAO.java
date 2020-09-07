@@ -5,11 +5,11 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
 import br.com.enterprise.pytaco.activity.IActivity;
+import br.com.enterprise.pytaco.util.DateUtil;
 
 public class APIFootballRequestDAO extends BasicRequestDAO {
 
@@ -102,8 +102,7 @@ public class APIFootballRequestDAO extends BasicRequestDAO {
         String date = "";
 
         if (endDate != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            date = "/" + sdf.format(endDate);
+            date = "/" + DateUtil.toDefaultFormat(endDate);
         }
 
         pGetJsonRequest("statistics/" + idLeague + "/" + idTeam + date);
@@ -153,8 +152,7 @@ public class APIFootballRequestDAO extends BasicRequestDAO {
             map.put("timezone", timezone);
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        pGetJsonRequest("fiztures/date/" + sdf.format(date), map);
+        pGetJsonRequest("fiztures/date/" + DateUtil.toDefaultFormat(date), map);
     }
 
     public void getFixturesByLeague(Integer idLeague, @Nullable String timezone) {
@@ -176,8 +174,7 @@ public class APIFootballRequestDAO extends BasicRequestDAO {
             map.put("timezone", timezone);
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        pGetJsonRequest("fixtures/league/" + idLeague + "/" + sdf.format(date), map);
+        pGetJsonRequest("fixtures/league/" + idLeague + "/" + DateUtil.toDefaultFormat(date), map);
     }
 
     public void getFixturesByLeagueDate(Integer idLeague, String round, @Nullable String timezone) {
