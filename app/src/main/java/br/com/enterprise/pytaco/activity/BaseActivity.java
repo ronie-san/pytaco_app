@@ -13,14 +13,29 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.LayoutRes;
 import androidx.fragment.app.FragmentActivity;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.util.DialogView;
 
 public class BaseActivity extends FragmentActivity {
 
-    protected AlertDialog dialog;
+    protected DialogView dialogLoading;
+
+    protected DialogView createDialog(@LayoutRes int resource){
+        return new DialogView(this, resource);
+    }
+
+    protected void makeLongToast(String msg) {
+        makeToast(msg, Toast.LENGTH_LONG);
+    }
+
+    protected void makeShortToast(String msg) {
+        makeToast(msg, Toast.LENGTH_SHORT);
+    }
 
     protected void pHideKeyborad() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -41,26 +56,20 @@ public class BaseActivity extends FragmentActivity {
     }
 
     protected void pShowProgress() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.dialog_loading, null);
+        dialogLoading = createDialog(R.layout.dialog_loading);
 
-        ImageView imgBola = view.findViewById(R.id.loading_imgBola);
+        ImageView imgBola = dialogLoading.findViewById(R.id.loading_imgBola);
         RotateAnimation rotate = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(6000);
         rotate.setInterpolator(new LinearInterpolator());
         imgBola.startAnimation(rotate);
 
-        dialog = builder.create();
-        dialog.setView(view, 0, 0, 0, 0);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        dialogLoading.showDialog();
     }
 
     protected void pCancelDialog() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.cancel();
+        if (dialogLoading != null && dialogLoading.dialogShowing()) {
+            dialogLoading.cancelDialog();
         }
     }
 
@@ -73,7 +82,7 @@ public class BaseActivity extends FragmentActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    protected void pHideKeboard(){
+    protected void pHideKeboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
         View view = this.getCurrentFocus();
@@ -82,5 +91,9 @@ public class BaseActivity extends FragmentActivity {
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void makeToast(String msg, int periodo) {
+        Toast.makeText(this, msg, periodo).show();
     }
 }

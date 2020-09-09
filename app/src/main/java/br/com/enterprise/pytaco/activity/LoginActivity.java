@@ -105,13 +105,13 @@ public class LoginActivity extends BaseActivity implements IActivity {
     private boolean pValidaCampos() {
         if (edtUsuario.getText().toString().trim().equals("")) {
             edtUsuario.requestFocus();
-            Toast.makeText(this, "Digite seu usuário.", Toast.LENGTH_SHORT).show();
+            makeShortToast("Digite seu usuário.");
             return false;
         }
 
         if (edtSenha.getText().toString().trim().equals("")) {
             edtSenha.requestFocus();
-            Toast.makeText(this, "Digite sua senha.", Toast.LENGTH_SHORT).show();
+            makeShortToast("Digite sua senha.");
             return false;
         }
 
@@ -138,7 +138,6 @@ public class LoginActivity extends BaseActivity implements IActivity {
                         preferences.edit().clear().apply();
                     }
 
-
                     Intent intent = new Intent(this, MainActivity.class);
                     Usuario usuario = new Usuario();
                     usuario.setId(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("id_usuario")));
@@ -150,13 +149,13 @@ public class LoginActivity extends BaseActivity implements IActivity {
                 } else {
                     pCancelDialog();
                     pEnableScreen();
-                    Toast.makeText(this, "Usuário e/ou senha inválidos.", Toast.LENGTH_LONG).show();
+                    makeLongToast("Usuário e/ou senha inválidos.");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 pCancelDialog();
                 pEnableScreen();
-                Toast.makeText(this, "Não foi possível entrar. Houve erro na autenticação", Toast.LENGTH_LONG).show();
+                makeLongToast("Não foi possível entrar. Houve erro na autenticação");
             }
         }
     }

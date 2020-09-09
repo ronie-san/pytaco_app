@@ -66,4 +66,13 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         map.put("id_usuario", String.valueOf(idUsuario));
         pGetRequest("Associcar.php", map);
     }
+
+    public void alteraSenha(int idUsuario, String senhaAtual, String senhaNova, String chaveAcesso){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("UsuarioLogado", String.valueOf(idUsuario));
+        map.put("SenhaAtual", senhaAtual);
+        map.put("NovaSenha", senhaNova);
+        map.put("ChaveAcesso", chaveAcesso);
+        pGetRequest("AlteraSenhaUsuario.php", map);
+    }
 }
