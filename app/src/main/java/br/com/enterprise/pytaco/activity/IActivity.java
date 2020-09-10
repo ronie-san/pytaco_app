@@ -10,6 +10,7 @@ import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public interface IActivity {
     PytacoRequestEnum getPytacoRequest();
+    void setPytacoRequest(PytacoRequestEnum value);
 
     void onJsonSuccess(JSONObject response);
 

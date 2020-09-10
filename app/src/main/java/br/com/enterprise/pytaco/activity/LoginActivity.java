@@ -31,7 +31,6 @@ public class LoginActivity extends BaseActivity implements IActivity {
     private EditText edtSenha;
     private CheckBox chkLembrar;
     private SharedPreferences preferences;
-    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -119,11 +118,6 @@ public class LoginActivity extends BaseActivity implements IActivity {
     }
 
     @Override
-    public PytacoRequestEnum getPytacoRequest() {
-        return pytacoRequestEnum;
-    }
-
-    @Override
     public void onJsonSuccess(JSONObject response) {
         if (!this.isDestroyed()) {
             try {
@@ -158,10 +152,8 @@ public class LoginActivity extends BaseActivity implements IActivity {
                 makeLongToast("Não foi possível entrar. Houve erro na autenticação");
             }
         }
-    }
 
-    @Override
-    public void onSucess(String response) {
+        super.onJsonSuccess(response);
     }
 
     @Override
@@ -171,16 +163,7 @@ public class LoginActivity extends BaseActivity implements IActivity {
             pEnableScreen();
             Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
 
-    @Override
-    public void onStartRequest() {
-        pDisableScreen();
-        pShowProgress();
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
+        super.onError(error);
     }
 }

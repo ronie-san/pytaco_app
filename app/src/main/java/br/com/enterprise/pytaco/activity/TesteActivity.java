@@ -16,11 +16,10 @@ import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class TesteActivity extends BaseActivity implements IActivity {
+public class TesteActivity extends BaseActivity {
 
     private TextView lblTeste;
     private FrameLayout pnlLoading;
-    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +42,6 @@ public class TesteActivity extends BaseActivity implements IActivity {
     }
 
     @Override
-    public PytacoRequestEnum getPytacoRequest() {
-        return this.pytacoRequestEnum;
-    }
-
-    @Override
     public void onJsonSuccess(JSONObject response) {
         if (!this.isDestroyed()) {
             try {
@@ -67,11 +61,8 @@ public class TesteActivity extends BaseActivity implements IActivity {
                 this.lblTeste.setText("Não foi possível entrar. Houve erro na autenticação.\r\n" + e.getMessage());
             }
         }
-    }
 
-    @Override
-    public void onSucess(String response) {
-
+        super.onJsonSuccess(response);
     }
 
     @Override
@@ -81,16 +72,7 @@ public class TesteActivity extends BaseActivity implements IActivity {
             pEnableScreen();
             Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
 
-    @Override
-    public void onStartRequest() {
-        pDisableScreen();
-        pShowProgress();
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
+        super.onError(error);
     }
 }

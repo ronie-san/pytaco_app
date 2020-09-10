@@ -18,12 +18,11 @@ import br.com.enterprise.pytaco.util.MaskEditUtil;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class CriarContaActivity extends BaseActivity implements IActivity {
+public class CriarContaActivity extends BaseActivity {
 
     private EditText edtCelular;
     private EditText edtUsuario;
     private EditText edtSenha;
-    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,17 +72,14 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
     }
 
     @Override
-    public PytacoRequestEnum getPytacoRequest() {
-        return pytacoRequestEnum;
-    }
-
-    @Override
     public void onJsonSuccess(JSONObject response) {
         if (!this.isDestroyed()) {
             pCancelDialog();
             pEnableScreen();
             makeLongToast("Conta criada com sucesso!");
         }
+
+        super.onJsonSuccess(response);
     }
 
     @Override
@@ -104,6 +100,8 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
                     makeLongToast("Não foi possível criar conta.");
             }
         }
+
+        super.onSucess(response);
     }
 
     @Override
@@ -114,16 +112,7 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
             //Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
             makeLongToast("Não foi possível criar conta. Erro na comunicação.");
         }
-    }
 
-    @Override
-    public void onStartRequest() {
-        pDisableScreen();
-        pShowProgress();
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
+        super.onError(error);
     }
 }

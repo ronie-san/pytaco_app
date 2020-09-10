@@ -1,10 +1,8 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -40,7 +38,6 @@ public class MainActivity extends BaseActivity implements IActivity {
     private ListView lsvClubes;
     private List<Clube> lstClube;
     private ClubeItemAdapter clubeItemAdapter;
-    private PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -172,7 +169,6 @@ public class MainActivity extends BaseActivity implements IActivity {
                 makeLongToast("Criado.");
                 break;
             default:
-
                 break;
         }
     }
@@ -201,11 +197,6 @@ public class MainActivity extends BaseActivity implements IActivity {
     }
 
     @Override
-    public PytacoRequestEnum getPytacoRequest() {
-        return pytacoRequestEnum;
-    }
-
-    @Override
     public void onJsonSuccess(JSONObject response) {
         pCancelDialog();
         pEnableScreen();
@@ -225,6 +216,8 @@ public class MainActivity extends BaseActivity implements IActivity {
             default:
                 break;
         }
+
+        super.onJsonSuccess(response);
     }
 
     @Override
@@ -247,6 +240,8 @@ public class MainActivity extends BaseActivity implements IActivity {
             default:
                 break;
         }
+
+        super.onSucess(response);
     }
 
     @Override
@@ -266,16 +261,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             default:
                 break;
         }
-    }
 
-    @Override
-    public void onStartRequest() {
-        pDisableScreen();
-        pShowProgress();
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
+        super.onError(error);
     }
 }

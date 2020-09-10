@@ -18,12 +18,18 @@ import android.widget.Toast;
 import androidx.annotation.LayoutRes;
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
+
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.util.DialogView;
+import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends FragmentActivity implements IActivity {
 
     protected DialogView dialogLoading;
+    protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
     protected DialogView createDialog(@LayoutRes int resource){
         return new DialogView(this, resource);
@@ -95,5 +101,41 @@ public class BaseActivity extends FragmentActivity {
 
     private void makeToast(String msg, int periodo) {
         Toast.makeText(this, msg, periodo).show();
+    }
+
+    @Override
+    public PytacoRequestEnum getPytacoRequest() {
+        return this.pytacoRequestEnum;
+    }
+
+    @Override
+    public void setPytacoRequest(PytacoRequestEnum value) {
+        this.pytacoRequestEnum = value;
+    }
+
+    @Override
+    public void onJsonSuccess(JSONObject response) {
+        this.pytacoRequestEnum = PytacoRequestEnum.NONE;
+    }
+
+    @Override
+    public void onSucess(String response) {
+        this.pytacoRequestEnum = PytacoRequestEnum.NONE;
+    }
+
+    @Override
+    public void onError(VolleyError error) {
+        this.pytacoRequestEnum = PytacoRequestEnum.NONE;
+    }
+
+    @Override
+    public void onStartRequest() {
+        pDisableScreen();
+        pShowProgress();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

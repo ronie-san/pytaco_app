@@ -39,7 +39,7 @@ public abstract class BasicRequestDAO extends Application {
     private Response.Listener<JSONObject> jsonRespListener;
     private Response.Listener<String> respListener;
     private Response.ErrorListener errorListener;
-    private IActivity activity;
+    protected IActivity activity;
 
     //region CONSTRUCTOR
     public BasicRequestDAO(final IActivity activity) {
