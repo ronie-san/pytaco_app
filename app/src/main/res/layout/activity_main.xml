@@ -33,6 +33,7 @@
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
+            android:paddingTop="10dp"
             android:background="@android:color/transparent"
             android:scaleType="centerInside"
             android:src="@drawable/icone_buscar" />
@@ -194,6 +195,7 @@
             android:layout_weight="15" />
 
         <ImageButton
+            android:id="@+id/main_btnAlterarSenha"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="15dp"

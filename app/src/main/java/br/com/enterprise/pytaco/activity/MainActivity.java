@@ -3,12 +3,12 @@ package br.com.enterprise.pytaco.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -27,6 +27,7 @@ import br.com.enterprise.pytaco.activity.adapter.ClubeItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.pojo.Usuario;
+import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class MainActivity extends BaseActivity implements IActivity {
@@ -34,7 +35,8 @@ public class MainActivity extends BaseActivity implements IActivity {
     private Usuario usuario;
     private TextView lblQtdPytacoGlobal;
     private TextView lblQtdFichaGlobal;
-    private AlertDialog dialogNovoClube;
+    private DialogView dialogNovoClube;
+    private DialogView dialogAlterarSenha;
     private ListView lsvClubes;
     private List<Clube> lstClube;
     private ClubeItemAdapter clubeItemAdapter;
@@ -70,33 +72,66 @@ public class MainActivity extends BaseActivity implements IActivity {
                 btnNovoClubeClick();
             }
         });
+
+        final ImageButton btnAlterarSenha = findViewById(R.id.main_btnAlterarSenha);
+        btnAlterarSenha.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                btnAlterarSenhaClick();
+            }
+        });
+
         pytacoRequestEnum = PytacoRequestEnum.LISTA_CLUBES;
         PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
         request.listaClubes(usuario.getId(), usuario.getChaveAcesso());
     }
 
+    private void btnAlterarSenhaClick() {
+        dialogAlterarSenha = createDialog(R.layout.dialog_alterar_senha);
 
-    private void btnNovoClubeClick() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.dialog_criar_clube, null);
-        final ImageButton btnVoltar = view.findViewById(R.id.criar_clube_btnVoltar);
+        final ImageButton btnVoltar = dialogAlterarSenha.findViewById(R.id.alterar_senha_btnVoltar);
+        final TextView edtSenhaAtual = dialogAlterarSenha.findViewById(R.id.alterar_senha_edtSenhaAtual);
+        final TextView edtSenhaNova = dialogAlterarSenha.findViewById(R.id.alterar_senha_edtSenhaNova);
+        final TextView edtSenhaConfirmada = dialogAlterarSenha.findViewById(R.id.alterar_senha_edtSenhaConfirmada);
+        final ImageButton btnAlterarSenha = dialogAlterarSenha.findViewById(R.id.alterar_senha_btnAlterarSenha);
 
-        dialogNovoClube = builder.create();
-        dialogNovoClube.setCancelable(true);
-        dialogNovoClube.setCanceledOnTouchOutside(true);
-        dialogNovoClube.setView(view, 0, 0, 0, 0);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogNovoClube.cancel();
+                dialogAlterarSenha.cancelDialog();
             }
         });
 
-        final TextView edtNomeClube = view.findViewById(R.id.criar_clube_edtNomeClube);
-        final TextView edtDescricaoClube = view.findViewById(R.id.criar_clube_edtDescricaoClube);
+        btnAlterarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!edtSenhaAtual.getText().toString().isEmpty() && !edtSenhaNova.getText().toString().isEmpty() && !edtSenhaConfirmada.getText().toString().isEmpty()) {
+                    pytacoRequestEnum = PytacoRequestEnum.ALTERAR_SENHA;
+                    PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
+                    request.alteraSenha(usuario.getId(), edtSenhaAtual.getText().toString(), edtSenhaNova.getText().toString(), usuario.getChaveAcesso());
+                }
+            }
+        });
 
-        final ImageButton btnCriarClube = view.findViewById(R.id.criar_clube_btnCriarClube);
+        dialogAlterarSenha.showDialog();
+    }
+
+    private void btnNovoClubeClick() {
+        dialogNovoClube = createDialog(R.layout.dialog_criar_clube);
+
+        final ImageButton btnVoltar = dialogNovoClube.findViewById(R.id.criar_clube_btnVoltar);
+        final TextView edtNomeClube = dialogNovoClube.findViewById(R.id.criar_clube_edtNomeClube);
+        final TextView edtDescricaoClube = dialogNovoClube.findViewById(R.id.criar_clube_edtDescricaoClube);
+        final ImageButton btnCriarClube = dialogNovoClube.findViewById(R.id.criar_clube_btnCriarClube);
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogNovoClube.cancelDialog();
+            }
+        });
+
         btnCriarClube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,20 +143,33 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
 
-        dialogNovoClube.show();
+        dialogNovoClube.showDialog();
+    }
+
+    private void pTrataRespostaAlterarSenha(@NotNull String response) {
+        if (dialogAlterarSenha.dialogShowing()) {
+            dialogAlterarSenha.cancelDialog();
+        }
+
+        if (response.equals("ErroLogin")) {
+            //senha atual errada
+            makeLongToast("Senhas não coincidentes.");
+        } else {
+            usuario.setChaveAcesso(response);
+        }
     }
 
     private void pTrataRespostaCriarClube(@NotNull String response) {
-        if (dialogNovoClube.isShowing()) {
-            dialogNovoClube.cancel();
+        if (dialogNovoClube.dialogShowing()) {
+            dialogNovoClube.cancelDialog();
         }
 
         switch (response) {
             case "Insuficiente":
-                Toast.makeText(this, "Saldo de pytacos insuficiente para criar um novo clube.", Toast.LENGTH_LONG).show();
+                makeLongToast("Saldo de pytacos insuficiente para criar um novo clube.");
                 break;
             case "":
-                Toast.makeText(this, "Criado.", Toast.LENGTH_LONG).show();
+                makeLongToast("Criado.");
                 break;
             default:
 
@@ -134,16 +182,18 @@ public class MainActivity extends BaseActivity implements IActivity {
             JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             for (int i = 0; i < resp.length(); i++) {
-                Clube clube = new Clube();
-                clube.setId(Integer.parseInt(resp.getJSONObject(i).getString("id_clube")));
-                clube.setNome(resp.getJSONObject(i).getString("nomeclube"));
-                clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
-                clube.setQtdFicha(Integer.parseInt(resp.getJSONObject(i).getString("qtdfichas")));
-                lstClube.add(clube);
+                if (!resp.getJSONObject(i).getString("id_clube").isEmpty()) {
+                    Clube clube = new Clube();
+                    clube.setId(Integer.parseInt(resp.getJSONObject(i).getString("id_clube")));
+                    clube.setNome(resp.getJSONObject(i).getString("nomeclube"));
+                    clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
+                    clube.setQtdFicha(Integer.parseInt(resp.getJSONObject(i).getString("qtdfichas")));
+                    lstClube.add(clube);
+                }
             }
         } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Não foi possível retornar a lista de clubes. " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.d("D", response);
+            makeLongToast("Não foi possível retornar a lista de clubes. " + e.getMessage());
         }
 
         ClubeItemAdapter adapter = (ClubeItemAdapter) lsvClubes.getAdapter();
@@ -169,6 +219,9 @@ public class MainActivity extends BaseActivity implements IActivity {
             case CRIAR_CLUBE:
                 pTrataRespostaCriarClube(response.toString());
                 break;
+            case ALTERAR_SENHA:
+                pTrataRespostaAlterarSenha(response.toString());
+                break;
             default:
                 break;
         }
@@ -187,6 +240,9 @@ public class MainActivity extends BaseActivity implements IActivity {
                 break;
             case CRIAR_CLUBE:
                 pTrataRespostaCriarClube(response);
+                break;
+            case ALTERAR_SENHA:
+                pTrataRespostaAlterarSenha(response);
                 break;
             default:
                 break;

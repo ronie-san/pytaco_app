@@ -1,130 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#201E1E">
-
-    <FrameLayout
-        android:id="@+id/criar_conta_pnlLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignStart="@+id/alterar_senha_pnlCorpo"
+        android:layout_alignTop="@+id/alterar_senha_pnlCorpo"
+        android:layout_alignEnd="@+id/alterar_senha_pnlCorpo"
+        android:layout_alignBottom="@+id/alterar_senha_pnlCorpo"
         android:scaleType="centerCrop"
-        android:src="@drawable/background" />
+        android:src="@drawable/backgroud_clube" />
 
     <LinearLayout
+        android:id="@+id/alterar_senha_pnlCorpo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:weightSum="100">
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="5" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_weight="90"
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/criar_clube_btnVoltar"
+                android:id="@+id/alterar_senha_btnVoltar"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/botao_voltar" />
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
-                android:background="@android:color/transparent"
-                android:src="@drawable/botao_voltar"/>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
-
-<!--            <TextView-->
-<!--                style="@style/label_login"-->
-<!--                android:text="Usuário"-->
-<!--                android:textSize="15pt" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/criar_conta_edtUsuario"-->
-<!--                style="@style/edt_criar_conta"-->
-<!--                android:hint="Digite um usuário" />-->
+                android:src="@drawable/escudo_pitaco" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/input_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxStrokeColor="@android:color/white"
-                app:hintTextColor="@android:color/white">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/criar_conta_edtUsuario"
-                    style="@style/edit_color"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Usuário" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/input_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxStrokeColor="@android:color/white"
-                app:hintTextColor="@android:color/white"
+                app:endIconMode="password_toggle"
                 app:endIconTint="@android:color/white"
-                app:endIconMode="password_toggle">
+                app:hintTextColor="@android:color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/criar_conta_edtSenha"
+                    android:id="@+id/alterar_senha_edtSenhaAtual"
                     style="@style/edit_color"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Senha"
-                    android:inputType="textPassword"/>
+                    android:hint="Senha Atual"
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/input_color"
-                app:hintAnimationEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:boxStrokeColor="@android:color/white"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@android:color/white"
                 app:hintTextColor="@android:color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/criar_conta_edtCelular"
+                    android:id="@+id/alterar_senha_edtSenhaNova"
                     style="@style/edit_color"
-                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="(##)#####-#####" />
+                    android:hint="Nova Senha"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/input_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@android:color/white"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@android:color/white"
+                app:hintTextColor="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/alterar_senha_edtSenhaConfirmada"
+                    style="@style/edit_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirmar Senha"
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
-                android:id="@+id/criar_conta_btnCriarConta"
+                android:id="@+id/alterar_senha_btnAlterarSenha"
                 android:layout_width="170dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerInside"
                 android:background="@android:color/transparent"
-                android:src="@drawable/botao_criar_conta"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/botao_entrar" />
+            <!--            android:src="@drawable/botao_confirmar" />-->
         </LinearLayout>
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="5" />
     </LinearLayout>
 </RelativeLayout>

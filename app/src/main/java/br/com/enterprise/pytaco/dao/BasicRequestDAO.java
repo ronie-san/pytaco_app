@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +48,7 @@ public abstract class BasicRequestDAO extends Application {
         this.jsonRespListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.d("D", response.toString());
                 BasicRequestDAO.this.activity.onJsonSuccess(response);
             }
         };
@@ -54,6 +56,7 @@ public abstract class BasicRequestDAO extends Application {
         this.respListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.d("D", response);
                 BasicRequestDAO.this.activity.onSucess(response);
             }
         };
@@ -65,8 +68,10 @@ public abstract class BasicRequestDAO extends Application {
 
                 if (cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
                         cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+                    Log.d("D", "Sem conexão com a internet.");
                     activity.onError(new VolleyError("Sem conexão com a internet."));
                 } else {
+                    Log.d("D", error.getMessage());
                     activity.onError(error);
                 }
             }
@@ -83,7 +88,9 @@ public abstract class BasicRequestDAO extends Application {
         Request<String> request = new Request<String>(Request.Method.GET, baseUrl + url, errorListener) {
             @Override
             public String getUrl() {
-                return super.getUrl() + pGetUrlParams(params);
+                String computedUrl = super.getUrl() + pGetUrlParams(params);
+                Log.d("D", computedUrl);
+                return computedUrl;
             }
 
             @Override
@@ -120,7 +127,9 @@ public abstract class BasicRequestDAO extends Application {
 
             @Override
             public String getUrl() {
-                return super.getUrl() + pGetUrlParams(params);
+                String computedUrl = super.getUrl() + pGetUrlParams(params);
+                Log.d("D", computedUrl);
+                return computedUrl;
             }
 
             @Override
@@ -146,8 +155,7 @@ public abstract class BasicRequestDAO extends Application {
     }
 
     @NotNull
-    private String pGetUrlParams(@Nullable Map<String, String> params){
-
+    private String pGetUrlParams(@Nullable Map<String, String> params) {
         if (params != null) {
             Uri.Builder builder = new Uri.Builder();
 
@@ -162,7 +170,7 @@ public abstract class BasicRequestDAO extends Application {
     }
 
     @NotNull
-    private String pNetworkResponseToStr(@NotNull NetworkResponse response){
+    private String pNetworkResponseToStr(@NotNull NetworkResponse response) {
         try {
             return new String(response.data, HttpHeaderParser.parseCharset(response.headers));
         } catch (UnsupportedEncodingException e) {

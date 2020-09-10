@@ -11,22 +11,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/main_btnTimeZone"
+            android:id="@+id/main_btnTeste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TIMEZONE" />
-
-        <Button
-            android:id="@+id/main_btnSeasons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Seasons" />
-
-        <Button
-            android:id="@+id/main_btnLimpar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Limpar" />
+            android:text="Teste" />
     </LinearLayout>
 
 
@@ -41,6 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:textSize="11pt"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="Hello World!" />
     </ScrollView>
 

@@ -82,7 +82,7 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
         if (!this.isDestroyed()) {
             pCancelDialog();
             pEnableScreen();
-            Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_LONG).show();
+            makeLongToast("Conta criada com sucesso!");
         }
     }
 
@@ -94,14 +94,14 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
 
             switch (response) {
                 case "Cadastrou":
-                    Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_LONG).show();
+                    makeLongToast("Conta criada com sucesso!");
                     finish();
                     break;
                 case "Cadastrado":
-                    Toast.makeText(this, "Usuário já cadastrado!", Toast.LENGTH_LONG).show();
+                    makeLongToast("Usuário já cadastrado!");
                     break;
                 default:
-                    Toast.makeText(this, "Não foi possível criar conta.", Toast.LENGTH_LONG).show();
+                    makeLongToast("Não foi possível criar conta.");
             }
         }
     }
@@ -111,7 +111,8 @@ public class CriarContaActivity extends BaseActivity implements IActivity {
         if (!this.isDestroyed()) {
             pCancelDialog();
             pEnableScreen();
-            Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
+            makeLongToast("Não foi possível criar conta. Erro na comunicação.");
         }
     }
 
