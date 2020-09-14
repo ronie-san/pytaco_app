@@ -87,7 +87,7 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_criar_conta" />
+                android:src="@drawable/btn_salvar" />
         </LinearLayout>
 
         <Space

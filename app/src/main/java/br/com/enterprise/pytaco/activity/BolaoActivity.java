@@ -33,16 +33,12 @@ public class BolaoActivity extends BaseActivity {
         ImageButton btnVoltar = findViewById(R.id.bolao_btnVoltar);
         ImageButton btnCriarBolao = findViewById(R.id.bolao_btnCriarBolao);
         ImageButton btnMeusBoloes = findViewById(R.id.bolao_btnMeusBoloes);
-        TextView lblAvisos = findViewById(R.id.bolao_lblAvisos);
-        TextView lblMembros = findViewById(R.id.bolao_lblMembros);
-        TextView lblContador = findViewById(R.id.bolao_lblContador);
-        TextView lblAdministrador = findViewById(R.id.bolao_lblAdministrador);
+        ImageButton lblAvisos = findViewById(R.id.bolao_lblAvisos);
+        ImageButton lblMembros = findViewById(R.id.bolao_lblMembros);
+        ImageButton lblContador = findViewById(R.id.bolao_lblContador);
+        ImageButton lblAdministrador = findViewById(R.id.bolao_lblAdministrador);
 
         lblQtdFicha.setText(usuario.getQtdFicha().toString());
-        lblAvisos.setText(StringUtil.textoSublinhado("Avisos"));
-        lblMembros.setText(StringUtil.textoSublinhado("Membros"));
-        lblContador.setText(StringUtil.textoSublinhado("Contador"));
-        lblAdministrador.setText(StringUtil.textoSublinhado("Administrador"));
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override

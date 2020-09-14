@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:paddingHorizontal="5dp"
     android:background="@drawable/list_view_rounded"
     android:baselineAligned="false"
     android:orientation="vertical"
@@ -16,9 +17,12 @@
 
         <TextView
             android:id="@+id/membro_item_lblNome"
+            style="@style/label_login"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50" />
+            android:layout_weight="50"
+            android:gravity="start|center_vertical"
+            android:text="Nome" />
 
         <!--        <TextView-->
         <!--            android:layout_width="0dp"-->
@@ -34,16 +38,20 @@
 
         <TextView
             android:id="@+id/membro_item_lblTipo"
+            style="@style/label_login"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
-            android:gravity="start" />
+            android:gravity="start|center_vertical"
+            android:text="Tipo" />
 
         <TextView
             android:id="@+id/membro_item_lblStatus"
+            style="@style/label_login"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
-            android:gravity="end" />
+            android:gravity="end|center_vertical"
+            android:text="Status" />
     </LinearLayout>
 </LinearLayout>

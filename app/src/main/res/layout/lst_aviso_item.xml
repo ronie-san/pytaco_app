@@ -26,7 +26,7 @@
             style="@style/label_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="30"
             android:gravity="center"
             android:text="Título" />
 
@@ -35,7 +35,7 @@
             style="@style/label_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="80"
+            android:layout_weight="70"
             android:gravity="center"
             android:text="Descrição" />
     </LinearLayout>
@@ -51,7 +51,7 @@
             style="@style/label_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="30"
             android:gravity="center"
             android:text="Data" />
 
@@ -60,7 +60,7 @@
             style="@style/label_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="80"
+            android:layout_weight="70"
             android:gravity="center"
             android:text="Status" />
     </LinearLayout>

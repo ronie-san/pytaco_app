@@ -78,68 +78,88 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:weightSum="100">
+                android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/bolao_btnCriarBolao"
                     android:layout_width="170dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
-                    android:layout_weight="20"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:scaleType="centerInside"
-                    android:src="@drawable/botao_criar_conta" />
+                    android:src="@drawable/btn_criar_bolao" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
 
                 <ImageButton
                     android:id="@+id/bolao_btnMeusBoloes"
                     android:layout_width="170dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="20"
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:scaleType="centerInside"
-                    android:src="@drawable/botao_criar_conta" />
+                    android:src="@drawable/btn_meus_boloes" />
 
-                <TextView
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <ImageButton
                     android:id="@+id/bolao_lblAvisos"
-                    style="@style/label_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"
-                    android:gravity="center"
-                    android:text="Avisos" />
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/lbl_avisos" />
 
-                <TextView
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <ImageButton
                     android:id="@+id/bolao_lblMembros"
-                    style="@style/label_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"
-                    android:gravity="center"
-                    android:text="Membros" />
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/lbl_membros" />
 
-                <TextView
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <ImageButton
                     android:id="@+id/bolao_lblContador"
-                    style="@style/label_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"
-                    android:gravity="center"
-                    android:text="Contador" />
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/lbl_contador" />
 
-                <TextView
-                    android:id="@+id/bolao_lblAdministrador"
-                    style="@style/label_login"
+                <Space
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"
-                    android:gravity="center"
-                    android:text="Administrador" />
+                    android:layout_height="50dp" />
+
+                <ImageButton
+                    android:id="@+id/bolao_lblAdministrador"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/lbl_administracao" />
             </LinearLayout>
         </LinearLayout>
 
