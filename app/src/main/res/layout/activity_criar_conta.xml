@@ -5,11 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#201E1E">
 
-    <FrameLayout
-        android:id="@+id/criar_conta_pnlLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,16 +40,6 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
-
-<!--            <TextView-->
-<!--                style="@style/label_login"-->
-<!--                android:text="Usuário"-->
-<!--                android:textSize="15pt" />-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/criar_conta_edtUsuario"-->
-<!--                style="@style/edt_criar_conta"-->
-<!--                android:hint="Digite um usuário" />-->
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/input_color"

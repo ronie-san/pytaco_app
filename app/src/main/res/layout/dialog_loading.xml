@@ -10,6 +10,7 @@
         android:layout_alignTop="@+id/loading_pnlCorpo"
         android:layout_alignEnd="@+id/loading_pnlCorpo"
         android:layout_alignBottom="@+id/loading_pnlCorpo"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/backgroud_clube" />
 
@@ -22,26 +23,28 @@
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="5" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="90"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 style="@style/label_login"
                 android:layout_gravity="center"
-                android:textSize="14pt"
-                android:text="Aguarde..." />
+                android:text="Aguarde..."
+                android:textSize="30sp" />
 
             <ImageView
-                android:layout_gravity="center"
                 android:id="@+id/loading_imgBola"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
+                android:layout_gravity="center"
                 android:layerType="software"
                 android:src="@drawable/bola_pytaco" />
 
@@ -49,7 +52,7 @@
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="5" />
 
     </LinearLayout>

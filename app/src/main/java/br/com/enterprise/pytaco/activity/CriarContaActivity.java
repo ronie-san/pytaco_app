@@ -32,11 +32,11 @@ public class CriarContaActivity extends BaseActivity {
         edtSenha = findViewById(R.id.criar_conta_edtSenha);
         edtCelular = findViewById(R.id.criar_conta_edtCelular);
         edtCelular.addTextChangedListener(MaskEditUtil.mask(edtCelular, MaskEditUtil.FORMAT_FONE));
-        ImageButton lblVoltar = findViewById(R.id.criar_clube_btnVoltar);
-        lblVoltar.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnVoltar = findViewById(R.id.criar_clube_btnVoltar);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lblVoltarClick();
+                btnVoltarClick();
             }
         });
         final ImageButton btnCriarConta = findViewById(R.id.criar_conta_btnCriarConta);
@@ -65,10 +65,6 @@ public class CriarContaActivity extends BaseActivity {
         }
 
         return !edtCelular.getText().toString().trim().equals("");
-    }
-
-    private void lblVoltarClick() {
-        this.onBackPressed();
     }
 
     @Override

@@ -1,9 +1,10 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.DialogView;
-import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class MainActivity extends BaseActivity implements IActivity {
 
@@ -35,8 +35,7 @@ public class MainActivity extends BaseActivity implements IActivity {
     private TextView lblQtdFichaGlobal;
     private DialogView dialogNovoClube;
     private DialogView dialogAlterarSenha;
-    private ListView lsvClubes;
-    private List<Clube> lstClube;
+    private DialogView dialogAssociarClube;
     private ClubeItemAdapter clubeItemAdapter;
 
     @Override
@@ -46,9 +45,15 @@ public class MainActivity extends BaseActivity implements IActivity {
 
         lblQtdPytacoGlobal = findViewById(R.id.main_lblQtdPytacoGlobal);
         lblQtdFichaGlobal = findViewById(R.id.main_lblQtdFichaGlobal);
-        lsvClubes = findViewById(R.id.main_lsvClubes);
-        lstClube = new ArrayList<>();
-        clubeItemAdapter = new ClubeItemAdapter(lstClube, this);
+        ListView lsvClubes = findViewById(R.id.main_lsvClubes);
+        lsvClubes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                lsvClubesItemClick(adapterView, view, i, l);
+            }
+        });
+
+        clubeItemAdapter = new ClubeItemAdapter(new ArrayList<Clube>(), this);
         lsvClubes.setAdapter(clubeItemAdapter);
         usuario = new Usuario();
 
@@ -62,7 +67,7 @@ public class MainActivity extends BaseActivity implements IActivity {
         lblQtdPytacoGlobal.setText(usuario.getQtdPytaco().toString());
         lblQtdFichaGlobal.setText(usuario.getQtdFicha().toString());
 
-        final ImageButton btnNovoClube = findViewById(R.id.main_btnNovoClube);
+        ImageButton btnNovoClube = findViewById(R.id.main_btnNovoClube);
         btnNovoClube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,18 +75,69 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
 
-        final ImageButton btnAlterarSenha = findViewById(R.id.main_btnAlterarSenha);
+        ImageButton btnAlterarSenha = findViewById(R.id.main_btnAlterarSenha);
         btnAlterarSenha.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 btnAlterarSenhaClick();
             }
         });
 
-        pytacoRequestEnum = PytacoRequestEnum.LISTA_CLUBES;
+        ImageButton btnAssociarClube = findViewById(R.id.main_btnAssociarClube);
+        btnAssociarClube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnAssociarClubeClick();
+            }
+        });
+
+        ImageButton btnBolao = findViewById(R.id.main_btnBolao);
+        btnBolao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnBolaoClick();
+            }
+        });
+
         PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
         request.listaClubes(usuario.getId(), usuario.getChaveAcesso());
+    }
+
+    private void btnBolaoClick() {
+        Intent intent = new Intent(this, BolaoActivity.class);
+        intent.putExtra("usuario", this.usuario);
+        startActivity(intent);
+    }
+
+    private void lsvClubesItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    private void btnAssociarClubeClick() {
+        dialogAssociarClube = createDialog(R.layout.dialog_associar_clube);
+
+        final ImageButton btnVoltar = dialogAssociarClube.findViewById(R.id.associar_clube_btnVoltar);
+        final TextView edtCodClube = dialogAssociarClube.findViewById(R.id.associar_clube_edtCodClube);
+        final ImageButton btnAssociar = dialogAssociarClube.findViewById(R.id.associar_clube_btnAssociar);
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogAssociarClube.cancelDialog();
+            }
+        });
+
+        btnAssociar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!edtCodClube.getText().toString().trim().isEmpty()) {
+                    PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
+                    request.associar(usuario.getId(), usuario.getChaveAcesso(), edtCodClube.getText().toString().trim());
+                }
+            }
+        });
+
+        dialogAssociarClube.showDialog();
     }
 
     private void btnAlterarSenhaClick() {
@@ -104,7 +160,6 @@ public class MainActivity extends BaseActivity implements IActivity {
             @Override
             public void onClick(View v) {
                 if (!edtSenhaAtual.getText().toString().isEmpty() && !edtSenhaNova.getText().toString().isEmpty() && !edtSenhaConfirmada.getText().toString().isEmpty()) {
-                    pytacoRequestEnum = PytacoRequestEnum.ALTERAR_SENHA;
                     PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
                     request.alteraSenha(usuario.getId(), edtSenhaAtual.getText().toString(), edtSenhaNova.getText().toString(), usuario.getChaveAcesso());
                 }
@@ -133,7 +188,6 @@ public class MainActivity extends BaseActivity implements IActivity {
             @Override
             public void onClick(View v) {
                 if (!edtNomeClube.getText().toString().trim().equals("") && !edtDescricaoClube.getText().toString().trim().equals("")) {
-                    pytacoRequestEnum = PytacoRequestEnum.CRIAR_CLUBE;
                     PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
                     request.criarClube(usuario.getId(), usuario.getChaveAcesso(), edtNomeClube.getText().toString(), edtDescricaoClube.getText().toString());
                 }
@@ -162,13 +216,14 @@ public class MainActivity extends BaseActivity implements IActivity {
         }
 
         switch (response) {
-            case "Insuficiente":
-                makeLongToast("Saldo de pytacos insuficiente para criar um novo clube.");
+            case "Cadastrado":
+                makeLongToast("Clube já cadastrado");
                 break;
-            case "":
-                makeLongToast("Criado.");
+            case "Insuficiente":
+                makeLongToast("Saldo de pytacos insuficiente");
                 break;
             default:
+                usuario.setChaveAcesso(response);
                 break;
         }
     }
@@ -177,23 +232,42 @@ public class MainActivity extends BaseActivity implements IActivity {
         try {
             JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
-            for (int i = 0; i < resp.length(); i++) {
-                if (!resp.getJSONObject(i).getString("id_clube").isEmpty()) {
-                    Clube clube = new Clube();
-                    clube.setId(Integer.parseInt(resp.getJSONObject(i).getString("id_clube")));
-                    clube.setNome(resp.getJSONObject(i).getString("nomeclube"));
-                    clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
-                    clube.setQtdFicha(Integer.parseInt(resp.getJSONObject(i).getString("qtdfichas")));
-                    lstClube.add(clube);
+            if (!resp.getJSONObject(0).getString("id_clube").isEmpty()) {
+                Log.d("D", "Qtd: " + clubeItemAdapter.getLst().size());
+                clubeItemAdapter.getLst().clear();
+                Log.d("D", "Qtd: " + clubeItemAdapter.getLst().size());
+
+                for (int i = 0; i < resp.length(); i++) {
+                    if (!resp.getJSONObject(i).getString("id_clube").isEmpty()) {
+                        Clube clube = new Clube();
+                        clube.setId(Integer.parseInt(resp.getJSONObject(i).getString("id_clube")));
+                        clube.setNome(resp.getJSONObject(i).getString("nomeclube"));
+                        clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
+                        clube.setQtdFicha(Integer.parseInt(resp.getJSONObject(i).getString("qtdfichas")));
+                        clubeItemAdapter.getLst().add(clube);
+                        Log.d("D", "Qtd: " + clubeItemAdapter.getLst().size());
+                    }
                 }
+
+                clubeItemAdapter.notifyDataSetChanged();
             }
         } catch (JSONException e) {
             Log.d("D", response);
             makeLongToast("Não foi possível retornar a lista de clubes. " + e.getMessage());
         }
+    }
 
-        ClubeItemAdapter adapter = (ClubeItemAdapter) lsvClubes.getAdapter();
-        lsvClubes.setAdapter(adapter);
+    private void pTrataRespostaAssociarClube(String response) {
+        if (dialogAssociarClube.dialogShowing()) {
+            dialogAssociarClube.cancelDialog();
+        }
+
+        if (response.equals("NaoAchei")) {
+            makeLongToast("Clube não encontrado");
+        } else {
+            usuario.setChaveAcesso(response);
+            makeLongToast("Associação em análise!");
+        }
     }
 
     @Override
@@ -202,16 +276,11 @@ public class MainActivity extends BaseActivity implements IActivity {
         pEnableScreen();
 
         switch (pytacoRequestEnum) {
-            case ASSOCIAR:
-                break;
             case LISTA_CLUBES:
                 pTrataRespostaListaClubes(response.toString());
                 break;
             case CRIAR_CLUBE:
                 pTrataRespostaCriarClube(response.toString());
-                break;
-            case ALTERAR_SENHA:
-                pTrataRespostaAlterarSenha(response.toString());
                 break;
             default:
                 break;
@@ -227,6 +296,7 @@ public class MainActivity extends BaseActivity implements IActivity {
 
         switch (pytacoRequestEnum) {
             case ASSOCIAR:
+                pTrataRespostaAssociarClube(response);
                 break;
             case LISTA_CLUBES:
                 pTrataRespostaListaClubes(response);
@@ -242,6 +312,8 @@ public class MainActivity extends BaseActivity implements IActivity {
         }
 
         super.onSucess(response);
+//        PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
+//        request.listaClubes(usuario.getId(), usuario.getChaveAcesso());
     }
 
     @Override

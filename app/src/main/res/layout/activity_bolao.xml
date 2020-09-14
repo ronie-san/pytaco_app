@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/fundo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="20dp"
+        android:weightSum="100">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_weight="90"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/bolao_btnVoltar"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/botao_voltar" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/bolao_imgFundoPytaco"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/fundo_ficha_pytaco" />
+
+                    <ImageView
+                        android:id="@+id/bolao_imgFicha"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignStart="@+id/bolao_imgFundoPytaco"
+                        android:padding="5dp"
+                        android:src="@drawable/ficha_pytaco" />
+
+                    <TextView
+                        android:id="@+id/bolao_lblQtdFicha"
+                        style="@style/label_login"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/bolao_imgFicha"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/ficha" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+                <ImageButton
+                    android:id="@+id/bolao_btnCriarBolao"
+                    android:layout_width="170dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="20"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/botao_criar_conta" />
+
+                <ImageButton
+                    android:id="@+id/bolao_btnMeusBoloes"
+                    android:layout_width="170dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="20"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/botao_criar_conta" />
+
+                <TextView
+                    android:id="@+id/bolao_lblAvisos"
+                    style="@style/label_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:gravity="center"
+                    android:text="Avisos" />
+
+                <TextView
+                    android:id="@+id/bolao_lblMembros"
+                    style="@style/label_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:gravity="center"
+                    android:text="Membros" />
+
+                <TextView
+                    android:id="@+id/bolao_lblContador"
+                    style="@style/label_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:gravity="center"
+                    android:text="Contador" />
+
+                <TextView
+                    android:id="@+id/bolao_lblAdministrador"
+                    style="@style/label_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="15"
+                    android:gravity="center"
+                    android:text="Administrador" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
+    </LinearLayout>
+</RelativeLayout>

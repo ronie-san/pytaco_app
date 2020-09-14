@@ -10,5 +10,6 @@ public enum PytacoRequestEnum {
     CRIAR_CLUBE,
     ASSOCIAR,
     ATUALIZA_PYTACOS,
-    ALTERAR_SENHA
+    ALTERAR_SENHA,
+    LEMBRAR_SENHA
 }

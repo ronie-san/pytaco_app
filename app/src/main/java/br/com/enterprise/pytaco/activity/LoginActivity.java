@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,6 +19,7 @@ import androidx.annotation.Nullable;
 
 import com.android.volley.VolleyError;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,8 +27,9 @@ import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
-public class LoginActivity extends BaseActivity implements IActivity {
+public class LoginActivity extends BaseActivity {
 
     private static final String PREFS_NAME = "PrefsFile";
     private EditText edtUsuario;
@@ -65,18 +70,13 @@ public class LoginActivity extends BaseActivity implements IActivity {
         edtSenha.setText(preferences.getString("senha", ""));
 
         TextView lblEsqueciSenha = findViewById(R.id.login_lblEsqueciSenha);
-        lblEsqueciSenha.setText(Html.fromHtml(String.format(getString(R.string.esqueci_senha))));
+        lblEsqueciSenha.setText(StringUtil.textoSublinhado(getString(R.string.esqueci_senha)));
         lblEsqueciSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lblEsqueciSenhaClick();
             }
         });
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override
@@ -92,6 +92,10 @@ public class LoginActivity extends BaseActivity implements IActivity {
     }
 
     private void lblEsqueciSenhaClick() {
+        if (!edtUsuario.getText().toString().trim().isEmpty()) {
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
+            request.lembrarSenha(edtUsuario.getText().toString().trim());
+        }
     }
 
     private void btnEntrarClick() {
@@ -117,43 +121,71 @@ public class LoginActivity extends BaseActivity implements IActivity {
         return true;
     }
 
+    private void pTrataRespostaLogin(@NotNull JSONObject response) {
+        try {
+            if (!response.getJSONArray("entry").getJSONObject(0).getString("id_usuario").equals("")) {
+                if (chkLembrar.isChecked()) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("usuario", edtUsuario.getText().toString());
+                    editor.putString("senha", edtSenha.getText().toString());
+                    editor.putBoolean("lembrar", chkLembrar.isChecked());
+                    editor.apply();
+                } else {
+                    preferences.edit().clear().apply();
+                }
+
+                Usuario usuario = new Usuario();
+                usuario.setId(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("id_usuario")));
+                usuario.setChaveAcesso(response.getJSONArray("entry").getJSONObject(0).getString("chaveacesso"));
+                usuario.setQtdPytaco(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdpytacosglobal")));
+                usuario.setQtdFicha(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdfichasglobal")));
+
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("usuario", usuario);
+                startActivity(intent);
+            } else {
+                pCancelDialog();
+                pEnableScreen();
+                makeLongToast("Usuário e/ou senha inválidos.");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            pCancelDialog();
+            pEnableScreen();
+            makeLongToast("Não foi possível entrar. Houve erro na autenticação");
+        }
+    }
+
+    @Override
+    public void onSucess(String response) {
+        if (!this.isDestroyed()) {
+            if (pytacoRequestEnum.equals(PytacoRequestEnum.LEMBRAR_SENHA)) {
+                pTrataRespostaLembrarSenha(response);
+            } else {
+                makeLongToast("Requisição não reconhecida: " + pytacoRequestEnum.toString());
+            }
+        }
+
+        super.onSucess(response);
+    }
+
     @Override
     public void onJsonSuccess(JSONObject response) {
         if (!this.isDestroyed()) {
-            try {
-                if (!response.getJSONArray("entry").getJSONObject(0).getString("id_usuario").equals("")) {
-                    if (chkLembrar.isChecked()) {
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("usuario", edtUsuario.getText().toString());
-                        editor.putString("senha", edtSenha.getText().toString());
-                        editor.putBoolean("lembrar", chkLembrar.isChecked());
-                        editor.apply();
-                    } else {
-                        preferences.edit().clear().apply();
-                    }
-
-                    Intent intent = new Intent(this, MainActivity.class);
-                    Usuario usuario = new Usuario();
-                    usuario.setId(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("id_usuario")));
-                    usuario.setChaveAcesso(response.getJSONArray("entry").getJSONObject(0).getString("chaveacesso"));
-                    usuario.setQtdPytaco(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdpytacosglobal")));
-                    usuario.setQtdFicha(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdfichasglobal")));
-                    intent.putExtra("usuario", usuario);
-                    startActivity(intent);
-                } else {
-                    pCancelDialog();
-                    pEnableScreen();
-                    makeLongToast("Usuário e/ou senha inválidos.");
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                pCancelDialog();
-                pEnableScreen();
-                makeLongToast("Não foi possível entrar. Houve erro na autenticação");
+            if (pytacoRequestEnum.equals(PytacoRequestEnum.LOGIN)) {
+                pTrataRespostaLogin(response);
+            } else {
+                makeLongToast("Requisição não reconhecida: " + pytacoRequestEnum.toString());
             }
         }
 
         super.onJsonSuccess(response);
+    }
+
+    private void pTrataRespostaLembrarSenha(String response) {
+        pCancelDialog();
+        pEnableScreen();
+        makeLongToast("Um SMS com nova senha será enviado");
     }
 
     @Override
@@ -161,7 +193,7 @@ public class LoginActivity extends BaseActivity implements IActivity {
         if (!this.isDestroyed()) {
             pCancelDialog();
             pEnableScreen();
-            Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
+            makeLongToast(error.getMessage());
         }
 
         super.onError(error);

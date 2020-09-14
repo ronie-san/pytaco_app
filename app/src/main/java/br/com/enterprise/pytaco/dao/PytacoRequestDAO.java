@@ -85,4 +85,11 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         activity.setPytacoRequest(PytacoRequestEnum.ALTERAR_SENHA);
         pGetRequest("AlteraSenhaUsuario.php", map);
     }
+
+    public void lembrarSenha(String usuario){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("emailCadastro", usuario);
+        activity.setPytacoRequest(PytacoRequestEnum.LEMBRAR_SENHA);
+        pGetRequest("ativaConta/esqueciMinhaSenha.php", map);
+    }
 }

@@ -1,23 +1,12 @@
 package br.com.enterprise.pytaco.pojo;
 
-import java.io.Serializable;
+public class Clube extends EntidadeBase {
 
-public class Clube implements Serializable {
-
-    private Integer id;
     private String nome;
     private String descricao;
     private Integer qtdPytaco;
     private Integer qtdFicha;
-    private Integer idUsuario;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Usuario usuario;
 
     public String getNome() {
         return nome;
@@ -51,11 +40,11 @@ public class Clube implements Serializable {
         this.qtdFicha = qtdFicha;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

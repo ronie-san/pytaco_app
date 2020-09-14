@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-
     <color name="pytaco">#93c6dd</color>
-    <color name="ficha">#a48e4d</color>
+    <color name="ficha">#ffce3d</color>
+    <color name="background_padrao">#201E1E</color>
+    <color name="borda_item">#a0a0a0</color>
+    <color name="navigation_bar">@color/borda_item</color>
+    <color name="notification_bar">@color/borda_item</color>
 </resources>

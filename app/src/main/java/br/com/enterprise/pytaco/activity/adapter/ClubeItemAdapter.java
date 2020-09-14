@@ -11,35 +11,16 @@ import java.util.List;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Clube;
 
-public class ClubeItemAdapter extends BaseAdapter {
+public class ClubeItemAdapter extends CustomAdapter<Clube> {
 
-    private List<Clube> lstClube;
-    private Activity activity;
-
-    public ClubeItemAdapter(List<Clube> lstClube, Activity activity){
-        this.lstClube = lstClube;
-        this.activity = activity;
-    }
-
-    @Override
-    public int getCount() {
-        return lstClube == null ? 0 : lstClube.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return lstClube.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return lstClube.get(position).getId();
+    public ClubeItemAdapter(List<Clube> lst, Activity activity) {
+        super(lst, activity);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = activity.getLayoutInflater().inflate(R.layout.lst_clube_item, parent, false);
-        Clube clube = lstClube.get(position);
+        Clube clube = lst.get(position);
 
         TextView lblNome = view.findViewById(R.id.clube_item_lblNome);
         lblNome.setText(clube.getNome());

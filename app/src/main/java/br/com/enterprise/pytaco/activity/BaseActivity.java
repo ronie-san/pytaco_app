@@ -1,14 +1,13 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
@@ -26,12 +25,12 @@ import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class BaseActivity extends FragmentActivity implements IActivity {
+public class BaseActivity extends Activity implements IActivity {
 
     protected DialogView dialogLoading;
     protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
-    protected DialogView createDialog(@LayoutRes int resource){
+    protected DialogView createDialog(@LayoutRes int resource) {
         return new DialogView(this, resource);
     }
 
@@ -41,6 +40,10 @@ public class BaseActivity extends FragmentActivity implements IActivity {
 
     protected void makeShortToast(String msg) {
         makeToast(msg, Toast.LENGTH_SHORT);
+    }
+
+    protected void btnVoltarClick() {
+        this.onBackPressed();
     }
 
     protected void pHideKeyborad() {
@@ -65,10 +68,10 @@ public class BaseActivity extends FragmentActivity implements IActivity {
         dialogLoading = createDialog(R.layout.dialog_loading);
 
         ImageView imgBola = dialogLoading.findViewById(R.id.loading_imgBola);
-        RotateAnimation rotate = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        rotate.setDuration(6000);
-        rotate.setInterpolator(new LinearInterpolator());
-        imgBola.startAnimation(rotate);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
+        rotation.setFillAfter(true);
+        rotation.setInterpolator(new LinearInterpolator());
+        imgBola.startAnimation(rotation);
 
         dialogLoading.showDialog();
     }
