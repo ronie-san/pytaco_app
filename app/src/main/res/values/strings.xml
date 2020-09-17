@@ -3,4 +3,10 @@
     <string name="font">brtitannic-bold</string>
     <string name="esqueci_senha">Esqueci a senha</string>
     <string name="nome_clube">Digite o nome do clube</string>
+
+    <string name="usuario">usuario</string>
+    <string name="clube">clube</string>
+    <string name="aviso">aviso</string>
+    <string name="membro">membro</string>
+    <string name="admin">admin</string>
 </resources>

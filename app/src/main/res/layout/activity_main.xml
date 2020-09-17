@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/cabecalho" />
+        android:src="@drawable/cabecalho_clube" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -76,16 +76,6 @@
                 android:src="@drawable/fundo_ficha_pytaco" />
 
             <ImageView
-                android:id="@+id/main_imgFundoFicha"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/main_imgFundoPytaco"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/fundo_ficha_pytaco" />
-
-            <ImageView
                 android:id="@+id/main_imgPytaco"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -101,6 +91,16 @@
                 android:gravity="center"
                 android:text="100"
                 android:textColor="@color/pytaco" />
+
+            <ImageView
+                android:id="@+id/main_imgFundoFicha"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/main_imgFundoPytaco"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
 
             <ImageView
                 android:id="@+id/main_imgFicha"

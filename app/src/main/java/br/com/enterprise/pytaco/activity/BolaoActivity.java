@@ -9,24 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.pojo.Usuario;
+import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class BolaoActivity extends BaseActivity {
     private TextView lblQtdFicha;
-    private Usuario usuario;
+    private Clube clube;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bolao);
-        usuario = new Usuario();
 
         if (savedInstanceState == null) {
             Bundle bundle = getIntent().getExtras();
-            usuario = (Usuario) bundle.getSerializable("usuario");
+            clube = (Clube) bundle.getSerializable(getString(R.string.clube));
         } else {
-            usuario = (Usuario) savedInstanceState.getSerializable("usuario");
+            clube = (Clube) savedInstanceState.getSerializable(getString(R.string.clube));
         }
 
         lblQtdFicha = findViewById(R.id.bolao_lblQtdFicha);
@@ -38,7 +37,7 @@ public class BolaoActivity extends BaseActivity {
         ImageButton lblContador = findViewById(R.id.bolao_lblContador);
         ImageButton lblAdministrador = findViewById(R.id.bolao_lblAdministrador);
 
-        lblQtdFicha.setText(usuario.getQtdFicha().toString());
+        lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,12 +93,13 @@ public class BolaoActivity extends BaseActivity {
 
     private void lblAvisosClick() {
         Intent intent = new Intent(this, AvisosActivity.class);
-        intent.putExtra("usuario", usuario);
+        intent.putExtra(getString(R.string.clube), clube);
         startActivity(intent);
     }
 
     private void lblMembrosClick() {
         Intent intent = new Intent(this, MembrosActivity.class);
+        intent.putExtra(getString(R.string.clube), clube);
         startActivity(intent);
     }
 

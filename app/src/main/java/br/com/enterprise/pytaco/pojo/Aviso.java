@@ -49,4 +49,15 @@ public class Aviso extends EntidadeBase {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public String getStatusExt() {
+        switch (this.status) {
+            case "E":
+                return "Não lido";
+            case "L":
+                return "Lido";
+            default:
+                return "";
+        }
+    }
 }

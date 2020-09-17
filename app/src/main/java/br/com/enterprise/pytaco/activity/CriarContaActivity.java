@@ -1,21 +1,17 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.android.volley.VolleyError;
 
-import org.json.JSONObject;
-
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.util.MaskEditUtil;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
+import br.com.enterprise.pytaco.util.MaskEditUtil;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class CriarContaActivity extends BaseActivity {
@@ -68,17 +64,6 @@ public class CriarContaActivity extends BaseActivity {
     }
 
     @Override
-    public void onJsonSuccess(JSONObject response) {
-        if (!this.isDestroyed()) {
-            pCancelDialog();
-            pEnableScreen();
-            makeLongToast("Conta criada com sucesso!");
-        }
-
-        super.onJsonSuccess(response);
-    }
-
-    @Override
     public void onSucess(String response) {
         if (!this.isDestroyed()) {
             pCancelDialog();
@@ -105,10 +90,9 @@ public class CriarContaActivity extends BaseActivity {
         if (!this.isDestroyed()) {
             pCancelDialog();
             pEnableScreen();
-            //Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
             makeLongToast("Não foi possível criar conta. Erro na comunicação.");
         }
 
-        super.onError(error);
+        pytacoRequestEnum = PytacoRequestEnum.NONE;
     }
 }

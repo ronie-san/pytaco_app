@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:paddingHorizontal="5dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/list_view_rounded"
-    android:baselineAligned="false"
     android:orientation="vertical"
+    android:paddingHorizontal="10dp"
     android:weightSum="100">
 
     <LinearLayout
@@ -24,10 +23,39 @@
             android:gravity="start|center_vertical"
             android:text="Nome" />
 
-        <!--        <TextView-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_weight="50" />-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:gravity="end|center_vertical"
+            android:paddingTop="5dp">
+
+            <ImageView
+                android:id="@+id/membro_item_imgFundoFicha"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/membro_item_imgFicha"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/membro_item_imgFundoFicha"
+                android:padding="5dp"
+                android:src="@drawable/ficha_pytaco" />
+
+            <TextView
+                android:id="@+id/membro_item_lblQtdFicha"
+                style="@style/label_login"
+                android:layout_toEndOf="@+id/membro_item_imgFicha"
+                android:gravity="center"
+                android:text="100"
+                android:textColor="@color/ficha" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -52,6 +80,7 @@
             android:layout_height="match_parent"
             android:layout_weight="50"
             android:gravity="end|center_vertical"
+            android:paddingEnd="10dp"
             android:text="Status" />
     </LinearLayout>
 </LinearLayout>

@@ -11,14 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Network;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -27,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +55,7 @@ public abstract class BasicRequestDAO extends Application {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("D", response.toString());
-                BasicRequestDAO.this.activity.onJsonSuccess(response);
+                BasicRequestDAO.this.activity.onSucess(response.toString());
             }
         };
 
@@ -71,7 +77,7 @@ public abstract class BasicRequestDAO extends Application {
                     Log.d("D", "Sem conexão com a internet.");
                     activity.onError(new VolleyError("Sem conexão com a internet."));
                 } else {
-                    Log.d("D", error.getMessage());
+                    Log.d("D", error.getMessage() == null ? "Erro desconhecido..." : error.getMessage());
                     activity.onError(error);
                 }
             }
@@ -146,7 +152,7 @@ public abstract class BasicRequestDAO extends Application {
     }
 
     private void pMakeRequest(@NotNull Request request) {
-        DefaultRetryPolicy policy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        DefaultRetryPolicy policy = new DefaultRetryPolicy(1000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         request.setShouldCache(false);
         this.activity.onStartRequest();
@@ -172,7 +178,7 @@ public abstract class BasicRequestDAO extends Application {
     @NotNull
     private String pNetworkResponseToStr(@NotNull NetworkResponse response) {
         try {
-            return new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+            return new String(response.data, HttpHeaderParser.parseCharset(response.headers, String.valueOf(StandardCharsets.UTF_8)));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";

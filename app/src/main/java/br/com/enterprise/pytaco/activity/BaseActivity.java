@@ -9,23 +9,21 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
-import androidx.fragment.app.FragmentActivity;
 
 import com.android.volley.VolleyError;
 
-import org.json.JSONObject;
+import org.jetbrains.annotations.NotNull;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class BaseActivity extends Activity implements IActivity {
+public abstract class BaseActivity extends Activity implements IActivity {
 
     protected DialogView dialogLoading;
     protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
@@ -73,6 +71,8 @@ public class BaseActivity extends Activity implements IActivity {
         rotation.setInterpolator(new LinearInterpolator());
         imgBola.startAnimation(rotation);
 
+        dialogLoading.getDialog().setCancelable(false);
+        dialogLoading.getDialog().setCanceledOnTouchOutside(false);
         dialogLoading.showDialog();
     }
 
@@ -107,18 +107,8 @@ public class BaseActivity extends Activity implements IActivity {
     }
 
     @Override
-    public PytacoRequestEnum getPytacoRequest() {
-        return this.pytacoRequestEnum;
-    }
-
-    @Override
     public void setPytacoRequest(PytacoRequestEnum value) {
         this.pytacoRequestEnum = value;
-    }
-
-    @Override
-    public void onJsonSuccess(JSONObject response) {
-        this.pytacoRequestEnum = PytacoRequestEnum.NONE;
     }
 
     @Override
@@ -127,7 +117,10 @@ public class BaseActivity extends Activity implements IActivity {
     }
 
     @Override
-    public void onError(VolleyError error) {
+    public void onError(@NotNull VolleyError error) {
+        pCancelDialog();
+        pEnableScreen();
+        makeLongToast(error.getMessage() == null ? "Erro desconhecido..." : error.getMessage());
         this.pytacoRequestEnum = PytacoRequestEnum.NONE;
     }
 

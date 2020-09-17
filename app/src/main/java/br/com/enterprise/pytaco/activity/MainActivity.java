@@ -19,7 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.activity.adapter.ClubeItemAdapter;
@@ -27,6 +26,7 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.DialogView;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class MainActivity extends BaseActivity implements IActivity {
 
@@ -55,17 +55,16 @@ public class MainActivity extends BaseActivity implements IActivity {
 
         clubeItemAdapter = new ClubeItemAdapter(new ArrayList<Clube>(), this);
         lsvClubes.setAdapter(clubeItemAdapter);
-        usuario = new Usuario();
 
         if (savedInstanceState == null) {
             Bundle bundle = getIntent().getExtras();
-            usuario = (Usuario) bundle.getSerializable("usuario");
+            usuario = (Usuario) bundle.getSerializable(getString(R.string.usuario));
         } else {
-            usuario = (Usuario) savedInstanceState.getSerializable("usuario");
+            usuario = (Usuario) savedInstanceState.getSerializable(getString(R.string.usuario));
         }
 
-        lblQtdPytacoGlobal.setText(usuario.getQtdPytaco().toString());
-        lblQtdFichaGlobal.setText(usuario.getQtdFicha().toString());
+        lblQtdPytacoGlobal.setText(StringUtil.numberToStr(usuario.getQtdPytaco()));
+        lblQtdFichaGlobal.setText(StringUtil.numberToStr(usuario.getQtdFicha()));
 
         ImageButton btnNovoClube = findViewById(R.id.main_btnNovoClube);
         btnNovoClube.setOnClickListener(new View.OnClickListener() {
@@ -99,18 +98,19 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
 
-        PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
-        request.listaClubes(usuario.getId(), usuario.getChaveAcesso());
+        pListaClubes();
     }
 
     private void btnBolaoClick() {
-        Intent intent = new Intent(this, BolaoActivity.class);
-        intent.putExtra("usuario", this.usuario);
-        startActivity(intent);
+
     }
 
     private void lsvClubesItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        Intent intent = new Intent(this, BolaoActivity.class);
+        Clube clube = clubeItemAdapter.getLst().get(i);
+        clube.setUsuario(this.usuario);
+        intent.putExtra(getString(R.string.clube), clube);
+        startActivity(intent);
     }
 
     private void btnAssociarClubeClick() {
@@ -233,9 +233,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             if (!resp.getJSONObject(0).getString("id_clube").isEmpty()) {
-                Log.d("D", "Qtd: " + clubeItemAdapter.getLst().size());
                 clubeItemAdapter.getLst().clear();
-                Log.d("D", "Qtd: " + clubeItemAdapter.getLst().size());
 
                 for (int i = 0; i < resp.length(); i++) {
                     if (!resp.getJSONObject(i).getString("id_clube").isEmpty()) {
@@ -243,9 +241,8 @@ public class MainActivity extends BaseActivity implements IActivity {
                         clube.setId(Integer.parseInt(resp.getJSONObject(i).getString("id_clube")));
                         clube.setNome(resp.getJSONObject(i).getString("nomeclube"));
                         clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
-                        clube.setQtdFicha(Integer.parseInt(resp.getJSONObject(i).getString("qtdfichas")));
+                        clube.setQtdFicha(Double.parseDouble(resp.getJSONObject(i).getString("qtdfichas")));
                         clubeItemAdapter.getLst().add(clube);
-                        Log.d("D", "Qtd: " + clubeItemAdapter.getLst().size());
                     }
                 }
 
@@ -270,70 +267,38 @@ public class MainActivity extends BaseActivity implements IActivity {
         }
     }
 
-    @Override
-    public void onJsonSuccess(JSONObject response) {
-        pCancelDialog();
-        pEnableScreen();
-
-        switch (pytacoRequestEnum) {
-            case LISTA_CLUBES:
-                pTrataRespostaListaClubes(response.toString());
-                break;
-            case CRIAR_CLUBE:
-                pTrataRespostaCriarClube(response.toString());
-                break;
-            default:
-                break;
-        }
-
-        super.onJsonSuccess(response);
+    private void pListaClubes(){
+        PytacoRequestDAO request = new PytacoRequestDAO(this);
+        request.listaClubes(usuario.getId(), usuario.getChaveAcesso());
     }
 
     @Override
     public void onSucess(String response) {
-        pCancelDialog();
-        pEnableScreen();
+        if (!this.isDestroyed()) {
+            pCancelDialog();
+            pEnableScreen();
 
-        switch (pytacoRequestEnum) {
-            case ASSOCIAR:
-                pTrataRespostaAssociarClube(response);
-                break;
-            case LISTA_CLUBES:
-                pTrataRespostaListaClubes(response);
-                break;
-            case CRIAR_CLUBE:
-                pTrataRespostaCriarClube(response);
-                break;
-            case ALTERAR_SENHA:
-                pTrataRespostaAlterarSenha(response);
-                break;
-            default:
-                break;
+            switch (pytacoRequestEnum) {
+                case LISTA_CLUBES:
+                    pTrataRespostaListaClubes(response);
+                    super.onSucess(response);
+                    break;
+                case ASSOCIAR:
+                    pTrataRespostaAssociarClube(response);
+                    super.onSucess(response);
+                    break;
+                case CRIAR_CLUBE:
+                    pTrataRespostaCriarClube(response);
+                    pListaClubes();
+                    break;
+                case ALTERAR_SENHA:
+                    pTrataRespostaAlterarSenha(response);
+                    super.onSucess(response);
+                    break;
+                default:
+                    super.onSucess(response);
+                    break;
+            }
         }
-
-        super.onSucess(response);
-//        PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
-//        request.listaClubes(usuario.getId(), usuario.getChaveAcesso());
-    }
-
-    @Override
-    public void onError(@NotNull VolleyError error) {
-        pCancelDialog();
-        pEnableScreen();
-
-        switch (pytacoRequestEnum) {
-            case ASSOCIAR:
-                break;
-            case LISTA_CLUBES:
-                pTrataRespostaListaClubes(error.toString());
-                break;
-            case CRIAR_CLUBE:
-                pTrataRespostaCriarClube(error.toString());
-                break;
-            default:
-                break;
-        }
-
-        super.onError(error);
     }
 }

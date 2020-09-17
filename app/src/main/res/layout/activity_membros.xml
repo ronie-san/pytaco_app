@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/cabecalho_clube" />
+        android:src="@drawable/cabecalho" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,18 +50,21 @@
 
     </LinearLayout>
 
-    <Space
+    <ImageView
         android:id="@+id/membros_pnlItemCabecalho"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/membros_imgCabecalho"
-        android:orientation="horizontal" />
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:src="@drawable/lbl_membros" />
 
     <ListView
         android:id="@+id/membros_lsvMembros"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/membros_pnlItemCabecalho"
+        android:background="@drawable/background_membro"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp" />
 </RelativeLayout>

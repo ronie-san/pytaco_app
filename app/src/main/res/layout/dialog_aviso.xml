@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="90"
-            android:divider="@drawable/linear_layout_divider"
+            android:divider="@drawable/linear_layout_divider_height"
             android:orientation="vertical"
             android:showDividers="beginning|middle|end">
 

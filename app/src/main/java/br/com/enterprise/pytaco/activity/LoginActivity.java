@@ -1,19 +1,14 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -26,7 +21,6 @@ import org.json.JSONObject;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Usuario;
-import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class LoginActivity extends BaseActivity {
@@ -41,6 +35,15 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Button btnTeste = findViewById(R.id.login_btnTeste);
+        btnTeste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, TesteActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ImageButton btnEntrar = findViewById(R.id.login_btnEntrar);
         btnEntrar.setOnClickListener(new View.OnClickListener() {
@@ -121,9 +124,10 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    private void pTrataRespostaLogin(@NotNull JSONObject response) {
+    private void pTrataRespostaLogin(@NotNull String response) {
         try {
-            if (!response.getJSONArray("entry").getJSONObject(0).getString("id_usuario").equals("")) {
+            JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
+            if (!resp.getString("id_usuario").equals("")) {
                 if (chkLembrar.isChecked()) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("usuario", edtUsuario.getText().toString());
@@ -135,13 +139,13 @@ public class LoginActivity extends BaseActivity {
                 }
 
                 Usuario usuario = new Usuario();
-                usuario.setId(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("id_usuario")));
-                usuario.setChaveAcesso(response.getJSONArray("entry").getJSONObject(0).getString("chaveacesso"));
-                usuario.setQtdPytaco(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdpytacosglobal")));
-                usuario.setQtdFicha(Integer.parseInt(response.getJSONArray("entry").getJSONObject(0).getString("qtdfichasglobal")));
+                usuario.setId(Integer.parseInt(resp.getString("id_usuario")));
+                usuario.setChaveAcesso(resp.getString("chaveacesso"));
+                usuario.setQtdPytaco(Double.parseDouble(resp.getString("qtdpytacosglobal")));
+                usuario.setQtdFicha(Double.parseDouble(resp.getString("qtdfichasglobal")));
 
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("usuario", usuario);
+                intent.putExtra(getString(R.string.usuario), usuario);
                 startActivity(intent);
             } else {
                 pCancelDialog();
@@ -156,32 +160,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onSucess(String response) {
-        if (!this.isDestroyed()) {
-            if (pytacoRequestEnum.equals(PytacoRequestEnum.LEMBRAR_SENHA)) {
-                pTrataRespostaLembrarSenha(response);
-            } else {
-                makeLongToast("Requisição não reconhecida: " + pytacoRequestEnum.toString());
-            }
-        }
-
-        super.onSucess(response);
-    }
-
-    @Override
-    public void onJsonSuccess(JSONObject response) {
-        if (!this.isDestroyed()) {
-            if (pytacoRequestEnum.equals(PytacoRequestEnum.LOGIN)) {
-                pTrataRespostaLogin(response);
-            } else {
-                makeLongToast("Requisição não reconhecida: " + pytacoRequestEnum.toString());
-            }
-        }
-
-        super.onJsonSuccess(response);
-    }
-
     private void pTrataRespostaLembrarSenha(String response) {
         pCancelDialog();
         pEnableScreen();
@@ -189,13 +167,21 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    public void onError(VolleyError error) {
+    public void onSucess(String response) {
         if (!this.isDestroyed()) {
-            pCancelDialog();
-            pEnableScreen();
-            makeLongToast(error.getMessage());
+            switch (pytacoRequestEnum) {
+                case LEMBRAR_SENHA:
+                    pTrataRespostaLembrarSenha(response);
+                    break;
+                case LOGIN:
+                    pTrataRespostaLogin(response);
+                    break;
+                default:
+                    makeLongToast("Requisição não reconhecida: " + pytacoRequestEnum.toString());
+                    break;
+            }
         }
 
-        super.onError(error);
+        super.onSucess(response);
     }
 }

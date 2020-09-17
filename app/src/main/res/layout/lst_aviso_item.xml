@@ -5,14 +5,20 @@
     android:background="@drawable/list_view_rounded"
     android:baselineAligned="false"
     android:orientation="horizontal"
+    android:paddingHorizontal="10dp"
     android:weightSum="100">
 
     <ImageView
         android:id="@+id/aviso_item_imgAviso"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_weight="20"
-        android:background="@android:color/transparent" />
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+
+        android:scaleType="centerInside"
+        android:src="@drawable/bola_vermelha" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -51,9 +57,10 @@
             style="@style/label_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:text="99/99/9999"
             android:layout_weight="30"
             android:gravity="center"
-            android:text="Data" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/aviso_item_lblStatus"
@@ -62,6 +69,7 @@
             android:layout_height="0dp"
             android:layout_weight="70"
             android:gravity="center"
-            android:text="Status" />
+            android:text="Status"
+            android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>

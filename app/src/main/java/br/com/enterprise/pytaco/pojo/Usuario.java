@@ -5,8 +5,8 @@ public class Usuario extends EntidadeBase {
     private String nome;
     private String celular;
     private String chaveAcesso;
-    private Integer qtdPytaco;
-    private Integer qtdFicha;
+    private Double qtdPytaco;
+    private Double qtdFicha;
 
     public String getNome() {
         return nome;
@@ -32,19 +32,19 @@ public class Usuario extends EntidadeBase {
         this.chaveAcesso = chaveAcesso;
     }
 
-    public Integer getQtdPytaco() {
+    public Double getQtdPytaco() {
         return qtdPytaco;
     }
 
-    public void setQtdPytaco(Integer qtdPytaco) {
+    public void setQtdPytaco(Double qtdPytaco) {
         this.qtdPytaco = qtdPytaco;
     }
 
-    public Integer getQtdFicha() {
+    public Double getQtdFicha() {
         return qtdFicha;
     }
 
-    public void setQtdFicha(Integer qtdFicha) {
+    public void setQtdFicha(Double qtdFicha) {
         this.qtdFicha = qtdFicha;
     }
 }

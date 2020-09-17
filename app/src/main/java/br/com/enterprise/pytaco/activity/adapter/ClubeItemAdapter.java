@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Clube;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class ClubeItemAdapter extends CustomAdapter<Clube> {
 
@@ -28,12 +29,8 @@ public class ClubeItemAdapter extends CustomAdapter<Clube> {
         TextView lblDescricao = view.findViewById(R.id.clube_item_lblDescricao);
         lblDescricao.setText(clube.getDescricao());
 
-        TextView lblQtdPytaco = view.findViewById(R.id.clube_item_lblQtdPytaco);
-//        lblQtdPytaco.setText(clube.getQtdPytaco().toString());
-        lblQtdPytaco.setText("0");
-
         TextView lblQtdFicha = view.findViewById(R.id.clube_item_lblQtdFicha);
-        lblQtdFicha.setText(clube.getQtdFicha().toString());
+        lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
 
         return view;
     }
