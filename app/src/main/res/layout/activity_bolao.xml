@@ -38,7 +38,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
                     android:src="@drawable/botao_voltar" />
 
@@ -87,7 +87,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_criar_bolao" />
 
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_meus_boloes" />
 
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
                     android:src="@drawable/lbl_avisos" />
 
@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
                     android:src="@drawable/lbl_membros" />
 
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
                     android:src="@drawable/lbl_contador" />
 
@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
                     android:src="@drawable/lbl_administracao" />
             </LinearLayout>

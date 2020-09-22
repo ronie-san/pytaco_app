@@ -1,5 +1,7 @@
 package br.com.enterprise.pytaco.dao;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 
 import br.com.enterprise.pytaco.activity.IActivity;
@@ -27,7 +29,7 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         map.put("login", login);
         map.put("senha", senha);
         activity.setPytacoRequest(PytacoRequestEnum.LOGIN);
-        pGetJsonRequest("login.php", map);
+        pGetRequest("login.php", map);
     }
 
 //    public void checkVersion(String versao) {
@@ -115,7 +117,7 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         map.put("titulo", titulo);
         map.put("descricao", descricao);
         activity.setPytacoRequest(PytacoRequestEnum.CRIAR_AVISO);
-        pGetJsonRequest("CriarAvisos.php", map);
+        pGetRequest("CriarAvisos.php", map);
     }
 
     public void alterarAviso(int idAviso, String titulo, String descricao) {
@@ -124,14 +126,14 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         map.put("titulo", titulo);
         map.put("descricao", descricao);
         activity.setPytacoRequest(PytacoRequestEnum.ALTERAR_AVISO);
-        pGetJsonRequest("UpdateAvisoLido.php", map);
+        pGetRequest("UpdateAvisoLido.php", map);
     }
 
     public void excluirAviso(int idAviso) {
         HashMap<String, String> map = new HashMap<>();
         map.put("id_aviso_tabela", String.valueOf(idAviso));
         activity.setPytacoRequest(PytacoRequestEnum.EXCLUIR_AVISO);
-        pGetJsonRequest("UpdateAviso.php", map);
+        pGetRequest("UpdateAviso.php", map);
     }
 
     public void buscaAgente(int idMembro, int idClube, String codConvite) {
@@ -140,6 +142,29 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         map.put("id_clube", String.valueOf(idClube));
         map.put("cod_convite", codConvite);
         activity.setPytacoRequest(PytacoRequestEnum.BUSCA_AGENTE);
-        pGetJsonRequest("DescobreAgenteMembroSelecionado.php", map);
+        pGetRequest("DescobreAgenteMembroSelecionado.php", map);
+    }
+
+    public void acaoMembro(int idMembro, int idClube, int idUsuario, String chaveAcesso, @NotNull PytacoRequestEnum acao) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id_membro", String.valueOf(idMembro));
+        map.put("id_clube", String.valueOf(idClube));
+        map.put("id_usuario", String.valueOf(idUsuario));
+        map.put("chave_acesso", chaveAcesso);
+
+        switch (acao) {
+            case ACEITAR_MEMBROS:
+                map.put("acao", "aceita");
+                break;
+            case TORNAR_AGENTE:
+                map.put("acao", "agent");
+                break;
+            case DESATIVAR_MEMBRO:
+                map.put("acao", "desativar");
+                break;
+        }
+
+        activity.setPytacoRequest(acao);
+        pGetRequest("AtualizaStatusTipoMembro.php", map);
     }
 }

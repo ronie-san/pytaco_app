@@ -1,7 +1,6 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Point;
 import android.view.Display;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.android.volley.VolleyError;
 import org.jetbrains.annotations.NotNull;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
@@ -79,6 +79,7 @@ public abstract class BaseActivity extends Activity implements IActivity {
     protected void pCancelDialog() {
         if (dialogLoading != null && dialogLoading.dialogShowing()) {
             dialogLoading.cancelDialog();
+            dialogLoading = null;
         }
     }
 
@@ -120,18 +121,20 @@ public abstract class BaseActivity extends Activity implements IActivity {
     public void onError(@NotNull VolleyError error) {
         pCancelDialog();
         pEnableScreen();
-        makeLongToast(error.getMessage() == null ? "Erro desconhecido..." : error.getMessage());
+        makeLongToast("Erro: " + (error.getMessage() == null ? "Desconhecido" : error.getMessage()));
         this.pytacoRequestEnum = PytacoRequestEnum.NONE;
     }
 
     @Override
     public void onStartRequest() {
-        pDisableScreen();
-        pShowProgress();
+        if (dialogLoading == null) {
+            pDisableScreen();
+            pShowProgress();
+        }
     }
 
     @Override
-    public Context getContext() {
+    public Activity getActivity() {
         return this;
     }
 }

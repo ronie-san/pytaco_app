@@ -7,6 +7,7 @@ public class Usuario extends EntidadeBase {
     private String chaveAcesso;
     private Double qtdPytaco;
     private Double qtdFicha;
+    private String codUsuario;
 
     public String getNome() {
         return nome;
@@ -46,5 +47,13 @@ public class Usuario extends EntidadeBase {
 
     public void setQtdFicha(Double qtdFicha) {
         this.qtdFicha = qtdFicha;
+    }
+
+    public String getCodUsuario() {
+        return codUsuario;
+    }
+
+    public void setCodUsuario(String codUsuario) {
+        this.codUsuario = codUsuario;
     }
 }

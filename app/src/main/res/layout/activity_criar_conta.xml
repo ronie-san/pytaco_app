@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
-                android:background="@android:color/transparent"
+                android:background="?attr/selectableItemBackground"
                 android:src="@drawable/botao_voltar"/>
 
             <Space
@@ -103,7 +103,7 @@
                 android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
-                android:background="@android:color/transparent"
+                android:background="?attr/selectableItemBackground"
                 android:src="@drawable/botao_criar_conta"/>
         </LinearLayout>
 

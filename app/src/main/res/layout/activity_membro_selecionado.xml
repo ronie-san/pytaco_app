@@ -13,7 +13,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
+        android:background="?attr/selectableItemBackground"
         android:scaleType="centerCrop"
         android:src="@drawable/botao_voltar" />
 
@@ -113,4 +113,47 @@
             android:textSize="30sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:divider="@drawable/linear_layout_divider_width"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:showDividers="middle"
+        android:weightSum="90">
+
+        <ImageButton
+            android:id="@+id/membro_selecionado_btnAceitarMembros"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Aceitar Membros"
+            android:scaleType="centerInside"
+            android:src="@drawable/lbl_administracao" />
+
+        <ImageButton
+            android:id="@+id/membro_selecionado_btnTornarAgente"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Tornar Agente"
+            android:scaleType="centerInside"
+            android:src="@drawable/lbl_administracao" />
+
+        <ImageButton
+            android:id="@+id/membro_selecionado_btnDesativarMembro"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Desativar Membro"
+            android:scaleType="centerInside"
+            android:src="@drawable/lbl_administracao" />
+    </LinearLayout>
 </RelativeLayout>

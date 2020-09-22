@@ -17,5 +17,8 @@ public enum PytacoRequestEnum {
     LISTA_AVISOS,
     EXCLUIR_AVISO,
     LISTA_MEMBROS,
-    BUSCA_AGENTE;
+    BUSCA_AGENTE,
+    ACEITAR_MEMBROS,
+    TORNAR_AGENTE,
+    DESATIVAR_MEMBRO;
 }

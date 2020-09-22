@@ -143,6 +143,7 @@ public class LoginActivity extends BaseActivity {
                 usuario.setChaveAcesso(resp.getString("chaveacesso"));
                 usuario.setQtdPytaco(Double.parseDouble(resp.getString("qtdpytacosglobal")));
                 usuario.setQtdFicha(Double.parseDouble(resp.getString("qtdfichasglobal")));
+                usuario.setCodUsuario(resp.getString("codusuarioglobal"));
 
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra(getString(R.string.usuario), usuario);
@@ -153,7 +154,6 @@ public class LoginActivity extends BaseActivity {
                 makeLongToast("Usuário e/ou senha inválidos.");
             }
         } catch (JSONException e) {
-            e.printStackTrace();
             pCancelDialog();
             pEnableScreen();
             makeLongToast("Não foi possível entrar. Houve erro na autenticação");

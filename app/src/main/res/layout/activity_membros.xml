@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_weight="30"
             android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
+            android:background="?attr/selectableItemBackground"
             android:paddingStart="15dp"
             android:scaleType="centerInside"
             android:src="@drawable/botao_voltar" />

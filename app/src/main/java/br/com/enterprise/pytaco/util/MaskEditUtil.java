@@ -4,6 +4,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 public abstract class MaskEditUtil {
 
     public static final String FORMAT_CPF = "###.###.###-##";
@@ -12,6 +15,8 @@ public abstract class MaskEditUtil {
     public static final String FORMAT_DATE = "##/##/####";
     public static final String FORMAT_HOUR = "##:##";
 
+    @NotNull
+    @Contract(value = "_, _ -> new", pure = true)
     public static TextWatcher mask(final EditText ediTxt, final String mask) {
         return new TextWatcher() {
             boolean isUpdating;
@@ -52,7 +57,8 @@ public abstract class MaskEditUtil {
         };
     }
 
-    public static String unmask(final String s) {
+    @NotNull
+    public static String unmask(@NotNull final String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[ ]","").replaceAll("[:]", "").replaceAll("[)]", "");
     }
 }

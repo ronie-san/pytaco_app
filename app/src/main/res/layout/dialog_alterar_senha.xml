@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
+                android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
                 android:src="@drawable/botao_voltar" />
 
@@ -116,7 +116,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
+                android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
                 android:src="@drawable/btn_confirmar" />
             <!--            android:src="@drawable/botao_confirmar" />-->

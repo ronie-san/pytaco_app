@@ -23,6 +23,7 @@
         <TextView
             android:id="@+id/clube_item_lblDescricao"
             style="@style/label_login"
+            android:maxLines="1"
             android:padding="5dp"
             android:text="Descrição do clube" />
     </LinearLayout>
@@ -46,7 +47,6 @@
             android:id="@+id/clube_item_lblQtdFicha"
             style="@style/label_login"
             android:layout_gravity="center"
-            android:layout_weight="50"
             android:text="100"
             android:textColor="@color/ficha" />
     </LinearLayout>

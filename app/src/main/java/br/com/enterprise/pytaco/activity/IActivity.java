@@ -1,6 +1,6 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.android.volley.VolleyError;
 
@@ -15,5 +15,5 @@ public interface IActivity {
 
     void onStartRequest();
 
-    Context getContext();
+    Activity getActivity();
 }

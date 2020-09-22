@@ -11,19 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Network;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -54,7 +49,7 @@ public abstract class BasicRequestDAO extends Application {
         this.jsonRespListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("D", response.toString());
+                Log.d(activity.getActivity().getClass().getSimpleName(), response.toString());
                 BasicRequestDAO.this.activity.onSucess(response.toString());
             }
         };
@@ -62,7 +57,7 @@ public abstract class BasicRequestDAO extends Application {
         this.respListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("D", response);
+                Log.d(activity.getActivity().getClass().getSimpleName(), response);
                 BasicRequestDAO.this.activity.onSucess(response);
             }
         };
@@ -70,14 +65,13 @@ public abstract class BasicRequestDAO extends Application {
         this.errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ConnectivityManager cm = (ConnectivityManager) activity.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager cm = (ConnectivityManager) activity.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
                 if (cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
                         cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
-                    Log.d("D", "Sem conexão com a internet.");
+                    Log.d(activity.getActivity().getClass().getSimpleName(), "Sem conexão com a internet.");
                     activity.onError(new VolleyError("Sem conexão com a internet."));
                 } else {
-                    Log.d("D", error.getMessage() == null ? "Erro desconhecido..." : error.getMessage());
                     activity.onError(error);
                 }
             }
@@ -92,16 +86,19 @@ public abstract class BasicRequestDAO extends Application {
 
     protected void pGetRequest(@NonNull String url, @Nullable final Map<String, String> params) {
         Request<String> request = new Request<String>(Request.Method.GET, baseUrl + url, errorListener) {
+            @NotNull
             @Override
             public String getUrl() {
                 String computedUrl = super.getUrl() + pGetUrlParams(params);
-                Log.d("D", computedUrl);
+                Log.d(activity.getActivity().getClass().getSimpleName(), computedUrl);
                 return computedUrl;
             }
 
+            @NotNull
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                return Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
+                Response<String> result = Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
+                return result;
             }
 
             @Override
@@ -131,17 +128,19 @@ public abstract class BasicRequestDAO extends Application {
                 return super.getHeaders();
             }
 
+            @NotNull
             @Override
             public String getUrl() {
                 String computedUrl = super.getUrl() + pGetUrlParams(params);
-                Log.d("D", computedUrl);
+                Log.d(activity.getActivity().getClass().getSimpleName(), computedUrl);
                 return computedUrl;
             }
 
             @Override
             protected Response<JSONObject> parseNetworkResponse(@NotNull NetworkResponse response) {
                 try {
-                    return Response.success(new JSONObject(pNetworkResponseToStr(response)), HttpHeaderParser.parseCacheHeaders(response));
+                    Response<JSONObject> result = Response.success(new JSONObject(pNetworkResponseToStr(response)), HttpHeaderParser.parseCacheHeaders(response));
+                    return result;
                 } catch (JSONException e) {
                     return Response.error(new ParseError(e));
                 }
@@ -156,7 +155,7 @@ public abstract class BasicRequestDAO extends Application {
         request.setRetryPolicy(policy);
         request.setShouldCache(false);
         this.activity.onStartRequest();
-        RequestQueue queue = Volley.newRequestQueue(activity.getContext());
+        RequestQueue queue = Volley.newRequestQueue(activity.getActivity());
         queue.add(request);
     }
 
@@ -178,7 +177,9 @@ public abstract class BasicRequestDAO extends Application {
     @NotNull
     private String pNetworkResponseToStr(@NotNull NetworkResponse response) {
         try {
-            return new String(response.data, HttpHeaderParser.parseCharset(response.headers, String.valueOf(StandardCharsets.UTF_8)));
+            String result = new String(response.data, HttpHeaderParser.parseCharset(response.headers, String.valueOf(StandardCharsets.UTF_8)));
+            Log.d(this.getClass().getSimpleName(), result);
+            return result;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";

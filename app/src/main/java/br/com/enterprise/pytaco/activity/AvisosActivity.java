@@ -216,29 +216,34 @@ public class AvisosActivity extends BaseActivity {
 
     @Override
     public void onSucess(String response) {
-        pCancelDialog();
-        pEnableScreen();
-
-        switch (pytacoRequestEnum) {
-            case LISTA_AVISOS:
-                pTrataRespostaListaAvisos(response);
-                super.onSucess(response);
-                break;
-            case CRIAR_AVISO:
-                pTrataRespostaCriarAviso();
-                pListaAvisos();
-                break;
-            case ALTERAR_AVISO:
-                pTrataRespostaAlterarAviso();
-                pListaAvisos();
-                break;
-            case EXCLUIR_AVISO:
-                pTrataRespostaExcluirAviso();
-                pListaAvisos();
-                break;
-            default:
-                super.onSucess(response);
-                break;
+        if (!this.isDestroyed()) {
+            switch (pytacoRequestEnum) {
+                case LISTA_AVISOS:
+                    pCancelDialog();
+                    pEnableScreen();
+                    pTrataRespostaListaAvisos(response);
+                    super.onSucess(response);
+                    break;
+                case CRIAR_AVISO:
+                    pTrataRespostaCriarAviso();
+                    pListaAvisos();
+                    break;
+                case ALTERAR_AVISO:
+                    pTrataRespostaAlterarAviso();
+                    pListaAvisos();
+                    break;
+                case EXCLUIR_AVISO:
+                    pTrataRespostaExcluirAviso();
+                    pListaAvisos();
+                    break;
+                default:
+                    pCancelDialog();
+                    pEnableScreen();
+                    super.onSucess(response);
+                    break;
+            }
+        } else {
+            super.onSucess(response);
         }
     }
 }

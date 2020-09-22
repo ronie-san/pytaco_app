@@ -48,15 +48,4 @@ public class TesteActivity extends BaseActivity {
         }
         super.onSucess(response);
     }
-
-    @Override
-    public void onError(VolleyError error) {
-        if (!this.isDestroyed()) {
-            pCancelDialog();
-            pEnableScreen();
-            Toast.makeText(this, error.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        super.onError(error);
-    }
 }
