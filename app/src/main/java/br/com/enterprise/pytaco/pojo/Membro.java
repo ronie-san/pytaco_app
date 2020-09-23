@@ -2,12 +2,17 @@ package br.com.enterprise.pytaco.pojo;
 
 public class Membro extends EntidadeBase {
 
+    private boolean marcado;
     private String nome;
     private Double qtdFicha;
     private String codClube;
     private String tipo;
     private String status;
     private Clube clube;
+
+    public Membro() {
+        marcado = false;
+    }
 
     public String getNome() {
         return nome;
@@ -55,6 +60,14 @@ public class Membro extends EntidadeBase {
 
     public void setClube(Clube clube) {
         this.clube = clube;
+    }
+
+    public boolean isMarcado() {
+        return marcado;
+    }
+
+    public void setMarcado(boolean marcado) {
+        this.marcado = marcado;
     }
 
     public String getStatusExt() {

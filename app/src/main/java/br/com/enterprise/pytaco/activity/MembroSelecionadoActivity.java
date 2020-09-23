@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
+
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Membro;
@@ -94,7 +96,12 @@ public class MembroSelecionadoActivity extends BaseActivity {
     }
 
     private void pTrataRespostaBuscaAgente(String response) {
-        makeLongToast(response);
+        if (response != null && !response.isEmpty()) {
+            lblAgente.setText(response.trim());
+        } else {
+            lblAgente.setText("");
+            makeLongToast("Não foi possível retornar Agente");
+        }
     }
 
     private void pTrataRespostaAcaoMembro(String response) {

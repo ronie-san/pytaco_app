@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Pytaco</string>
-    <string name="font">brtitannic-bold</string>
     <string name="esqueci_senha">Esqueci a senha</string>
     <string name="nome_clube">Digite o nome do clube</string>
 
@@ -9,4 +8,5 @@
     <string name="aviso">aviso</string>
     <string name="membro">membro</string>
     <string name="admin">admin</string>
+    <string name="lst_contador">lst_contador</string>
 </resources>

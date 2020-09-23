@@ -22,7 +22,7 @@ public class DialogView {
 
         dialog = builder.create();
         dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setView(view, 0, 0, 0, 0);
     }
 

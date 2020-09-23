@@ -2,7 +2,9 @@ package br.com.enterprise.pytaco.activity;
 
 import android.app.Activity;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -18,6 +20,8 @@ import com.android.volley.VolleyError;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.DialogView;
@@ -27,6 +31,10 @@ public abstract class BaseActivity extends Activity implements IActivity {
 
     protected DialogView dialogLoading;
     protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
+
+//    protected Serializable pGetExtras(){
+//
+//    }
 
     protected DialogView createDialog(@LayoutRes int resource) {
         return new DialogView(this, resource);
@@ -101,6 +109,27 @@ public abstract class BaseActivity extends Activity implements IActivity {
             view = new View(this);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    protected void pAddButtonEffect(@NotNull View button) {
+        button.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.getBackground().setColorFilter(0xe0f47521, PorterDuff.Mode.SRC_ATOP);
+                        v.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        v.getBackground().clearColorFilter();
+                        v.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     private void makeToast(String msg, int periodo) {

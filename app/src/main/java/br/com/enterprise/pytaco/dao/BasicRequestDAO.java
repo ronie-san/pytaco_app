@@ -49,16 +49,16 @@ public abstract class BasicRequestDAO extends Application {
         this.jsonRespListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d(activity.getActivity().getClass().getSimpleName(), response.toString());
-                BasicRequestDAO.this.activity.onSucess(response.toString());
+                Log.d(activity.getClass().getSimpleName(), response.toString());
+                activity.onSucess(response.toString());
             }
         };
 
         this.respListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(activity.getActivity().getClass().getSimpleName(), response);
-                BasicRequestDAO.this.activity.onSucess(response);
+                Log.d(activity.getClass().getSimpleName(), response);
+                activity.onSucess(response);
             }
         };
 
@@ -69,7 +69,6 @@ public abstract class BasicRequestDAO extends Application {
 
                 if (cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
                         cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
-                    Log.d(activity.getActivity().getClass().getSimpleName(), "Sem conexão com a internet.");
                     activity.onError(new VolleyError("Sem conexão com a internet."));
                 } else {
                     activity.onError(error);
@@ -90,8 +89,41 @@ public abstract class BasicRequestDAO extends Application {
             @Override
             public String getUrl() {
                 String computedUrl = super.getUrl() + pGetUrlParams(params);
-                Log.d(activity.getActivity().getClass().getSimpleName(), computedUrl);
+                Log.d(activity.getClass().getSimpleName(), "URL: " + computedUrl);
                 return computedUrl;
+            }
+
+            @NotNull
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                Response<String> result = Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
+                return result;
+            }
+
+            @Override
+            protected void deliverResponse(String response) {
+                respListener.onResponse(response);
+            }
+        };
+
+        pMakeRequest(request);
+    }
+
+    protected void pPostRequest(@NonNull String url) {
+        pPostRequest(url, null);
+    }
+
+    protected void pPostRequest(@NonNull String url, @Nullable final Map<String, String> params) {
+        Request<String> request = new Request<String>(Request.Method.POST, baseUrl + url, errorListener) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                if (params != null && !params.isEmpty()) {
+                    Log.d(activity.getClass().getSimpleName(), "URL: " + this.getUrl() + " - PARAMS: " + params.toString());
+                    return params;
+                }
+
+                Log.d(activity.getClass().getSimpleName(), "URL: " + this.getUrl());
+                return super.getParams();
             }
 
             @NotNull
@@ -132,7 +164,6 @@ public abstract class BasicRequestDAO extends Application {
             @Override
             public String getUrl() {
                 String computedUrl = super.getUrl() + pGetUrlParams(params);
-                Log.d(activity.getActivity().getClass().getSimpleName(), computedUrl);
                 return computedUrl;
             }
 
@@ -178,7 +209,6 @@ public abstract class BasicRequestDAO extends Application {
     private String pNetworkResponseToStr(@NotNull NetworkResponse response) {
         try {
             String result = new String(response.data, HttpHeaderParser.parseCharset(response.headers, String.valueOf(StandardCharsets.UTF_8)));
-            Log.d(this.getClass().getSimpleName(), result);
             return result;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

@@ -6,13 +6,15 @@ import java.util.HashMap;
 
 import br.com.enterprise.pytaco.activity.IActivity;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class PytacoRequestDAO extends BasicRequestDAO {
 
     public PytacoRequestDAO(IActivity activity) {
         super(activity);
         useKeyHeader = false;
-        baseUrl = "http://easycliente.com.br/pitaco/php/";
+//        baseUrl = "http://easycliente.com.br/pitaco/php/"; //ANTIGO
+        baseUrl = "http://pytaco.com.br/pytaco/php/";
     }
 
     public void criarConta(String login, String senha, String celular) {
@@ -117,21 +119,19 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         map.put("titulo", titulo);
         map.put("descricao", descricao);
         activity.setPytacoRequest(PytacoRequestEnum.CRIAR_AVISO);
-        pGetRequest("CriarAvisos.php", map);
+        pPostRequest("CriarAvisos.php", map);
     }
 
-    public void alterarAviso(int idAviso, String titulo, String descricao) {
+    public void alterarAviso(int idTabela) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("id_aviso_tabela", String.valueOf(idAviso));
-        map.put("titulo", titulo);
-        map.put("descricao", descricao);
+        map.put("id_aviso_tabela", String.valueOf(idTabela));
         activity.setPytacoRequest(PytacoRequestEnum.ALTERAR_AVISO);
         pGetRequest("UpdateAvisoLido.php", map);
     }
 
-    public void excluirAviso(int idAviso) {
+    public void excluirAviso(int idTabela) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("id_aviso_tabela", String.valueOf(idAviso));
+        map.put("id_aviso_tabela", String.valueOf(idTabela));
         activity.setPytacoRequest(PytacoRequestEnum.EXCLUIR_AVISO);
         pGetRequest("UpdateAviso.php", map);
     }
@@ -142,7 +142,7 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         map.put("id_clube", String.valueOf(idClube));
         map.put("cod_convite", codConvite);
         activity.setPytacoRequest(PytacoRequestEnum.BUSCA_AGENTE);
-        pGetRequest("DescobreAgenteMembroSelecionado.php", map);
+        pGetRequest("DescobreAgenteMembro.php", map);
     }
 
     public void acaoMembro(int idMembro, int idClube, int idUsuario, String chaveAcesso, @NotNull PytacoRequestEnum acao) {
@@ -166,5 +166,31 @@ public class PytacoRequestDAO extends BasicRequestDAO {
 
         activity.setPytacoRequest(acao);
         pGetRequest("AtualizaStatusTipoMembro.php", map);
+    }
+
+    public void enviarFichas(int idUsuario, String chaveAcesso, int idClube, Double valor, String lstMembro, int qtdMembro, Double saldoAdmin) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id_usuario", StringUtil.numberToStr(idUsuario));
+        map.put("chaveAcesso", chaveAcesso);
+        map.put("id_clube", StringUtil.numberToStr(idClube));
+        map.put("ValorDigitado", StringUtil.numberToStr(valor));
+        map.put("listaDemembros", lstMembro);
+        map.put("qtdMembrosSelecionados", StringUtil.numberToStr(qtdMembro));
+        map.put("SaldoAdmin", StringUtil.numberToStr(saldoAdmin));
+        activity.setPytacoRequest(PytacoRequestEnum.ENVIAR_FICHAS);
+        pGetRequest("EnviarFichas.php", map);
+    }
+
+    public void retirarFichas(int idUsuario, String chaveAcesso, int idClube, Double valor, String lstMembro, int qtdMembro, Double saldoAdmin) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id_usuario", StringUtil.numberToStr(idUsuario));
+        map.put("chaveAcesso", chaveAcesso);
+        map.put("id_clube", StringUtil.numberToStr(idClube));
+        map.put("ValorDigitado", StringUtil.numberToStr(valor));
+        map.put("listaDemembros", lstMembro);
+        map.put("qtdMembrosSelecionados", StringUtil.numberToStr(qtdMembro));
+        map.put("SaldoAdmin", StringUtil.numberToStr(saldoAdmin));
+        activity.setPytacoRequest(PytacoRequestEnum.RETIRAR_FICHAS);
+        pGetRequest("RetirarFichas.php", map);
     }
 }

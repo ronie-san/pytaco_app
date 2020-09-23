@@ -196,7 +196,7 @@ public class MainActivity extends BaseActivity implements IActivity {
     }
 
     private void pTrataRespostaAlterarSenha(@NotNull String response) {
-        if (dialogAlterarSenha.dialogShowing()) {
+        if (dialogAlterarSenha!= null && dialogAlterarSenha.dialogShowing()) {
             dialogAlterarSenha.cancelDialog();
         }
 
@@ -209,7 +209,7 @@ public class MainActivity extends BaseActivity implements IActivity {
     }
 
     private void pTrataRespostaCriarClube(@NotNull String response) {
-        if (dialogNovoClube.dialogShowing()) {
+        if (dialogNovoClube!= null && dialogNovoClube.dialogShowing()) {
             dialogNovoClube.cancelDialog();
         }
 
@@ -248,13 +248,12 @@ public class MainActivity extends BaseActivity implements IActivity {
                 clubeItemAdapter.notifyDataSetChanged();
             }
         } catch (JSONException e) {
-            Log.d(this.getClass().getSimpleName(), response);
             makeLongToast("Não foi possível retornar a lista de clubes. " + e.getMessage());
         }
     }
 
     private void pTrataRespostaAssociarClube(String response) {
-        if (dialogAssociarClube.dialogShowing()) {
+        if (dialogNovoClube!= null && dialogAssociarClube.dialogShowing()) {
             dialogAssociarClube.cancelDialog();
         }
 

@@ -66,9 +66,9 @@
                     <TextView
                         android:id="@+id/bolao_lblQtdFicha"
                         style="@style/label_login"
+                        android:layout_centerVertical="true"
                         android:layout_marginTop="5dp"
                         android:layout_toEndOf="@+id/bolao_imgFicha"
-                        android:gravity="center"
                         android:text="100"
                         android:textColor="@color/ficha" />
                 </RelativeLayout>

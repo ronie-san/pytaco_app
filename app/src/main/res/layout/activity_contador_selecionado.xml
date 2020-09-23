@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_troca_ficha">
+
+    <LinearLayout
+        android:id="@+id/contador_selecionado_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <ImageButton
+            android:id="@+id/contador_selecionado_btnVoltar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/botao_voltar" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:paddingVertical="10dp"
+            android:src="@drawable/escudo_pitaco" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30">
+
+            <ImageView
+                android:id="@+id/contador_selecionado_imgFundoPytaco"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/contador_selecionado_imgFicha"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/contador_selecionado_imgFundoPytaco"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:src="@drawable/ficha_pytaco" />
+
+            <TextView
+                android:id="@+id/contador_selecionado_lblQtdFicha"
+                style="@style/label_login"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/contador_selecionado_imgFicha"
+                android:text="100"
+                android:textColor="@color/ficha" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/contador_selecionado_pnlCorpo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contador_selecionado_pnlCabecalho"
+        android:divider="@drawable/linear_layout_divider_height"
+        android:orientation="vertical"
+        android:showDividers="beginning|middle|end">
+
+        <TextView
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="Quantidade de fichas a transferir" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
+
+            <EditText
+                android:id="@+id/contador_selecionado_edtQtdFicha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:background="@drawable/edit"
+                android:inputType="number" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/linear_layout_divider_width"
+            android:orientation="horizontal"
+            android:showDividers="beginning|middle|end"
+            android:weightSum="100">
+
+            <ImageButton
+                android:id="@+id/contador_selecionado_btnEnviarFicha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_weight="50"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_enviar_ficha" />
+
+            <ImageButton
+                android:id="@+id/contador_selecionado_btnRetirarFicha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_weight="50"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_retirar_ficha" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/contador_selecionado_lsvContadores"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/contador_selecionado_pnlCorpo"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp" />
+</RelativeLayout>

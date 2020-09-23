@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_troca_ficha">
+
+    <LinearLayout
+        android:id="@+id/contador_imgCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <ImageButton
+            android:id="@+id/contador_btnVoltar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/botao_voltar" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:adjustViewBounds="true"
+            android:paddingVertical="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/escudo_pitaco" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="30"
+            android:divider="@drawable/linear_layout_divider_height"
+            android:orientation="vertical"
+            android:showDividers="beginning|end">
+
+            <ImageButton
+                android:id="@+id/contador_btnTrocarFichas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="Trocar fichas"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_troca_ficha" />
+
+            <TextView
+                android:id="@+id/contador_lblContadores"
+                style="@style/label_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="10 Contadores"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/contador_lsvContadores"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/contador_imgCabecalho"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp" />
+</RelativeLayout>

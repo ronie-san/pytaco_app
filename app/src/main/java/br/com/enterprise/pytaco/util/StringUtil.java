@@ -20,4 +20,9 @@ public class StringUtil {
     public static String numberToStr(Double valor) {
         return String.format(Locale.getDefault(), "%.0f", valor);
     }
+
+    @NotNull
+    public static String numberToStr(int valor) {
+        return String.valueOf(valor);
+    }
 }

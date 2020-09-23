@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_view_rounded">
+
+    <CheckBox
+        android:id="@+id/contador_item_chkMarcado"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:buttonTint="@color/pytaco"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:padding="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/contador_item_chkMarcado"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/contador_item_lblNome"
+                style="@style/label_login"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:gravity="start|center_vertical"
+                android:text="Nome" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:gravity="end|center_vertical"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:id="@+id/contador_item_imgFicha"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/contador_item_lblQtdFicha"
+                    android:src="@drawable/ficha_pytaco" />
+
+                <TextView
+                    android:id="@+id/contador_item_lblQtdFicha"
+                    style="@style/label_login"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:text="100"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/ficha" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/contador_item_lblTipo"
+                style="@style/label_login"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:gravity="start|center_vertical"
+                android:text="Tipo" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/contador_item_lblStatus"-->
+<!--                style="@style/label_login"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="50"-->
+<!--                android:gravity="end|center_vertical"-->
+<!--                android:paddingEnd="10dp"-->
+<!--                android:text="Status" />-->
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

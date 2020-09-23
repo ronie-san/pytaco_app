@@ -141,6 +141,7 @@ public class LoginActivity extends BaseActivity {
                 Usuario usuario = new Usuario();
                 usuario.setId(Integer.parseInt(resp.getString("id_usuario")));
                 usuario.setChaveAcesso(resp.getString("chaveacesso"));
+                usuario.setNome(edtUsuario.getText().toString().trim());
                 usuario.setQtdPytaco(Double.parseDouble(resp.getString("qtdpytacosglobal")));
                 usuario.setQtdFicha(Double.parseDouble(resp.getString("qtdfichasglobal")));
                 usuario.setCodUsuario(resp.getString("codusuarioglobal"));

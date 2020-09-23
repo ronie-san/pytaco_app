@@ -104,10 +104,14 @@ public class BolaoActivity extends BaseActivity {
     }
 
     private void lblContadorClick() {
-
+        Intent intent = new Intent(this, ContadorActivity.class);
+        intent.putExtra(getString(R.string.clube), clube);
+        startActivity(intent);
     }
 
     private void lblAdministradorClick() {
-
+        Intent intent = new Intent(this, AdministracaoActivity.class);
+        intent.putExtra(getString(R.string.clube), clube);
+        startActivity(intent);
     }
 }

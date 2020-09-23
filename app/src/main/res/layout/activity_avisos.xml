@@ -61,6 +61,7 @@
             android:layout_weight="7"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
+            android:contentDescription="Adicionar aviso"
             android:scaleType="centerInside"
             android:src="@drawable/icone_main" />
 
@@ -69,16 +70,16 @@
             android:layout_height="match_parent"
             android:layout_weight="86" />
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/avisos_btnEnviarAviso"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_gravity="end"-->
-<!--            android:layout_weight="7"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:scaleType="centerInside"-->
-<!--            android:src="@drawable/btn_enviar_aviso" />-->
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/avisos_btnEnviarAviso"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_gravity="end"-->
+        <!--            android:layout_weight="7"-->
+        <!--            android:adjustViewBounds="true"-->
+        <!--            android:background="@android:color/transparent"-->
+        <!--            android:scaleType="centerInside"-->
+        <!--            android:src="@drawable/btn_enviar_aviso" />-->
     </LinearLayout>
 
     <ImageView
@@ -94,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/avisos_pnlItemCabecalho"
-        android:background="@drawable/buscar_clube"
+        android:background="@drawable/background_aviso"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp" />
 </RelativeLayout>

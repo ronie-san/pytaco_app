@@ -3,14 +3,13 @@ package br.com.enterprise.pytaco.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-
-import com.android.volley.VolleyError;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -56,7 +55,6 @@ public class AvisosActivity extends BaseActivity {
 
         ImageButton btnVoltar = findViewById(R.id.avisos_btnVoltar);
         ImageButton btnCriarAviso = findViewById(R.id.avisos_btnCriarAviso);
-//        ImageButton btnEnviarAviso = findViewById(R.id.avisos_btnEnviarAviso);
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +68,17 @@ public class AvisosActivity extends BaseActivity {
                 btnCriarAvisoClick();
             }
         });
-//        btnEnviarAviso.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                btnEnviarAvisoClick();
-//            }
-//        });
 
         pListaAvisos();
+    }
+
+    private void pLerAviso(@NotNull Aviso aviso) {
+        if (aviso.getStatus().equals("E")) {
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
+            request.alterarAviso(aviso.getIdTabela());
+        } else {
+            dialogCriarAviso.cancelDialog();
+        }
     }
 
     private void lsvAvisosItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,20 +86,24 @@ public class AvisosActivity extends BaseActivity {
         dialogCriarAviso = createDialog(R.layout.dialog_criar_aviso);
 
         ImageButton btnVoltar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnVoltar);
-        final EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
-        final EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
+        EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
+        EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
         ImageButton btnSalvar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnSalvar);
         Button btnExcluir = dialogCriarAviso.findViewById(R.id.criar_aviso_btnExcluir);
 
         edtTituloAviso.setText(aviso.getTitulo());
+        edtTituloAviso.setEnabled(false);
+
         edtDescricaoAviso.setText(aviso.getDescricao());
+        edtDescricaoAviso.setEnabled(false);
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogCriarAviso.cancelDialog();
+                pLerAviso(aviso);
             }
         });
+        btnSalvar.setVisibility(View.INVISIBLE);
         btnExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,31 +112,36 @@ public class AvisosActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == DialogInterface.BUTTON_POSITIVE) {
                             PytacoRequestDAO request = new PytacoRequestDAO(AvisosActivity.this);
-                            request.excluirAviso(aviso.getId());
+                            request.excluirAviso(aviso.getIdTabela());
                         }
                     }
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AvisosActivity.this);
-                builder.setMessage("Deseja realmente excluir este aviso?").setPositiveButton("Sim", dialogClickListener)
-                        .setNegativeButton("Não", dialogClickListener).show();
+                builder.setTitle("Confirmação")
+                        .setMessage("Deseja realmente excluir este aviso?")
+                        .setPositiveButton("Sim", dialogClickListener)
+                        .setNegativeButton("Não", dialogClickListener)
+                        .show();
             }
         });
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
+
+        dialogCriarAviso.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
-            public void onClick(View v) {
-                if (!edtTituloAviso.getText().toString().isEmpty() && !edtDescricaoAviso.getText().toString().isEmpty()) {
-                    PytacoRequestDAO request = new PytacoRequestDAO(AvisosActivity.this);
-                    request.alterarAviso(aviso.getId(), edtTituloAviso.getText().toString(), edtDescricaoAviso.getText().toString());
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                if (i == KeyEvent.KEYCODE_BACK &&
+                        keyEvent.getAction() == KeyEvent.ACTION_UP &&
+                        !keyEvent.isCanceled()) {
+                    pLerAviso(aviso);
+                    return true;
                 }
+
+                return false;
             }
         });
 
+        pAddButtonEffect(btnExcluir);
         dialogCriarAviso.showDialog();
-    }
-
-    private void btnEnviarAvisoClick() {
-
     }
 
     private void btnCriarAvisoClick() {
@@ -143,7 +153,7 @@ public class AvisosActivity extends BaseActivity {
         final EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
         final EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
 
-        btnExcluir.setEnabled(false);
+        btnExcluir.setVisibility(View.INVISIBLE);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,19 +175,15 @@ public class AvisosActivity extends BaseActivity {
     }
 
     private void pTrataRespostaAlterarAviso() {
-        if (dialogCriarAviso.dialogShowing()) {
+        if (dialogCriarAviso != null && dialogCriarAviso.dialogShowing()) {
             dialogCriarAviso.cancelDialog();
         }
-
-        makeLongToast("Aviso alterado com sucesso");
     }
 
     private void pTrataRespostaCriarAviso() {
-        if (dialogCriarAviso.dialogShowing()) {
+        if (dialogCriarAviso != null && dialogCriarAviso.dialogShowing()) {
             dialogCriarAviso.cancelDialog();
         }
-
-        makeLongToast("Aviso criado com sucesso");
     }
 
     private void pTrataRespostaListaAvisos(String response) {
@@ -199,12 +205,12 @@ public class AvisosActivity extends BaseActivity {
 
             avisoItemAdapter.notifyDataSetChanged();
         } catch (JSONException e) {
-
+            makeLongToast("Erro ao retornar lista de avisos");
         }
     }
 
     private void pTrataRespostaExcluirAviso() {
-        if (dialogCriarAviso.dialogShowing()) {
+        if (dialogCriarAviso != null && dialogCriarAviso.dialogShowing()) {
             dialogCriarAviso.cancelDialog();
         }
     }
