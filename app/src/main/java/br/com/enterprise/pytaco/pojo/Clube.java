@@ -6,6 +6,7 @@ public class Clube extends EntidadeBase {
     private String descricao;
     private Double qtdPytaco;
     private Double qtdFicha;
+    private String codClube;
     private Usuario usuario;
 
     public String getNome() {
@@ -46,5 +47,13 @@ public class Clube extends EntidadeBase {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getCodClube() {
+        return codClube;
+    }
+
+    public void setCodClube(String codClube) {
+        this.codClube = codClube;
     }
 }

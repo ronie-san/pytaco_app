@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.android.volley.VolleyError;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;

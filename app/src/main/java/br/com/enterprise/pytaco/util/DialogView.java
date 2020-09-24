@@ -1,6 +1,5 @@
 package br.com.enterprise.pytaco.util;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,13 +8,15 @@ import android.view.View;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 
-import br.com.enterprise.pytaco.R;
+import org.jetbrains.annotations.NotNull;
+
+import br.com.enterprise.pytaco.activity.BaseActivity;
 
 public class DialogView {
     private View view;
     private AlertDialog dialog;
 
-    public DialogView(Activity activity, @LayoutRes int resource){
+    public DialogView(final BaseActivity activity, @LayoutRes int resource) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(resource, null);
@@ -24,22 +25,42 @@ public class DialogView {
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setView(view, 0, 0, 0, 0);
+
+        view.setClickable(true);
+        view.setFocusable(true);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rootViewClick(activity);
+            }
+        });
+
     }
 
-    public <T extends View> T findViewById(@IdRes int id){
-        return this.view.findViewById(id);
+    private void rootViewClick(@NotNull BaseActivity activity) {
+        if (activity.isKeyboardShowing()) {
+            if (dialog.getWindow() != null) {
+                AcitivityUtil.hideKeyboard(activity, dialog.getWindow().getCurrentFocus());
+            }
+        } else if (dialog.getWindow() != null && dialog.getWindow().getCurrentFocus() != null) {
+            dialog.getWindow().getCurrentFocus().clearFocus();
+        }
     }
 
-    public void cancelDialog(){
-        this.dialog.cancel();
+    public <T extends View> T findViewById(@IdRes int id) {
+        return view.findViewById(id);
     }
 
-    public void showDialog(){
-        this.dialog.show();
+    public void cancelDialog() {
+        dialog.cancel();
     }
 
-    public boolean dialogShowing(){
-        return this.dialog.isShowing();
+    public void showDialog() {
+        dialog.show();
+    }
+
+    public boolean dialogShowing() {
+        return dialog.isShowing();
     }
 
     public View getView() {

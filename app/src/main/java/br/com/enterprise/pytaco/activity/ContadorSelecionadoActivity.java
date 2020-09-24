@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import br.com.enterprise.pytaco.util.StringUtil;
 public class ContadorSelecionadoActivity extends BaseActivity {
 
     private EditText edtQtdFicha;
+    private TextView lblQtdFicha;
     private ContadorSelecionadoItemAdapter contadorSelecionadoItemAdapter;
 
     @Override
@@ -40,8 +42,8 @@ public class ContadorSelecionadoActivity extends BaseActivity {
         }
 
         edtQtdFicha = findViewById(R.id.contador_selecionado_edtQtdFicha);
+        lblQtdFicha = findViewById(R.id.contador_selecionado_lblQtdFicha);
         ImageButton btnVoltar = findViewById(R.id.contador_selecionado_btnVoltar);
-        TextView lblQtdFicha = findViewById(R.id.contador_selecionado_lblQtdFicha);
         ImageButton btnEnviarFicha = findViewById(R.id.contador_selecionado_btnEnviarFicha);
         ImageButton btnRetirarFicha = findViewById(R.id.contador_selecionado_btnRetirarFicha);
         ListView lsvContadores = findViewById(R.id.contador_selecionado_lsvContadores);
@@ -54,10 +56,6 @@ public class ContadorSelecionadoActivity extends BaseActivity {
                 btnVoltarClick();
             }
         });
-//        double total = 0;
-//        for (Membro item : lstMembro) {
-//            total += item.getQtdFicha();
-//        }
         lblQtdFicha.setText(StringUtil.numberToStr(lstMembro.get(0).getClube().getQtdFicha()));
 
         btnEnviarFicha.setOnClickListener(new View.OnClickListener() {
@@ -88,51 +86,51 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     }
 
     private boolean pValidaEnviarFicha() {
-        return false;
-        //NÃO PODE SER MAIOR QUE A QTD DE FICHA DO USUÁRIO NO CLUBE
-        //A QUANTIDADE É POR USUÁRIO (SE ESCREVER 10 E TIVER 5 MEMBROS, O TOTAL SERÁ DE 50)
-
-//        if (!edtQtdFicha.getText().toString().trim().isEmpty()) {
-//            Double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
-//            return false;
-//        }
-//
-//        return false;
+        double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
+        double qtdUsuario = Double.parseDouble(lblQtdFicha.getText().toString());
+        return qtd <= qtdUsuario * contadorSelecionadoItemAdapter.getCount();
     }
 
     private boolean pValidaRetirarFicha() {
-        //SE QUALQUER USUÁRIO TIVER NO CLUBE SALDO MENOR QUE A QTD ESCRITA, NÃO PODE DEIXAR
-        //SALDOADMIN É O SALDO DO USUÁRIO NO CLUBE
-        return false;
+        Double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
+        boolean result = true;
+        int i = 0;
+
+        while (result && i < contadorSelecionadoItemAdapter.getCount()) {
+            result = contadorSelecionadoItemAdapter.getLst().get(i).getClube().getQtdFicha() >= qtd;
+            i++;
+        }
+
+        return result;
     }
 
     private void btnEnviarFichaClick() {
-        if (pValidaRetirarFicha()) {
-
-            //SALDOADMIN É O SALDO DO USUÁRIO NO CLUBE
-
-//            PytacoRequestDAO request = new PytacoRequestDAO(this);
-//            request.enviarFichas(lstMembro.get(0).getClube().getUsuario().getId(),
-//                    lstMembro.get(0).getClube().getUsuario().getChaveAcesso(),
-//                    lstMembro.get(0).getClube().getId(),
-//                    Double.parseDouble(edtQtdFicha.getText().toString().trim()),
-//                    pGetLstMembros(),
-//                    lstMembro.size(),
-//                    100.0);
+        if (pValidaEnviarFicha()) {
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
+            request.enviarFichas(contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getId(),
+                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getChaveAcesso(),
+                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getId(),
+                    Double.parseDouble(edtQtdFicha.getText().toString().trim()),
+                    pGetLstMembros(),
+                    contadorSelecionadoItemAdapter.getLst().size(),
+                    Double.parseDouble(lblQtdFicha.getText().toString()));
+        } else {
+            makeLongToast("Quantidade de fichas insuficiente");
         }
     }
 
     private void btnRetirarFichaClick() {
         if (pValidaRetirarFicha()) {
-//SALDOADMIN É O SALDO DO USUÁRIO NO CLUBE
-//            PytacoRequestDAO request = new PytacoRequestDAO(this);
-//            request.retirarFichas(lstMembro.get(0).getClube().getUsuario().getId(),
-//                    lstMembro.get(0).getClube().getUsuario().getChaveAcesso(),
-//                    lstMembro.get(0).getClube().getId(),
-//                    Double.parseDouble(edtQtdFicha.getText().toString().trim()),
-//                    pGetLstMembros(),
-//                    lstMembro.size(),
-//                    100.0);
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
+            request.retirarFichas(contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getId(),
+                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getChaveAcesso(),
+                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getId(),
+                    Double.parseDouble(edtQtdFicha.getText().toString().trim()),
+                    pGetLstMembros(),
+                    contadorSelecionadoItemAdapter.getLst().size(),
+                    Double.parseDouble(lblQtdFicha.getText().toString()));
+        } else {
+            makeLongToast("Quantidade de fichas insuficiente");
         }
     }
 

@@ -2,7 +2,6 @@ package br.com.enterprise.pytaco.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -10,8 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-
-import com.android.volley.VolleyError;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -196,7 +193,7 @@ public class MainActivity extends BaseActivity implements IActivity {
     }
 
     private void pTrataRespostaAlterarSenha(@NotNull String response) {
-        if (dialogAlterarSenha!= null && dialogAlterarSenha.dialogShowing()) {
+        if (dialogAlterarSenha != null && dialogAlterarSenha.dialogShowing()) {
             dialogAlterarSenha.cancelDialog();
         }
 
@@ -209,7 +206,7 @@ public class MainActivity extends BaseActivity implements IActivity {
     }
 
     private void pTrataRespostaCriarClube(@NotNull String response) {
-        if (dialogNovoClube!= null && dialogNovoClube.dialogShowing()) {
+        if (dialogNovoClube != null && dialogNovoClube.dialogShowing()) {
             dialogNovoClube.cancelDialog();
         }
 
@@ -240,6 +237,7 @@ public class MainActivity extends BaseActivity implements IActivity {
                         clube.setNome(resp.getJSONObject(i).getString("nomeclube"));
                         clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
                         clube.setQtdFicha(Double.parseDouble(resp.getJSONObject(i).getString("qtdfichas")));
+                        clube.setCodClube(resp.getJSONObject(i).getString("codigousuario"));
                         clube.setUsuario(usuario);
                         clubeItemAdapter.getLst().add(clube);
                     }
@@ -253,7 +251,7 @@ public class MainActivity extends BaseActivity implements IActivity {
     }
 
     private void pTrataRespostaAssociarClube(String response) {
-        if (dialogNovoClube!= null && dialogAssociarClube.dialogShowing()) {
+        if (dialogNovoClube != null && dialogAssociarClube.dialogShowing()) {
             dialogAssociarClube.cancelDialog();
         }
 

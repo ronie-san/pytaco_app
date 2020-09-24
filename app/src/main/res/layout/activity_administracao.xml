@@ -5,7 +5,7 @@
     android:background="@drawable/background_admin">
 
     <LinearLayout
-        android:id="@+id/administracao_imgCabecalho"
+        android:id="@+id/administracao_pnlCabecalho"
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_alignParentTop="true"
@@ -40,11 +40,84 @@
             android:layout_weight="30" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/administracao_lsvContadores"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/administracao_imgCabecalho"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="3dp" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/administracao_pnlCabecalho"
+        android:divider="@drawable/linear_layout_divider_height"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:showDividers="beginning|middle|end">
+
+        <TextView
+            android:id="@+id/administracao_lblCodClube"
+            style="@style/label_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Código do clube"
+            android:textColor="@color/ficha"
+            android:textIsSelectable="true"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/administracao_lblTrocarPytacos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="Trocar Pytacos"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/administracao_lblNotificacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="Notificações"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/administracao_lblRelatorios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="Relatórios"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/administracao_lblDesfazerClube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="Desfazer Clube"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/administracao_lblSairClube"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="Sair do Clube"
+            android:textSize="30sp" />
+    </LinearLayout>
 </RelativeLayout>

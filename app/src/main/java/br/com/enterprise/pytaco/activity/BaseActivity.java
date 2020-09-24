@@ -3,14 +3,16 @@ package br.com.enterprise.pytaco.activity;
 import android.app.Activity;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,21 +22,16 @@ import com.android.volley.VolleyError;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
-
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
+import br.com.enterprise.pytaco.util.AcitivityUtil;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public abstract class BaseActivity extends Activity implements IActivity {
 
+    private boolean keyboardShowing;
     protected DialogView dialogLoading;
     protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
-
-//    protected Serializable pGetExtras(){
-//
-//    }
 
     protected DialogView createDialog(@LayoutRes int resource) {
         return new DialogView(this, resource);
@@ -50,17 +47,6 @@ public abstract class BaseActivity extends Activity implements IActivity {
 
     protected void btnVoltarClick() {
         this.onBackPressed();
-    }
-
-    protected void pHideKeyborad() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View view = getCurrentFocus();
-
-        if (view == null) {
-            view = new View(this);
-        }
-
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     protected Point pGetSize() {
@@ -100,17 +86,6 @@ public abstract class BaseActivity extends Activity implements IActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    protected void pHideKeboard() {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = this.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(this);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
     protected void pAddButtonEffect(@NotNull View button) {
         button.setOnTouchListener(new View.OnTouchListener() {
 
@@ -132,8 +107,46 @@ public abstract class BaseActivity extends Activity implements IActivity {
         });
     }
 
+    public boolean isKeyboardShowing() {
+        return keyboardShowing;
+    }
+
     private void makeToast(String msg, int periodo) {
         Toast.makeText(this, msg, periodo).show();
+    }
+
+    private void layoutClick() {
+        if (keyboardShowing) {
+            AcitivityUtil.hideKeyboard(this);
+        } else if (getCurrentFocus() != null) {
+            getCurrentFocus().clearFocus();
+        }
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        final ViewGroup layout = AcitivityUtil.getRootView(this);
+        layout.setClickable(true);
+        layout.setFocusable(true);
+
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutClick();
+            }
+        });
+
+        layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                layout.getWindowVisibleDisplayFrame(rect);
+                int screenHeight = layout.getRootView().getHeight();
+                int keypadHeight = screenHeight - rect.bottom;
+                keyboardShowing = keypadHeight > screenHeight * 0.15;
+            }
+        });
     }
 
     @Override
