@@ -65,8 +65,7 @@ public class DesfazerClubeActivity extends BaseActivity {
             //este flag faz voltar à Activity que já existe, limpando todas que existem acima dela
             intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException ignored) {
         }
     }
 }

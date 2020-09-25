@@ -4,15 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
-
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class AdministracaoActivity extends BaseActivity {
@@ -87,6 +81,8 @@ public class AdministracaoActivity extends BaseActivity {
     }
 
     private void lblSairClubeClick() {
+        Intent intent = new Intent(this, SairClubeActivity.class);
+        startActivity(intent);
     }
 
     private void lblDesfazerClubeClick() {

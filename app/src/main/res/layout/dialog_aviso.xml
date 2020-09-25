@@ -12,7 +12,7 @@
         android:layout_alignEnd="@+id/aviso_pnlCorpo"
         android:layout_alignBottom="@+id/aviso_pnlCorpo"
         android:scaleType="centerCrop"
-        android:src="@drawable/backgroud_clube" />
+        android:src="@drawable/background_clube" />
 
     <LinearLayout
         android:id="@+id/aviso_pnlCorpo"

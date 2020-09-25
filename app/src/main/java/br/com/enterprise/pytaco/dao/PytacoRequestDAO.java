@@ -221,4 +221,13 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         activity.setPytacoRequest(PytacoRequestEnum.DESFAZER_CLUBE);
         pGetRequest("DesfazerClube.php", map);
     }
+
+    public void sairClube(int idUsuario, String chaveAcesso, int idClube) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id_usuario", StringUtil.numberToStr(idUsuario));
+        map.put("chaveAcesso", chaveAcesso);
+        map.put("clubeSelecionado", StringUtil.numberToStr(idClube));
+        activity.setPytacoRequest(PytacoRequestEnum.SAIR_CLUBE);
+        pGetRequest("SairDoClube.php", map);
+    }
 }

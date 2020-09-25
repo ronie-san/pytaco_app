@@ -12,7 +12,7 @@
         android:layout_alignBottom="@+id/loading_pnlCorpo"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/backgroud_clube" />
+        android:src="@drawable/background_clube" />
 
     <LinearLayout
         android:id="@+id/loading_pnlCorpo"

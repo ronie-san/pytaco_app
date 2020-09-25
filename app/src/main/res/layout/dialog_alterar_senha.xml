@@ -13,7 +13,7 @@
         android:layout_alignEnd="@+id/alterar_senha_pnlCorpo"
         android:layout_alignBottom="@+id/alterar_senha_pnlCorpo"
         android:scaleType="centerCrop"
-        android:src="@drawable/backgroud_clube" />
+        android:src="@drawable/background_clube" />
 
     <LinearLayout
         android:id="@+id/alterar_senha_pnlCorpo"

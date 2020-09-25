@@ -143,7 +143,6 @@ public class AvisosActivity extends BaseActivity {
             }
         });
 
-        pAddButtonEffect(btnExcluir);
         dialogCriarAviso.showDialog();
     }
 

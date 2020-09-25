@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
@@ -48,7 +49,13 @@ public class DialogView {
     }
 
     public <T extends View> T findViewById(@IdRes int id) {
-        return view.findViewById(id);
+        T v = view.findViewById(id);
+
+        if (v instanceof Button) {
+            AcitivityUtil.addButtonClickEffect(v);
+        }
+
+        return v;
     }
 
     public void cancelDialog() {

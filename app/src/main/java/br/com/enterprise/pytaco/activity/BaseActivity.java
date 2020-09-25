@@ -116,27 +116,6 @@ public abstract class BaseActivity extends Activity implements IActivity {
         AcitivityUtil.hideKeyboard(this, getCurrentFocus());
     }
 
-    protected void pAddButtonEffect(@NotNull View button) {
-        button.setOnTouchListener(new View.OnTouchListener() {
-
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        v.getBackground().setColorFilter(0xe0f47521, PorterDuff.Mode.SRC_ATOP);
-                        v.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP: {
-                        v.getBackground().clearColorFilter();
-                        v.invalidate();
-                        break;
-                    }
-                }
-                return false;
-            }
-        });
-    }
-
     private void pMakeToast(String msg, int periodo) {
         Toast.makeText(this, msg, periodo).show();
     }
@@ -154,7 +133,7 @@ public abstract class BaseActivity extends Activity implements IActivity {
         T v = super.findViewById(id);
 
         if (v instanceof Button) {
-            pAddButtonEffect((Button) v);
+            AcitivityUtil.addButtonClickEffect(v);
         }
 
         return v;
