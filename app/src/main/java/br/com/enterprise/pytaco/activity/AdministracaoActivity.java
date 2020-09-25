@@ -1,5 +1,6 @@
 package br.com.enterprise.pytaco.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,20 +17,12 @@ import br.com.enterprise.pytaco.util.StringUtil;
 
 public class AdministracaoActivity extends BaseActivity {
 
-    private Clube clube;
     private TextView lblCodClube;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administracao);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            clube = (Clube) bundle.getSerializable(getString(R.string.clube));
-        } else {
-            clube = (Clube) savedInstanceState.getSerializable(getString(R.string.clube));
-        }
 
         ImageButton btnVoltar = findViewById(R.id.administracao_btnVoltar);
         lblCodClube = findViewById(R.id.administracao_lblCodClube);
@@ -45,8 +38,6 @@ public class AdministracaoActivity extends BaseActivity {
                 btnVoltarClick();
             }
         });
-
-        lblCodClube.setText(clube.getCodClube());
 
         lblTrocarPytacos.setText(StringUtil.textoSublinhado(lblTrocarPytacos.getText().toString()));
         lblTrocarPytacos.setOnClickListener(new View.OnClickListener() {
@@ -89,18 +80,30 @@ public class AdministracaoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lblCodClube.setText(clube.getCodClube());
+    }
+
     private void lblSairClubeClick() {
     }
 
     private void lblDesfazerClubeClick() {
+        Intent intent = new Intent(this, DesfazerClubeActivity.class);
+        startActivity(intent);
     }
 
     private void lblRelatoriosClick() {
     }
 
     private void lblNotificacoesClick() {
+        Intent intent = new Intent(this, AvisosActivity.class);
+        startActivity(intent);
     }
 
     private void lblTrocarPytacosClick() {
+        Intent intent = new Intent(this, TrocarPytacosActivity.class);
+        startActivity(intent);
     }
 }

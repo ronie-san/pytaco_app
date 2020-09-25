@@ -94,11 +94,13 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
             android:text="Relatórios"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:visibility="gone" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="15dp" />
+            android:layout_height="15dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/administracao_lblDesfazerClube"

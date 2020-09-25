@@ -13,20 +13,13 @@ import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class BolaoActivity extends BaseActivity {
+
     private TextView lblQtdFicha;
-    private Clube clube;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bolao);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            clube = (Clube) bundle.getSerializable(getString(R.string.clube));
-        } else {
-            clube = (Clube) savedInstanceState.getSerializable(getString(R.string.clube));
-        }
 
         lblQtdFicha = findViewById(R.id.bolao_lblQtdFicha);
         ImageButton btnVoltar = findViewById(R.id.bolao_btnVoltar);
@@ -36,8 +29,6 @@ public class BolaoActivity extends BaseActivity {
         ImageButton lblMembros = findViewById(R.id.bolao_lblMembros);
         ImageButton lblContador = findViewById(R.id.bolao_lblContador);
         ImageButton lblAdministrador = findViewById(R.id.bolao_lblAdministrador);
-
-        lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +74,12 @@ public class BolaoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
+    }
+
     private void btnCriarBolaoClick() {
 
     }
@@ -93,25 +90,21 @@ public class BolaoActivity extends BaseActivity {
 
     private void lblAvisosClick() {
         Intent intent = new Intent(this, AvisosActivity.class);
-        intent.putExtra(getString(R.string.clube), clube);
         startActivity(intent);
     }
 
     private void lblMembrosClick() {
         Intent intent = new Intent(this, MembrosActivity.class);
-        intent.putExtra(getString(R.string.clube), clube);
         startActivity(intent);
     }
 
     private void lblContadorClick() {
         Intent intent = new Intent(this, ContadorActivity.class);
-        intent.putExtra(getString(R.string.clube), clube);
         startActivity(intent);
     }
 
     private void lblAdministradorClick() {
         Intent intent = new Intent(this, AdministracaoActivity.class);
-        intent.putExtra(getString(R.string.clube), clube);
         startActivity(intent);
     }
 }

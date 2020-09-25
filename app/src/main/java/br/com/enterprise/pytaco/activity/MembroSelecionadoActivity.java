@@ -14,7 +14,6 @@ import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class MembroSelecionadoActivity extends BaseActivity {
 
-    private Membro membro;
     private TextView lblAgente;
     private TextView lblTipo;
     private TextView lblStatus;
@@ -23,13 +22,6 @@ public class MembroSelecionadoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membro_selecionado);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            membro = (Membro) bundle.getSerializable(getString(R.string.membro));
-        } else {
-            membro = (Membro) savedInstanceState.getSerializable(getString(R.string.membro));
-        }
 
         ImageButton btnVoltar = findViewById(R.id.membro_selecionado_btnVoltar);
         TextView lblCodMembro = findViewById(R.id.membro_selecionado_lblCodMembro);
@@ -70,7 +62,7 @@ public class MembroSelecionadoActivity extends BaseActivity {
             }
         });
         PytacoRequestDAO request = new PytacoRequestDAO(this);
-        request.buscaAgente(membro.getId(), membro.getClube().getId(), membro.getCodClube());
+        request.buscaAgente(membro.getId(), clube.getId(), membro.getCodClube());
     }
 
     private void pAtualizaStatusTipo() {
@@ -92,7 +84,7 @@ public class MembroSelecionadoActivity extends BaseActivity {
 
     private void pAcaoMembro(PytacoRequestEnum acao) {
         PytacoRequestDAO request = new PytacoRequestDAO(this);
-        request.acaoMembro(membro.getId(), membro.getClube().getId(), membro.getClube().getUsuario().getId(), membro.getClube().getUsuario().getChaveAcesso(), acao);
+        request.acaoMembro(membro.getId(), clube.getId(), usuario.getId(), usuario.getChaveAcesso(), acao);
     }
 
     private void pTrataRespostaBuscaAgente(String response) {
@@ -106,7 +98,7 @@ public class MembroSelecionadoActivity extends BaseActivity {
 
     private void pTrataRespostaAcaoMembro(String response) {
         if (response != null && !response.isEmpty()) {
-            membro.getClube().getUsuario().setChaveAcesso(response);
+            usuario.setChaveAcesso(response);
 
             switch (pytacoRequestEnum) {
                 case ACEITAR_MEMBROS:

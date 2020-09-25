@@ -1,4 +1,4 @@
-package br.com.enterprise.pytaco.activity.adapter;
+package br.com.enterprise.pytaco.adapter;
 
 import android.app.Activity;
 import android.view.View;

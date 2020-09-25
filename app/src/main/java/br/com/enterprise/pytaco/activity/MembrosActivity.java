@@ -15,15 +15,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.adapter.MembroItemAdapter;
+import br.com.enterprise.pytaco.adapter.MembroItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
-import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class MembrosActivity extends BaseActivity {
 
-    private Clube clube;
     private TextView lblMembros;
     private MembroItemAdapter membroItemAdapter;
 
@@ -31,13 +29,6 @@ public class MembrosActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membros);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            clube = (Clube) bundle.getSerializable(getString(R.string.clube));
-        } else {
-            clube = (Clube) savedInstanceState.getSerializable(getString(R.string.clube));
-        }
 
         ListView lsvMembros = findViewById(R.id.membros_lsvMembros);
         membroItemAdapter = new MembroItemAdapter(new ArrayList<Membro>(), this);
@@ -58,21 +49,33 @@ public class MembrosActivity extends BaseActivity {
                 btnVoltarClick();
             }
         });
+    }
 
-        PytacoRequestDAO request = new PytacoRequestDAO(this);
-        request.listaMembros(clube.getId());
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (!pExisteDialogAberto()) {
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
+            request.listaMembros(clube.getId());
+        }
+    }
+
+    private boolean pExisteDialogAberto() {
+        return dialogLoading != null && dialogLoading.getDialog().isShowing();
     }
 
     private void lsvMembrosItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(this, MembroSelecionadoActivity.class);
-        intent.putExtra(getString(R.string.membro), membroItemAdapter.getLst().get(i));
+        membro = membroItemAdapter.getLst().get(i);
         startActivity(intent);
     }
 
     private void pTrataRespostaListaMembros(String response) {
         try {
-            JSONArray resp = new JSONObject(response).getJSONArray("entry");
+            membro = null;
             membroItemAdapter.getLst().clear();
+            JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             for (int i = 0; i < resp.length(); i++) {
                 Membro membro = new Membro();
@@ -83,11 +86,8 @@ public class MembrosActivity extends BaseActivity {
                 membro.setTipo(membroJson.getString("tipomembro"));
                 membro.setQtdFicha(Double.parseDouble(membroJson.getString("qtdfichasclube")));
                 membro.setCodClube(membroJson.getString("codigoclube"));
-                membro.setClube(clube);
                 membroItemAdapter.getLst().add(membro);
             }
-
-            membroItemAdapter.notifyDataSetChanged();
 
             if (membroItemAdapter.getLst().isEmpty()) {
                 lblMembros.setText("Nenhum membro");
@@ -98,6 +98,8 @@ public class MembrosActivity extends BaseActivity {
             }
         } catch (JSONException e) {
 
+        } finally {
+            membroItemAdapter.notifyDataSetChanged();
         }
     }
 

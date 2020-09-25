@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_troca_ficha">
+
+    <LinearLayout
+        android:id="@+id/trocar_pytacos_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <ImageButton
+            android:id="@+id/trocar_pytacos_btnVoltar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/botao_voltar" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:adjustViewBounds="true"
+            android:paddingVertical="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/escudo_pitaco" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30" />
+    </LinearLayout>
+
+    <!-- Fichas e Pytacos -->
+    <LinearLayout
+        android:id="@+id/trocar_pytacos_pnlFichaPytaco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trocar_pytacos_pnlCabecalho"
+        android:divider="@drawable/linear_layout_divider_width"
+        android:orientation="horizontal"
+        android:showDividers="beginning|end"
+        android:weightSum="100">
+
+        <!-- Pytacos -->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="50">
+
+            <ImageView
+                android:id="@+id/trocar_pytacos_imgFundoPytaco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/trocar_pytacos_imgPytaco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:adjustViewBounds="true"
+                android:paddingVertical="5dp"
+                android:paddingStart="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/bola_pytaco" />
+
+            <TextView
+                android:id="@+id/trocar_pytacos_lblQtdPytaco"
+                style="@style/label_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/trocar_pytacos_imgPytaco"
+                android:text="100"
+                android:textColor="@color/pytaco"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <!-- Fichas -->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="50">
+
+            <ImageView
+                android:id="@+id/trocar_pytacos_imgFundoFicha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/trocar_pytacos_imgFicha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:adjustViewBounds="true"
+                android:paddingVertical="7dp"
+                android:paddingStart="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ficha_pytaco" />
+
+            <TextView
+                android:id="@+id/trocar_pytacos_lblQtdFicha"
+                style="@style/label_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/trocar_pytacos_imgFicha"
+                android:text="100"
+                android:textColor="@color/ficha"
+                android:textSize="25sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/trocar_pytacos_pnlFichaPytaco"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Quantidade de Pytacos"
+            android:textColor="@color/pytaco"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/trocar_pytacos_edtQtdPytaco"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/edit"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/trocar_pytacos_lblQtdPytacoTrocar"
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="Qtd Pytaco"
+            android:textColor="@color/pytaco"
+            android:textSize="25sp" />
+
+        <ImageButton
+            android:id="@+id/trocar_pytacos_btnTrocar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_conversao" />
+
+        <TextView
+            android:id="@+id/trocar_pytacos_lblTituloFichaReceber"
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="Fichas a receber"
+            android:textColor="@color/ficha"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/trocar_pytacos_lblQtdFichaReceber"
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="Qtd Fichas"
+            android:textColor="@color/ficha"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:divider="@drawable/linear_layout_divider_height"
+            android:orientation="vertical"
+            android:showDividers="beginning|middle|end"
+            android:weightSum="100">
+
+            <ImageButton
+                android:id="@+id/trocar_pytacos_btnConfirmar"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="fitXY"
+                android:src="@drawable/btn_confirmar" />
+
+            <Button
+                android:id="@+id/trocar_pytacos_btnRepetir"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_padrao_vermelho"
+                android:text="Repetir"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

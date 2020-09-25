@@ -18,16 +18,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.adapter.ClubeItemAdapter;
+import br.com.enterprise.pytaco.adapter.ClubeItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
-import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class MainActivity extends BaseActivity implements IActivity {
 
-    private Usuario usuario;
+    private TextView lblQtdPytacoGlobal;
+    private TextView lblQtdFichaGlobal;
     private DialogView dialogNovoClube;
     private DialogView dialogAlterarSenha;
     private DialogView dialogAssociarClube;
@@ -38,8 +38,8 @@ public class MainActivity extends BaseActivity implements IActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView lblQtdPytacoGlobal = findViewById(R.id.main_lblQtdPytacoGlobal);
-        TextView lblQtdFichaGlobal = findViewById(R.id.main_lblQtdFichaGlobal);
+        lblQtdPytacoGlobal = findViewById(R.id.main_lblQtdPytacoGlobal);
+        lblQtdFichaGlobal = findViewById(R.id.main_lblQtdFichaGlobal);
         ListView lsvClubes = findViewById(R.id.main_lsvClubes);
         lsvClubes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,16 +50,6 @@ public class MainActivity extends BaseActivity implements IActivity {
 
         clubeItemAdapter = new ClubeItemAdapter(new ArrayList<Clube>(), this);
         lsvClubes.setAdapter(clubeItemAdapter);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            usuario = (Usuario) bundle.getSerializable(getString(R.string.usuario));
-        } else {
-            usuario = (Usuario) savedInstanceState.getSerializable(getString(R.string.usuario));
-        }
-
-        lblQtdPytacoGlobal.setText(StringUtil.numberToStr(usuario.getQtdPytaco()));
-        lblQtdFichaGlobal.setText(StringUtil.numberToStr(usuario.getQtdFicha()));
 
         ImageButton btnNovoClube = findViewById(R.id.main_btnNovoClube);
         btnNovoClube.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +82,24 @@ public class MainActivity extends BaseActivity implements IActivity {
                 btnBolaoClick();
             }
         });
+    }
 
-        pListaClubes();
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (!pExisteDialogAberto()) {
+            lblQtdPytacoGlobal.setText(StringUtil.numberToStr(usuario.getQtdPytaco()));
+            lblQtdFichaGlobal.setText(StringUtil.numberToStr(usuario.getQtdFicha()));
+            pListaClubes();
+        }
+    }
+
+    private boolean pExisteDialogAberto() {
+        return (dialogLoading != null && dialogLoading.getDialog().isShowing()) ||
+                (dialogAssociarClube != null && dialogAssociarClube.getDialog().isShowing()) ||
+                (dialogAlterarSenha != null && dialogAlterarSenha.getDialog().isShowing()) ||
+                (dialogNovoClube != null && dialogNovoClube.getDialog().isShowing());
     }
 
     private void btnBolaoClick() {
@@ -102,9 +108,7 @@ public class MainActivity extends BaseActivity implements IActivity {
 
     private void lsvClubesItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(this, BolaoActivity.class);
-        Clube clube = clubeItemAdapter.getLst().get(i);
-        clube.setUsuario(this.usuario);
-        intent.putExtra(getString(R.string.clube), clube);
+        clube = clubeItemAdapter.getLst().get(i);
         startActivity(intent);
     }
 
@@ -225,11 +229,11 @@ public class MainActivity extends BaseActivity implements IActivity {
 
     private void pTrataRespostaListaClubes(@NotNull String response) {
         try {
+            clube = null;
+            clubeItemAdapter.getLst().clear();
             JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             if (!resp.getJSONObject(0).getString("id_clube").isEmpty()) {
-                clubeItemAdapter.getLst().clear();
-
                 for (int i = 0; i < resp.length(); i++) {
                     if (!resp.getJSONObject(i).getString("id_clube").isEmpty()) {
                         Clube clube = new Clube();
@@ -238,15 +242,14 @@ public class MainActivity extends BaseActivity implements IActivity {
                         clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
                         clube.setQtdFicha(Double.parseDouble(resp.getJSONObject(i).getString("qtdfichas")));
                         clube.setCodClube(resp.getJSONObject(i).getString("codigousuario"));
-                        clube.setUsuario(usuario);
                         clubeItemAdapter.getLst().add(clube);
                     }
                 }
-
-                clubeItemAdapter.notifyDataSetChanged();
             }
         } catch (JSONException e) {
-            makeLongToast("Não foi possível retornar a lista de clubes. " + e.getMessage());
+
+        } finally {
+            clubeItemAdapter.notifyDataSetChanged();
         }
     }
 

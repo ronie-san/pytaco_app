@@ -7,7 +7,6 @@ public class Clube extends EntidadeBase {
     private Double qtdPytaco;
     private Double qtdFicha;
     private String codClube;
-    private Usuario usuario;
 
     public String getNome() {
         return nome;
@@ -39,14 +38,6 @@ public class Clube extends EntidadeBase {
 
     public void setQtdFicha(Double qtdFicha) {
         this.qtdFicha = qtdFicha;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public String getCodClube() {

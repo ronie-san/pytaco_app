@@ -78,6 +78,7 @@ public class LoginActivity extends BaseActivity {
                 lblEsqueciSenhaClick();
             }
         });
+        usuario = null;
     }
 
     @Override
@@ -136,7 +137,7 @@ public class LoginActivity extends BaseActivity {
                     preferences.edit().clear().apply();
                 }
 
-                Usuario usuario = new Usuario();
+                usuario = new Usuario();
                 usuario.setId(Integer.parseInt(resp.getString("id_usuario")));
                 usuario.setChaveAcesso(resp.getString("chaveacesso"));
                 usuario.setNome(edtUsuario.getText().toString().trim());
@@ -145,7 +146,6 @@ public class LoginActivity extends BaseActivity {
                 usuario.setCodUsuario(resp.getString("codusuarioglobal"));
 
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra(getString(R.string.usuario), usuario);
                 startActivity(intent);
             } else {
                 pCancelDialog();

@@ -19,15 +19,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.adapter.AvisoItemAdapter;
+import br.com.enterprise.pytaco.adapter.AvisoItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Aviso;
-import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.DialogView;
 
 public class AvisosActivity extends BaseActivity {
 
-    private Clube clube;
     private AvisoItemAdapter avisoItemAdapter;
     private DialogView dialogCriarAviso;
 
@@ -35,13 +33,6 @@ public class AvisosActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avisos);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            clube = (Clube) bundle.getSerializable(getString(R.string.clube));
-        } else {
-            clube = (Clube) savedInstanceState.getSerializable(getString(R.string.clube));
-        }
 
         ListView lsvAvisos = findViewById(R.id.avisos_lsvAvisos);
         avisoItemAdapter = new AvisoItemAdapter(new ArrayList<Aviso>(), this);
@@ -68,8 +59,20 @@ public class AvisosActivity extends BaseActivity {
                 btnCriarAvisoClick();
             }
         });
+    }
 
-        pListaAvisos();
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (!pExisteDialogAberto()) {
+            pListaAvisos();
+        }
+    }
+
+    private boolean pExisteDialogAberto() {
+        return (dialogLoading != null && dialogLoading.getDialog().isShowing()) ||
+                (dialogCriarAviso != null && dialogCriarAviso.getDialog().isShowing());
     }
 
     private void pLerAviso(@NotNull Aviso aviso) {
@@ -103,7 +106,7 @@ public class AvisosActivity extends BaseActivity {
                 pLerAviso(aviso);
             }
         });
-        btnSalvar.setVisibility(View.INVISIBLE);
+        btnSalvar.setVisibility(View.GONE);
         btnExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +156,7 @@ public class AvisosActivity extends BaseActivity {
         final EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
         final EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
 
-        btnExcluir.setVisibility(View.INVISIBLE);
+        btnExcluir.setVisibility(View.GONE);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,7 +169,7 @@ public class AvisosActivity extends BaseActivity {
             public void onClick(View v) {
                 if (!edtTituloAviso.getText().toString().isEmpty() && !edtDescricaoAviso.getText().toString().isEmpty()) {
                     PytacoRequestDAO request = new PytacoRequestDAO(AvisosActivity.this);
-                    request.criarAviso(clube.getUsuario().getId(), clube.getId(), edtTituloAviso.getText().toString(), edtDescricaoAviso.getText().toString());
+                    request.criarAviso(usuario.getId(), clube.getId(), edtTituloAviso.getText().toString(), edtDescricaoAviso.getText().toString());
                 }
             }
         });
@@ -188,8 +191,8 @@ public class AvisosActivity extends BaseActivity {
 
     private void pTrataRespostaListaAvisos(String response) {
         try {
-            JSONArray resp = new JSONObject(response).getJSONArray("entry");
             avisoItemAdapter.getLst().clear();
+            JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             for (int i = 0; i < resp.length(); i++) {
                 JSONObject item = resp.getJSONObject(i);
@@ -202,10 +205,10 @@ public class AvisosActivity extends BaseActivity {
                 aviso.setIdTabela(Integer.parseInt(item.getString("id_tabela")));
                 avisoItemAdapter.getLst().add(aviso);
             }
-
-            avisoItemAdapter.notifyDataSetChanged();
         } catch (JSONException e) {
-            makeLongToast("Erro ao retornar lista de avisos");
+
+        } finally {
+            avisoItemAdapter.notifyDataSetChanged();
         }
     }
 
@@ -217,7 +220,7 @@ public class AvisosActivity extends BaseActivity {
 
     private void pListaAvisos() {
         PytacoRequestDAO request = new PytacoRequestDAO(this);
-        request.listaAvisos(clube.getUsuario().getId(), clube.getId());
+        request.listaAvisos(usuario.getId(), clube.getId());
     }
 
     @Override

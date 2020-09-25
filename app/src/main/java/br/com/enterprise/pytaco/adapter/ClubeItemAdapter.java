@@ -1,9 +1,8 @@
-package br.com.enterprise.pytaco.activity.adapter;
+package br.com.enterprise.pytaco.adapter;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,14 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.adapter.ContadorItemAdapter;
-import br.com.enterprise.pytaco.activity.adapter.MembroItemAdapter;
+import br.com.enterprise.pytaco.adapter.ContadorItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.pojo.Membro;
@@ -28,7 +23,6 @@ import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class ContadorActivity extends BaseActivity {
 
-    private Clube clube;
     private TextView lblContadores;
     private ContadorItemAdapter contadorItemAdapter;
 
@@ -36,13 +30,6 @@ public class ContadorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contador);
-
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            clube = (Clube) bundle.getSerializable(getString(R.string.clube));
-        } else {
-            clube = (Clube) savedInstanceState.getSerializable(getString(R.string.clube));
-        }
 
         ListView lsvContadores = findViewById(R.id.contador_lsvContadores);
         lblContadores = findViewById(R.id.contador_lblContadores);
@@ -72,9 +59,20 @@ public class ContadorActivity extends BaseActivity {
                 btnVoltarClick();
             }
         });
+    }
 
-        PytacoRequestDAO request = new PytacoRequestDAO(this);
-        request.listaMembros(clube.getId());
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (!pExisteDialogAberto()) {
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
+            request.listaMembros(clube.getId());
+        }
+    }
+
+    private boolean pExisteDialogAberto() {
+        return dialogLoading != null && dialogLoading.getDialog().isShowing();
     }
 
     private void btnTrocarFichasClick() {
@@ -100,13 +98,14 @@ public class ContadorActivity extends BaseActivity {
 
     private void pTrataRespostaListaMembros(String response) {
         try {
-            JSONArray resp = new JSONObject(response).getJSONArray("entry");
+            membro = null;
             contadorItemAdapter.getLst().clear();
+            JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             for (int i = 0; i < resp.length(); i++) {
                 JSONObject membroJson = resp.getJSONObject(i);
 
-                if (!membroJson.getString("nomemembro").equals(clube.getUsuario().getNome())) {
+                if (!membroJson.getString("nomemembro").equals(usuario.getNome())) {
                     Membro membro = new Membro();
                     membro.setId(Integer.parseInt(membroJson.getString("id_membro")));
                     membro.setNome(membroJson.getString("nomemembro"));
@@ -114,12 +113,9 @@ public class ContadorActivity extends BaseActivity {
                     membro.setTipo(membroJson.getString("tipomembro"));
                     membro.setQtdFicha(Double.parseDouble(membroJson.getString("qtdfichasclube")));
                     membro.setCodClube(membroJson.getString("codigoclube"));
-                    membro.setClube(clube);
                     contadorItemAdapter.getLst().add(membro);
                 }
             }
-
-            contadorItemAdapter.notifyDataSetChanged();
 
             if (contadorItemAdapter.getLst().isEmpty()) {
                 lblContadores.setText("Nenhum membro");
@@ -130,6 +126,8 @@ public class ContadorActivity extends BaseActivity {
             }
         } catch (JSONException e) {
 
+        } finally {
+            contadorItemAdapter.notifyDataSetChanged();
         }
     }
 

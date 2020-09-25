@@ -1,6 +1,7 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
@@ -13,6 +14,9 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,6 +27,9 @@ import com.android.volley.VolleyError;
 import org.jetbrains.annotations.NotNull;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.pojo.Clube;
+import br.com.enterprise.pytaco.pojo.Membro;
+import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.AcitivityUtil;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
@@ -30,6 +37,10 @@ import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 public abstract class BaseActivity extends Activity implements IActivity {
 
     private boolean keyboardShowing;
+    protected static Usuario usuario;
+    protected static Clube clube;
+    protected static Membro membro;
+
     protected DialogView dialogLoading;
     protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 
@@ -37,12 +48,13 @@ public abstract class BaseActivity extends Activity implements IActivity {
         return new DialogView(this, resource);
     }
 
+
     protected void makeLongToast(String msg) {
-        makeToast(msg, Toast.LENGTH_LONG);
+        pMakeToast(msg, Toast.LENGTH_LONG);
     }
 
     protected void makeShortToast(String msg) {
-        makeToast(msg, Toast.LENGTH_SHORT);
+        pMakeToast(msg, Toast.LENGTH_SHORT);
     }
 
     protected void btnVoltarClick() {
@@ -86,6 +98,24 @@ public abstract class BaseActivity extends Activity implements IActivity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    protected ViewGroup getRootView() {
+        return (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+    }
+
+    public boolean isKeyboardShowing() {
+        return keyboardShowing;
+    }
+
+    protected void pFocusEdit(@NotNull EditText edit) {
+        edit.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(edit, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    protected void pHideKeyboard() {
+        AcitivityUtil.hideKeyboard(this, getCurrentFocus());
+    }
+
     protected void pAddButtonEffect(@NotNull View button) {
         button.setOnTouchListener(new View.OnTouchListener() {
 
@@ -107,26 +137,33 @@ public abstract class BaseActivity extends Activity implements IActivity {
         });
     }
 
-    public boolean isKeyboardShowing() {
-        return keyboardShowing;
-    }
-
-    private void makeToast(String msg, int periodo) {
+    private void pMakeToast(String msg, int periodo) {
         Toast.makeText(this, msg, periodo).show();
     }
 
     private void layoutClick() {
         if (keyboardShowing) {
-            AcitivityUtil.hideKeyboard(this);
+            pHideKeyboard();
         } else if (getCurrentFocus() != null) {
             getCurrentFocus().clearFocus();
         }
     }
 
     @Override
+    public <T extends View> T findViewById(int id) {
+        T v = super.findViewById(id);
+
+        if (v instanceof Button) {
+            pAddButtonEffect((Button) v);
+        }
+
+        return v;
+    }
+
+    @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        final ViewGroup layout = AcitivityUtil.getRootView(this);
+        final ViewGroup layout = getRootView();
         layout.setClickable(true);
         layout.setFocusable(true);
 

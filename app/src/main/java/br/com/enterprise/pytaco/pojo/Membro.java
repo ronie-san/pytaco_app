@@ -8,7 +8,6 @@ public class Membro extends EntidadeBase {
     private String codClube;
     private String tipo;
     private String status;
-    private Clube clube;
 
     public Membro() {
         marcado = false;
@@ -52,14 +51,6 @@ public class Membro extends EntidadeBase {
 
     public void setCodClube(String codClube) {
         this.codClube = codClube;
-    }
-
-    public Clube getClube() {
-        return clube;
-    }
-
-    public void setClube(Clube clube) {
-        this.clube = clube;
     }
 
     public boolean isMarcado() {

@@ -2,23 +2,21 @@ package br.com.enterprise.pytaco.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.adapter.AvisoItemAdapter;
-import br.com.enterprise.pytaco.activity.adapter.ContadorSelecionadoItemAdapter;
+import br.com.enterprise.pytaco.adapter.ContadorSelecionadoItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
-import br.com.enterprise.pytaco.pojo.Aviso;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.StringUtil;
 
@@ -56,7 +54,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
                 btnVoltarClick();
             }
         });
-        lblQtdFicha.setText(StringUtil.numberToStr(lstMembro.get(0).getClube().getQtdFicha()));
+        lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
 
         btnEnviarFicha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +95,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
         int i = 0;
 
         while (result && i < contadorSelecionadoItemAdapter.getCount()) {
-            result = contadorSelecionadoItemAdapter.getLst().get(i).getClube().getQtdFicha() >= qtd;
+            result = contadorSelecionadoItemAdapter.getLst().get(i).getQtdFicha() >= qtd;
             i++;
         }
 
@@ -107,9 +105,9 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     private void btnEnviarFichaClick() {
         if (pValidaEnviarFicha()) {
             PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.enviarFichas(contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getId(),
-                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getChaveAcesso(),
-                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getId(),
+            request.enviarFichas(usuario.getId(),
+                    usuario.getChaveAcesso(),
+                    clube.getId(),
                     Double.parseDouble(edtQtdFicha.getText().toString().trim()),
                     pGetLstMembros(),
                     contadorSelecionadoItemAdapter.getLst().size(),
@@ -122,9 +120,9 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     private void btnRetirarFichaClick() {
         if (pValidaRetirarFicha()) {
             PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.retirarFichas(contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getId(),
-                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getUsuario().getChaveAcesso(),
-                    contadorSelecionadoItemAdapter.getLst().get(0).getClube().getId(),
+            request.retirarFichas(usuario.getId(),
+                    usuario.getChaveAcesso(),
+                    clube.getId(),
                     Double.parseDouble(edtQtdFicha.getText().toString().trim()),
                     pGetLstMembros(),
                     contadorSelecionadoItemAdapter.getLst().size(),
@@ -135,11 +133,45 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     }
 
     private void pTrataRespostaEnviarFichas(String response) {
+        try {
+            JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
+            usuario.setChaveAcesso(resp.getString("chaveacesso"));
+            clube.setQtdFicha(Double.parseDouble(resp.getString("novosaldoadmin")));
+            Double qtd;
 
+            for (Membro membro : contadorSelecionadoItemAdapter.getLst()) {
+                qtd = membro.getQtdFicha();
+                qtd += Double.parseDouble(edtQtdFicha.getText().toString().trim());
+                membro.setQtdFicha(qtd);
+            }
+
+            contadorSelecionadoItemAdapter.notifyDataSetChanged();
+            lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
+            edtQtdFicha.setText("");
+        } catch (JSONException e) {
+            makeLongToast("Não foi possível obter a resposta");
+        }
     }
 
     private void pTrataRespostaRetirarFichas(String response) {
+        try {
+            JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
+            usuario.setChaveAcesso(resp.getString("chaveacesso"));
+            clube.setQtdFicha(Double.parseDouble(resp.getString("novosaldoadmin")));
+            Double qtd;
 
+            for (Membro membro : contadorSelecionadoItemAdapter.getLst()) {
+                qtd = membro.getQtdFicha();
+                qtd -= Double.parseDouble(edtQtdFicha.getText().toString().trim());
+                membro.setQtdFicha(qtd);
+            }
+
+            contadorSelecionadoItemAdapter.notifyDataSetChanged();
+            lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
+            edtQtdFicha.setText("");
+        } catch (JSONException e) {
+            makeLongToast("Não foi possível obter a resposta");
+        }
     }
 
     @Override
