@@ -21,8 +21,7 @@ public class StringUtil {
     public static String numberToStr(Double valor) {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.FLOOR);
-        String result = df.format(valor);
-        return result;
+        return df.format(valor);
     }
 
     @NotNull
