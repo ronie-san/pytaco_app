@@ -20,7 +20,7 @@ public class StringUtil {
     @NotNull
     public static String numberToStr(Double valor) {
         DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.UNNECESSARY);
+        df.setRoundingMode(RoundingMode.FLOOR);
         String result = df.format(valor);
         return result;
     }
