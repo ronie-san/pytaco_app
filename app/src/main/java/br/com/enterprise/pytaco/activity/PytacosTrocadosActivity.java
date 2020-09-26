@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -130,6 +133,16 @@ public class PytacosTrocadosActivity extends BaseActivity {
         } finally {
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onError(@NotNull VolleyError error) {
+        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_PYTACOS_TROCADOS)) {
+            adapter.getLst().clear();
+            adapter.notifyDataSetChanged();
+        }
+
+        super.onError(error);
     }
 
     @Override

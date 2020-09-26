@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.android.volley.VolleyError;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,7 @@ import br.com.enterprise.pytaco.adapter.ClubeItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.DialogView;
+import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class ClubesActivity extends BaseActivity implements IActivity {
@@ -31,7 +34,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
     private DialogView dialogNovoClube;
     private DialogView dialogAlterarSenha;
     private DialogView dialogAssociarClube;
-    private ClubeItemAdapter clubeItemAdapter;
+    private ClubeItemAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,8 +51,8 @@ public class ClubesActivity extends BaseActivity implements IActivity {
             }
         });
 
-        clubeItemAdapter = new ClubeItemAdapter(new ArrayList<Clube>(), this);
-        lsvClubes.setAdapter(clubeItemAdapter);
+        adapter = new ClubeItemAdapter(new ArrayList<Clube>(), this);
+        lsvClubes.setAdapter(adapter);
 
         ImageButton btnNovoClube = findViewById(R.id.clubes_btnNovoClube);
         btnNovoClube.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +111,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
 
     private void lsvClubesItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(this, BolaoActivity.class);
-        clube = clubeItemAdapter.getLst().get(i);
+        clube = adapter.getLst().get(i);
         startActivity(intent);
     }
 
@@ -230,7 +233,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
     private void pTrataRespostaListaClubes(@NotNull String response) {
         try {
             clube = null;
-            clubeItemAdapter.getLst().clear();
+            adapter.getLst().clear();
             JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             if (!resp.getJSONObject(0).getString("id_clube").isEmpty()) {
@@ -242,14 +245,14 @@ public class ClubesActivity extends BaseActivity implements IActivity {
                         clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
                         clube.setQtdFicha(Double.parseDouble(resp.getJSONObject(i).getString("qtdfichas")));
                         clube.setCodClube(resp.getJSONObject(i).getString("codigousuario"));
-                        clubeItemAdapter.getLst().add(clube);
+                        adapter.getLst().add(clube);
                     }
                 }
             }
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
 
         } finally {
-            clubeItemAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -269,6 +272,16 @@ public class ClubesActivity extends BaseActivity implements IActivity {
     private void pListaClubes() {
         PytacoRequestDAO request = new PytacoRequestDAO(this);
         request.listaClubes(usuario.getId(), usuario.getChaveAcesso());
+    }
+
+    @Override
+    public void onError(@NotNull VolleyError error) {
+        if(pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_CLUBES)){
+            adapter.getLst().clear();
+            adapter.notifyDataSetChanged();
+        }
+
+        super.onError(error);
     }
 
     @Override

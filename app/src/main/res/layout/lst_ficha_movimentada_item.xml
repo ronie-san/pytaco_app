@@ -1,14 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="120dp"
     android:layout_centerVertical="true"
     android:background="@drawable/list_view_rounded"
     android:baselineAligned="false"
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingVertical="10dp"
-    android:weightSum="100">
+    android:weightSum="90">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:gravity="center"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/ficha_movimentada_item_lblUsuarioRecebeu"
+            style="@style/label_login"
+            android:text="Usuário recebeu"
+            android:textSize="15sp" />
+
+        <TextView
+            style="@style/label_login"
+            android:text="Saldo anterior"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/ficha_movimentada_item_lblQtdFichaAnterior"
+            style="@style/label_login"
+            android:text="100"
+            android:textColor="@color/ficha"
+            android:textSize="15sp" />
+
+        <TextView
+            style="@style/label_login"
+            android:text="Saldo posterior"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/ficha_movimentada_item_lblQtdFichaAtual"
+            style="@style/label_login"
+            android:text="100"
+            android:textColor="@color/ficha"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ficha_movimentada_item_lblAcao"
+            style="@style/label_login"
+            android:text="Usuário recebeu"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ficha_movimentada_item_imgAcao"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/ficha_movimentada_item_imgFundoPytaco"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/ficha_movimentada_item_imgFicha"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/ficha_movimentada_item_imgFundoPytaco"
+                android:paddingVertical="5dp"
+                android:src="@drawable/ficha_pytaco" />
+
+            <TextView
+                android:id="@+id/ficha_movimentada_item_lblQtdFichaMovimentada"
+                style="@style/label_login"
+                android:layout_centerInParent="true"
+                android:text="100"
+                android:textColor="@color/ficha" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ficha_movimentada_item_lblUsuarioEnvio"
+            style="@style/label_login"
+            android:text="Usuário recebeu"
+            android:textSize="15sp" />
+
+        <TextView
+            style="@style/label_login"
+            android:text="Saldo anterior"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/ficha_movimentada_item_lblQtdFichaAnteriorAdmin"
+            style="@style/label_login"
+            android:text="100"
+            android:textColor="@color/ficha"
+            android:textSize="15sp" />
+
+        <TextView
+            style="@style/label_login"
+            android:text="Saldo posterior"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/ficha_movimentada_item_lblQtdFichaAtualAdmin"
+            style="@style/label_login"
+            android:text="100"
+            android:textColor="@color/ficha"
+            android:textSize="15sp" />
+    </LinearLayout>
 </LinearLayout>

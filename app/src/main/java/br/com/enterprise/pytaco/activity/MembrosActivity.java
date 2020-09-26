@@ -8,6 +8,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +26,7 @@ import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 public class MembrosActivity extends BaseActivity {
 
     private TextView lblMembros;
-    private MembroItemAdapter membroItemAdapter;
+    private MembroItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +34,8 @@ public class MembrosActivity extends BaseActivity {
         setContentView(R.layout.activity_membros);
 
         ListView lsvMembros = findViewById(R.id.membros_lsvMembros);
-        membroItemAdapter = new MembroItemAdapter(new ArrayList<Membro>(), this);
-        lsvMembros.setAdapter(membroItemAdapter);
+        adapter = new MembroItemAdapter(new ArrayList<Membro>(), this);
+        lsvMembros.setAdapter(adapter);
         lsvMembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -51,30 +54,20 @@ public class MembrosActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (!pExisteDialogAberto()) {
-            PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.listaMembros(clube.getId());
-        }
-    }
-
     private boolean pExisteDialogAberto() {
         return dialogLoading != null && dialogLoading.getDialog().isShowing();
     }
 
     private void lsvMembrosItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Intent intent = new Intent(this, MembroSelecionadoActivity.class);
-        membro = membroItemAdapter.getLst().get(i);
+        membro = adapter.getLst().get(i);
         startActivity(intent);
     }
 
     private void pTrataRespostaListaMembros(String response) {
         try {
             membro = null;
-            membroItemAdapter.getLst().clear();
+            adapter.getLst().clear();
             JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             for (int i = 0; i < resp.length(); i++) {
@@ -86,21 +79,41 @@ public class MembrosActivity extends BaseActivity {
                 membro.setTipo(membroJson.getString("tipomembro"));
                 membro.setQtdFicha(Double.parseDouble(membroJson.getString("qtdfichasclube")));
                 membro.setCodClube(membroJson.getString("codigoclube"));
-                membroItemAdapter.getLst().add(membro);
+                adapter.getLst().add(membro);
             }
 
-            if (membroItemAdapter.getLst().isEmpty()) {
+            if (adapter.getLst().isEmpty()) {
                 lblMembros.setText("Nenhum membro");
-            } else if (membroItemAdapter.getLst().size() == 1) {
+            } else if (adapter.getLst().size() == 1) {
                 lblMembros.setText("1 membro");
             } else {
-                lblMembros.setText(membroItemAdapter.getLst().size() + " membros");
+                lblMembros.setText(adapter.getLst().size() + " membros");
             }
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
 
         } finally {
-            membroItemAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (!pExisteDialogAberto()) {
+            PytacoRequestDAO request = new PytacoRequestDAO(this);
+            request.listaMembros(clube.getId());
+        }
+    }
+
+    @Override
+    public void onError(@NotNull VolleyError error) {
+        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_MEMBROS)) {
+            adapter.getLst().clear();
+            adapter.notifyDataSetChanged();
+        }
+
+        super.onError(error);
     }
 
     @Override

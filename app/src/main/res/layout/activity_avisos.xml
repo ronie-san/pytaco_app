@@ -94,6 +94,7 @@
         android:id="@+id/avisos_lsvAvisos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginVertical="10dp"
         android:layout_below="@+id/avisos_pnlItemCabecalho"
         android:background="@drawable/background_aviso"
         android:divider="@android:color/transparent"

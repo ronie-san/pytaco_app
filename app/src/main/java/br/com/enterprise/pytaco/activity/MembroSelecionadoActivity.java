@@ -1,16 +1,16 @@
 package br.com.enterprise.pytaco.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.jetbrains.annotations.NotNull;
-
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
-import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class MembroSelecionadoActivity extends BaseActivity {
 
@@ -29,9 +29,9 @@ public class MembroSelecionadoActivity extends BaseActivity {
         lblAgente = findViewById(R.id.membro_selecionado_lblAgente);
         lblTipo = findViewById(R.id.membro_selecionado_lblTipo);
         lblStatus = findViewById(R.id.membro_selecionado_lblStatus);
-        ImageButton btnAceitarMembros = findViewById(R.id.membro_selecionado_btnAceitarMembros);
-        ImageButton btnTornarAgente = findViewById(R.id.membro_selecionado_btnTornarAgente);
-        ImageButton btnDesativarMembro = findViewById(R.id.membro_selecionado_btnDesativarMembro);
+        TextView lblAceitarMembros = findViewById(R.id.membro_selecionado_lblAceitarMembros);
+        TextView lblTornarAgente = findViewById(R.id.membro_selecionado_lblTornarAgente);
+        TextView lblDesativarMembro = findViewById(R.id.membro_selecionado_lblDesativarMembro);
 
         lblCodMembro.setText(membro.getCodClube());
         lblNome.setText(membro.getNome());
@@ -43,24 +43,31 @@ public class MembroSelecionadoActivity extends BaseActivity {
                 btnVoltarClick();
             }
         });
-        btnAceitarMembros.setOnClickListener(new View.OnClickListener() {
+
+        lblAceitarMembros.setText(StringUtil.textoSublinhado(lblAceitarMembros.getText().toString()));
+        lblAceitarMembros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnAceitarMembrosClick();
+                lblAceitarMembrosClick();
             }
         });
-        btnTornarAgente.setOnClickListener(new View.OnClickListener() {
+
+        lblTornarAgente.setText(StringUtil.textoSublinhado(lblTornarAgente.getText().toString()));
+        lblTornarAgente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnTornarAgenteClick();
+                lblTornarAgenteClick();
             }
         });
-        btnDesativarMembro.setOnClickListener(new View.OnClickListener() {
+
+        lblDesativarMembro.setText(StringUtil.textoSublinhado(lblDesativarMembro.getText().toString()));
+        lblDesativarMembro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnDesativarMembroClick();
+                lblDesativarMembroClick();
             }
         });
+
         PytacoRequestDAO request = new PytacoRequestDAO(this);
         request.buscaAgente(membro.getId(), clube.getId(), membro.getCodClube());
     }
@@ -70,16 +77,30 @@ public class MembroSelecionadoActivity extends BaseActivity {
         lblStatus.setText(membro.getStatusExt());
     }
 
-    private void btnAceitarMembrosClick() {
+    private void lblAceitarMembrosClick() {
         pAcaoMembro(PytacoRequestEnum.ACEITAR_MEMBROS);
     }
 
-    private void btnTornarAgenteClick() {
+    private void lblTornarAgenteClick() {
         pAcaoMembro(PytacoRequestEnum.TORNAR_AGENTE);
     }
 
-    private void btnDesativarMembroClick() {
-        pAcaoMembro(PytacoRequestEnum.DESATIVAR_MEMBRO);
+    private void lblDesativarMembroClick() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    pAcaoMembro(PytacoRequestEnum.DESATIVAR_MEMBRO);
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmação")
+                .setMessage("Deseja realmente desativar este membro?")
+                .setPositiveButton("Sim", dialogClickListener)
+                .setNegativeButton("Não", dialogClickListener)
+                .show();
     }
 
     private void pAcaoMembro(PytacoRequestEnum acao) {

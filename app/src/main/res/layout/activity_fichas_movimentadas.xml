@@ -94,5 +94,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fichas_movimentadas_pnlFiltroData"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp" />
 </RelativeLayout>

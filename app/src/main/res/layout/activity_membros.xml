@@ -66,5 +66,6 @@
         android:layout_below="@+id/membros_pnlItemCabecalho"
         android:background="@drawable/background_membro"
         android:divider="@android:color/transparent"
+        android:layout_marginVertical="10dp"
         android:dividerHeight="3dp" />
 </RelativeLayout>

@@ -5,7 +5,8 @@ import android.text.style.UnderlineSpan;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class StringUtil {
 
@@ -18,7 +19,10 @@ public class StringUtil {
 
     @NotNull
     public static String numberToStr(Double valor) {
-        return String.format(Locale.getDefault(), "%.0f", valor);
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.UNNECESSARY);
+        String result = df.format(valor);
+        return result;
     }
 
     @NotNull

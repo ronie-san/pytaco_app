@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,10 +25,11 @@ import br.com.enterprise.pytaco.adapter.AvisoItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Aviso;
 import br.com.enterprise.pytaco.util.DialogView;
+import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class AvisosActivity extends BaseActivity {
 
-    private AvisoItemAdapter avisoItemAdapter;
+    private AvisoItemAdapter adapter;
     private DialogView dialogCriarAviso;
 
     @Override
@@ -35,8 +38,8 @@ public class AvisosActivity extends BaseActivity {
         setContentView(R.layout.activity_avisos);
 
         ListView lsvAvisos = findViewById(R.id.avisos_lsvAvisos);
-        avisoItemAdapter = new AvisoItemAdapter(new ArrayList<Aviso>(), this);
-        lsvAvisos.setAdapter(avisoItemAdapter);
+        adapter = new AvisoItemAdapter(new ArrayList<Aviso>(), this);
+        lsvAvisos.setAdapter(adapter);
         lsvAvisos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,7 +88,7 @@ public class AvisosActivity extends BaseActivity {
     }
 
     private void lsvAvisosItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        final Aviso aviso = avisoItemAdapter.getLst().get(i);
+        final Aviso aviso = adapter.getLst().get(i);
         dialogCriarAviso = createDialog(R.layout.dialog_criar_aviso);
 
         ImageButton btnVoltar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnVoltar);
@@ -190,7 +193,7 @@ public class AvisosActivity extends BaseActivity {
 
     private void pTrataRespostaListaAvisos(String response) {
         try {
-            avisoItemAdapter.getLst().clear();
+            adapter.getLst().clear();
             JSONArray resp = new JSONObject(response).getJSONArray("entry");
 
             for (int i = 0; i < resp.length(); i++) {
@@ -202,12 +205,12 @@ public class AvisosActivity extends BaseActivity {
                 aviso.setData(item.getString("data"));
                 aviso.setStatus(item.getString("status"));
                 aviso.setIdTabela(Integer.parseInt(item.getString("id_tabela")));
-                avisoItemAdapter.getLst().add(aviso);
+                adapter.getLst().add(aviso);
             }
         } catch (JSONException ignored) {
 
         } finally {
-            avisoItemAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -220,6 +223,16 @@ public class AvisosActivity extends BaseActivity {
     private void pListaAvisos() {
         PytacoRequestDAO request = new PytacoRequestDAO(this);
         request.listaAvisos(usuario.getId(), clube.getId());
+    }
+
+    @Override
+    public void onError(@NotNull VolleyError error) {
+        if(pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_AVISOS)){
+            adapter.getLst().clear();
+            adapter.notifyDataSetChanged();
+        }
+
+        super.onError(error);
     }
 
     @Override

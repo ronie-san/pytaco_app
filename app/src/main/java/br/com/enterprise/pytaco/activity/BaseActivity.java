@@ -48,7 +48,6 @@ public abstract class BaseActivity extends Activity implements IActivity {
         return new DialogView(this, resource);
     }
 
-
     protected void makeLongToast(String msg) {
         pMakeToast(msg, Toast.LENGTH_LONG);
     }
@@ -179,7 +178,7 @@ public abstract class BaseActivity extends Activity implements IActivity {
     public void onError(@NotNull VolleyError error) {
         pCancelDialog();
         pEnableScreen();
-        makeLongToast("Erro: " + (error.getMessage() == null ? "Desconhecido" : error.getMessage()));
+        makeShortToast("Erro: " + (error.getMessage() == null ? "Desconhecido" : error.getMessage()));
         this.pytacoRequestEnum = PytacoRequestEnum.NONE;
     }
 

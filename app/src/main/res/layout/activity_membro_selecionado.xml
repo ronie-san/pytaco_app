@@ -28,8 +28,7 @@
         android:layout_marginEnd="15dp"
         android:text="Cód. membro"
         android:textColor="@color/pytaco"
-        android:textSize="20sp"
-         />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,8 +45,7 @@
             android:layout_gravity="center"
             android:text="Nome"
             android:textColor="@color/ficha"
-            android:textSize="30sp"
-             />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/membro_selecionado_lblNome"
@@ -64,8 +62,7 @@
             android:layout_gravity="center"
             android:text="Agente"
             android:textColor="@color/ficha"
-            android:textSize="30sp"
-             />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/membro_selecionado_lblAgente"
@@ -82,8 +79,7 @@
             android:layout_gravity="center"
             android:text="Tipo"
             android:textColor="@color/ficha"
-            android:textSize="30sp"
-            />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/membro_selecionado_lblTipo"
@@ -100,8 +96,7 @@
             android:layout_gravity="center"
             android:text="Status"
             android:textColor="@color/ficha"
-            android:textSize="30sp"
-             />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/membro_selecionado_lblStatus"
@@ -115,45 +110,45 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/membro_selecionado_lblDesativarMembro"
         android:divider="@drawable/linear_layout_divider_width"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingHorizontal="15dp"
-        android:showDividers="middle"
-        android:weightSum="90">
+        android:showDividers="middle">
 
-        <ImageButton
-            android:id="@+id/membro_selecionado_btnAceitarMembros"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
+        <TextView
+            android:id="@+id/membro_selecionado_lblAceitarMembros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="30"
             android:background="?attr/selectableItemBackground"
-            android:contentDescription="Aceitar Membros"
-            android:scaleType="centerInside"
-            android:src="@drawable/lbl_administracao" />
+            android:text="Tornar Membro"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-        <ImageButton
-            android:id="@+id/membro_selecionado_btnTornarAgente"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
+        <TextView
+            android:id="@+id/membro_selecionado_lblTornarAgente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="30"
             android:background="?attr/selectableItemBackground"
-            android:contentDescription="Tornar Agente"
-            android:scaleType="centerInside"
-            android:src="@drawable/lbl_administracao" />
-
-        <ImageButton
-            android:id="@+id/membro_selecionado_btnDesativarMembro"
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_weight="30"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="Desativar Membro"
-            android:scaleType="centerInside"
-            android:src="@drawable/lbl_administracao" />
+            android:text="Tornar Agente"
+            android:textAlignment="center"
+            android:textSize="20sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/membro_selecionado_lblDesativarMembro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="20dp"
+        android:background="?attr/selectableItemBackground"
+        android:text="Desativar Membro"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp" />
 </RelativeLayout>

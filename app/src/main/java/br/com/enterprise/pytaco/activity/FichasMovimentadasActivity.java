@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -120,14 +123,14 @@ public class FichasMovimentadasActivity extends BaseActivity {
                     JSONObject item = resp.getJSONObject(i);
                     FichaMovimentada fichaMovimentada = new FichaMovimentada();
                     fichaMovimentada.setId(Integer.parseInt(item.getString("id_log")));
-                    fichaMovimentada.setNomeUsuarioEnvio(item.getString("nomeUsuarioQFez"));
-                    fichaMovimentada.setNomeUsuarioRecebimento(item.getString("nomeUsuarioQRecebeu"));
+                    fichaMovimentada.setNomeUsuarioEnvio(item.getString("NomeUsuarioQFez"));
+                    fichaMovimentada.setNomeUsuarioRecebimento(item.getString("NomeUsuarioQRecebeu"));
                     fichaMovimentada.setQtdFichaAnterior(Double.parseDouble(item.getString("QtdFichasAnteriores")));
                     fichaMovimentada.setQtdFichaAtual(Double.parseDouble(item.getString("QtdFichasAtuais")));
                     fichaMovimentada.setQtdFichaMovimento(Double.parseDouble(item.getString("QtdFichasMovimentadas")));
                     fichaMovimentada.setSaldoAtualAdmin(Double.parseDouble(item.getString("SaldoAtualAdmin")));
                     fichaMovimentada.setSaldoAnteriorAdmin(Double.parseDouble(item.getString("SaldoAnteriorAdmin")));
-                    fichaMovimentada.setAcao(item.getString("Acao"));
+                    fichaMovimentada.setAcao(item.getString("acao"));
                     adapter.getLst().add(fichaMovimentada);
                 }
             }
@@ -135,6 +138,16 @@ public class FichasMovimentadasActivity extends BaseActivity {
         } finally {
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onError(@NotNull VolleyError error) {
+        if(pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_FICHAS_MOVIMENTADAS)){
+            adapter.getLst().clear();
+            adapter.notifyDataSetChanged();
+        }
+
+        super.onError(error);
     }
 
     @Override

@@ -86,7 +86,7 @@
             <TextView
                 android:id="@+id/clubes_lblQtdPytacoGlobal"
                 style="@style/label_login"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_toEndOf="@+id/clubes_imgPytaco"
                 android:gravity="center"
                 android:text="100"
@@ -113,23 +113,14 @@
             <TextView
                 android:id="@+id/clubes_lblQtdFichaGlobal"
                 style="@style/label_login"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_toEndOf="@+id/clubes_imgFicha"
-                android:gravity="center"
                 android:text="100"
                 android:textColor="@color/ficha" />
         </RelativeLayout>
 
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/clubes_pnlClubes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/clubes_pnlRodape"
-        android:layout_below="@+id/clubes_pnlCabecalho"
-        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -145,6 +136,7 @@
         android:layout_above="@+id/clubes_pnlRodape"
         android:layout_below="@+id/clubes_pnlCabecalho"
         android:divider="@android:color/transparent"
+        android:layout_marginVertical="10dp"
         android:dividerHeight="3dp" />
 
     <LinearLayout

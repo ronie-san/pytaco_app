@@ -62,7 +62,6 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
         <item name="android:textColorLink">@android:color/white</item>
-        <item name="android:textColorHighlight">@android:color/white</item>
         <item name="android:inputType">text</item>
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:colorAccent">@android:color/white</item>

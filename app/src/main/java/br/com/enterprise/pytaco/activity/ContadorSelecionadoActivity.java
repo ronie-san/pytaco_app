@@ -24,7 +24,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
 
     private EditText edtQtdFicha;
     private TextView lblQtdFicha;
-    private ContadorSelecionadoItemAdapter contadorSelecionadoItemAdapter;
+    private ContadorSelecionadoItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class ContadorSelecionadoActivity extends BaseActivity {
         ImageButton btnEnviarFicha = findViewById(R.id.contador_selecionado_btnEnviarFicha);
         ImageButton btnRetirarFicha = findViewById(R.id.contador_selecionado_btnRetirarFicha);
         ListView lsvContadores = findViewById(R.id.contador_selecionado_lsvContadores);
-        contadorSelecionadoItemAdapter = new ContadorSelecionadoItemAdapter(lstMembro, this);
-        lsvContadores.setAdapter(contadorSelecionadoItemAdapter);
+        adapter = new ContadorSelecionadoItemAdapter(lstMembro, this);
+        lsvContadores.setAdapter(adapter);
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +74,9 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     @NotNull
     private String pGetLstMembros() {
         StringBuilder membros = new StringBuilder();
-        for (int i = 0; i < contadorSelecionadoItemAdapter.getCount(); i++) {
-            membros.append(contadorSelecionadoItemAdapter.getLst().get(i).getId());
-            if (i < contadorSelecionadoItemAdapter.getCount() - 1) {
+        for (int i = 0; i < adapter.getCount(); i++) {
+            membros.append(adapter.getLst().get(i).getId());
+            if (i < adapter.getCount() - 1) {
                 membros.append(",");
             }
         }
@@ -86,7 +86,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     private boolean pValidaEnviarFicha() {
         double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
         double qtdUsuario = Double.parseDouble(lblQtdFicha.getText().toString());
-        return qtd <= qtdUsuario * contadorSelecionadoItemAdapter.getCount();
+        return qtd <= qtdUsuario * adapter.getCount();
     }
 
     private boolean pValidaRetirarFicha() {
@@ -94,8 +94,8 @@ public class ContadorSelecionadoActivity extends BaseActivity {
         boolean result = true;
         int i = 0;
 
-        while (result && i < contadorSelecionadoItemAdapter.getCount()) {
-            result = contadorSelecionadoItemAdapter.getLst().get(i).getQtdFicha() >= qtd;
+        while (result && i < adapter.getCount()) {
+            result = adapter.getLst().get(i).getQtdFicha() >= qtd;
             i++;
         }
 
@@ -110,7 +110,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
                     clube.getId(),
                     Double.parseDouble(edtQtdFicha.getText().toString().trim()),
                     pGetLstMembros(),
-                    contadorSelecionadoItemAdapter.getLst().size(),
+                    adapter.getLst().size(),
                     Double.parseDouble(lblQtdFicha.getText().toString()));
         } else {
             makeLongToast("Quantidade de fichas insuficiente");
@@ -125,7 +125,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
                     clube.getId(),
                     Double.parseDouble(edtQtdFicha.getText().toString().trim()),
                     pGetLstMembros(),
-                    contadorSelecionadoItemAdapter.getLst().size(),
+                    adapter.getLst().size(),
                     Double.parseDouble(lblQtdFicha.getText().toString()));
         } else {
             makeLongToast("Quantidade de fichas insuficiente");
@@ -139,13 +139,13 @@ public class ContadorSelecionadoActivity extends BaseActivity {
             clube.setQtdFicha(Double.parseDouble(resp.getString("novosaldoadmin")));
             Double qtd;
 
-            for (Membro membro : contadorSelecionadoItemAdapter.getLst()) {
+            for (Membro membro : adapter.getLst()) {
                 qtd = membro.getQtdFicha();
                 qtd += Double.parseDouble(edtQtdFicha.getText().toString().trim());
                 membro.setQtdFicha(qtd);
             }
 
-            contadorSelecionadoItemAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
             edtQtdFicha.setText("");
         } catch (JSONException e) {
@@ -160,13 +160,13 @@ public class ContadorSelecionadoActivity extends BaseActivity {
             clube.setQtdFicha(Double.parseDouble(resp.getString("novosaldoadmin")));
             Double qtd;
 
-            for (Membro membro : contadorSelecionadoItemAdapter.getLst()) {
+            for (Membro membro : adapter.getLst()) {
                 qtd = membro.getQtdFicha();
                 qtd -= Double.parseDouble(edtQtdFicha.getText().toString().trim());
                 membro.setQtdFicha(qtd);
             }
 
-            contadorSelecionadoItemAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
             edtQtdFicha.setText("");
         } catch (JSONException e) {

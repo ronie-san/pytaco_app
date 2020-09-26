@@ -71,5 +71,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/contador_imgCabecalho"
         android:divider="@android:color/transparent"
+        android:layout_marginVertical="10dp"
         android:dividerHeight="3dp" />
 </RelativeLayout>

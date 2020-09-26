@@ -14,7 +14,6 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 public class TesteActivity extends BaseActivity {
 
     private TextView lblTeste;
-    private FrameLayout pnlLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,6 @@ public class TesteActivity extends BaseActivity {
         });
 
         lblTeste = findViewById(R.id.main_lblTeste);
-        pnlLoading = findViewById(R.id.main_pnlLoading);
     }
 
     private void btnTesteClick() {
