@@ -5,7 +5,7 @@
     android:background="@color/background_padrao">
 
     <ImageView
-        android:id="@+id/main_imgCabecalho"
+        android:id="@+id/clubes_imgCabecalho"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,10 +15,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/main_pnlCabecalho">
+        android:layout_alignBottom="@+id/clubes_pnlCabecalho">
 
         <ImageButton
-            android:id="@+id/main_btnNovoClube"
+            android:id="@+id/clubes_btnNovoClube"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
@@ -28,7 +28,7 @@
             android:src="@drawable/icone_clube" />
 
         <ImageButton
-            android:id="@+id/main_btnAssociarClube"
+            android:id="@+id/clubes_btnAssociarClube"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
@@ -41,10 +41,10 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/main_pnlCabecalho"
+        android:id="@+id/clubes_pnlCabecalho"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_alignBottom="@+id/main_imgCabecalho"
+        android:layout_alignBottom="@+id/clubes_imgCabecalho"
         android:layout_alignParentTop="true"
         android:orientation="horizontal"
         android:paddingHorizontal="30dp"
@@ -68,7 +68,7 @@
             android:paddingTop="40dp">
 
             <ImageView
-                android:id="@+id/main_imgFundoPytaco"
+                android:id="@+id/clubes_imgFundoPytaco"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:adjustViewBounds="true"
@@ -76,45 +76,45 @@
                 android:src="@drawable/fundo_ficha_pytaco" />
 
             <ImageView
-                android:id="@+id/main_imgPytaco"
+                android:id="@+id/clubes_imgPytaco"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignStart="@+id/main_imgFundoPytaco"
+                android:layout_alignStart="@+id/clubes_imgFundoPytaco"
                 android:padding="5dp"
                 android:src="@drawable/bola_pytaco" />
 
             <TextView
-                android:id="@+id/main_lblQtdPytacoGlobal"
+                android:id="@+id/clubes_lblQtdPytacoGlobal"
                 style="@style/label_login"
                 android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/main_imgPytaco"
+                android:layout_toEndOf="@+id/clubes_imgPytaco"
                 android:gravity="center"
                 android:text="100"
                 android:textColor="@color/pytaco" />
 
             <ImageView
-                android:id="@+id/main_imgFundoFicha"
+                android:id="@+id/clubes_imgFundoFicha"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/main_imgFundoPytaco"
+                android:layout_toEndOf="@+id/clubes_imgFundoPytaco"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/fundo_ficha_pytaco" />
 
             <ImageView
-                android:id="@+id/main_imgFicha"
+                android:id="@+id/clubes_imgFicha"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignStart="@+id/main_imgFundoFicha"
+                android:layout_alignStart="@+id/clubes_imgFundoFicha"
                 android:padding="5dp"
                 android:src="@drawable/ficha_pytaco" />
 
             <TextView
-                android:id="@+id/main_lblQtdFichaGlobal"
+                android:id="@+id/clubes_lblQtdFichaGlobal"
                 style="@style/label_login"
                 android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/main_imgFicha"
+                android:layout_toEndOf="@+id/clubes_imgFicha"
                 android:gravity="center"
                 android:text="100"
                 android:textColor="@color/ficha" />
@@ -124,31 +124,31 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/main_pnlClubes"
+        android:id="@+id/clubes_pnlClubes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/main_pnlRodape"
-        android:layout_below="@+id/main_pnlCabecalho"
+        android:layout_above="@+id/clubes_pnlRodape"
+        android:layout_below="@+id/clubes_pnlCabecalho"
         android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/main_pnlCabecalho"
+        android:layout_below="@+id/clubes_pnlCabecalho"
         android:scaleType="fitXY"
         android:src="@drawable/buscar_clube" />
 
     <ListView
-        android:id="@+id/main_lsvClubes"
+        android:id="@+id/clubes_lsvClubes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/main_pnlRodape"
-        android:layout_below="@+id/main_pnlCabecalho"
+        android:layout_above="@+id/clubes_pnlRodape"
+        android:layout_below="@+id/clubes_pnlCabecalho"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp" />
 
     <LinearLayout
-        android:id="@+id/main_pnlRodape"
+        android:id="@+id/clubes_pnlRodape"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_alignParentBottom="true"
@@ -171,7 +171,7 @@
             android:layout_weight="15" />
 
         <ImageButton
-            android:id="@+id/main_btnBolao"
+            android:id="@+id/clubes_btnBolao"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="30"
@@ -186,7 +186,7 @@
             android:layout_weight="15" />
 
         <ImageButton
-            android:id="@+id/main_btnAlterarSenha"
+            android:id="@+id/clubes_btnAlterarSenha"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_gravity="center"

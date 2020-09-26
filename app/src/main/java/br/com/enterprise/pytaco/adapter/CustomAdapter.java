@@ -5,9 +5,9 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-import br.com.enterprise.pytaco.pojo.EntidadeBase;
+import br.com.enterprise.pytaco.pojo.BaseEntity;
 
-public abstract class CustomAdapter<T extends EntidadeBase> extends BaseAdapter {
+public abstract class CustomAdapter<T extends BaseEntity> extends BaseAdapter {
 
     protected List<T> lst;
     protected Activity activity;
@@ -28,11 +28,11 @@ public abstract class CustomAdapter<T extends EntidadeBase> extends BaseAdapter 
 
     @Override
     public Object getItem(int i) {
-        return lst.get(i);
+        return lst == null ? null : lst.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return lst.get(i).getId();
+        return lst == null ? -1 : lst.get(i).getId();
     }
 }

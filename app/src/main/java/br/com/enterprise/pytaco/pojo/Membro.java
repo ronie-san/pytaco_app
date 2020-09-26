@@ -1,6 +1,6 @@
 package br.com.enterprise.pytaco.pojo;
 
-public class Membro extends EntidadeBase {
+public class Membro extends BaseEntity {
 
     private boolean marcado;
     private String nome;

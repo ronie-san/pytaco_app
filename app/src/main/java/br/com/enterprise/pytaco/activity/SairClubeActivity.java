@@ -6,8 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,7 +48,7 @@ public class SairClubeActivity extends BaseActivity {
             usuario.setChaveAcesso(resp.getString("chaveacesso"));
             makeLongToast("Saída do clube feita com sucesso");
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, ClubesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } catch (JSONException ignored) {

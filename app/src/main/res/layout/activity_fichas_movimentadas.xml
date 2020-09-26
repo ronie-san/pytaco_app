@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_relatorios">
+
+    <LinearLayout
+        android:id="@+id/fichas_movimentadas_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <ImageButton
+            android:id="@+id/fichas_movimentadas_btnVoltar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/botao_voltar" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:adjustViewBounds="true"
+            android:paddingVertical="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/escudo_pitaco" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fichas_movimentadas_pnlFiltroData"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/fichas_movimentadas_pnlCabecalho"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/fichas_movimentadas_lblAnterior"
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:text="&lt;&lt;"
+            android:textColor="@color/pytaco"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
+
+        <EditText
+            android:id="@+id/fichas_movimentadas_edtData"
+            android:layout_width="125dp"
+            android:layout_height="match_parent"
+            android:autofillHints=""
+            android:background="@drawable/edit"
+            android:hint="Data"
+            android:inputType="none"
+            android:textAlignment="center" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
+
+        <TextView
+            android:id="@+id/fichas_movimentadas_lblProximo"
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:text="&gt;&gt;"
+            android:textColor="@color/pytaco"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/fichas_movimentadas_lsvFichasMovimentadas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fichas_movimentadas_pnlFiltroData"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

@@ -1,8 +1,6 @@
 package br.com.enterprise.pytaco.pojo;
 
-import java.util.Objects;
-
-public class Aviso extends EntidadeBase {
+public class Aviso extends BaseEntity {
 
     private String titulo;
     private String status;

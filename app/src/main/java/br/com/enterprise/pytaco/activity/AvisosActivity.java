@@ -204,7 +204,7 @@ public class AvisosActivity extends BaseActivity {
                 aviso.setIdTabela(Integer.parseInt(item.getString("id_tabela")));
                 avisoItemAdapter.getLst().add(aviso);
             }
-        } catch (JSONException e) {
+        } catch (JSONException ignored) {
 
         } finally {
             avisoItemAdapter.notifyDataSetChanged();

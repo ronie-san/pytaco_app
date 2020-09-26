@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_centerVertical="true"
+    android:background="@drawable/list_view_rounded"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingVertical="10dp"
+    android:weightSum="100">
+
+
+</LinearLayout>

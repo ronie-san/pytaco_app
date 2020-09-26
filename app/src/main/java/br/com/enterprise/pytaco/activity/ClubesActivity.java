@@ -24,7 +24,7 @@ import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.StringUtil;
 
-public class MainActivity extends BaseActivity implements IActivity {
+public class ClubesActivity extends BaseActivity implements IActivity {
 
     private TextView lblQtdPytacoGlobal;
     private TextView lblQtdFichaGlobal;
@@ -36,11 +36,11 @@ public class MainActivity extends BaseActivity implements IActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_clubes);
 
-        lblQtdPytacoGlobal = findViewById(R.id.main_lblQtdPytacoGlobal);
-        lblQtdFichaGlobal = findViewById(R.id.main_lblQtdFichaGlobal);
-        ListView lsvClubes = findViewById(R.id.main_lsvClubes);
+        lblQtdPytacoGlobal = findViewById(R.id.clubes_lblQtdPytacoGlobal);
+        lblQtdFichaGlobal = findViewById(R.id.clubes_lblQtdFichaGlobal);
+        ListView lsvClubes = findViewById(R.id.clubes_lsvClubes);
         lsvClubes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements IActivity {
         clubeItemAdapter = new ClubeItemAdapter(new ArrayList<Clube>(), this);
         lsvClubes.setAdapter(clubeItemAdapter);
 
-        ImageButton btnNovoClube = findViewById(R.id.main_btnNovoClube);
+        ImageButton btnNovoClube = findViewById(R.id.clubes_btnNovoClube);
         btnNovoClube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
 
-        ImageButton btnAlterarSenha = findViewById(R.id.main_btnAlterarSenha);
+        ImageButton btnAlterarSenha = findViewById(R.id.clubes_btnAlterarSenha);
         btnAlterarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
 
-        ImageButton btnAssociarClube = findViewById(R.id.main_btnAssociarClube);
+        ImageButton btnAssociarClube = findViewById(R.id.clubes_btnAssociarClube);
         btnAssociarClube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             }
         });
 
-        ImageButton btnBolao = findViewById(R.id.main_btnBolao);
+        ImageButton btnBolao = findViewById(R.id.clubes_btnBolao);
         btnBolao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             @Override
             public void onClick(View v) {
                 if (!edtCodClube.getText().toString().trim().isEmpty()) {
-                    PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
+                    PytacoRequestDAO request = new PytacoRequestDAO(ClubesActivity.this);
                     request.associar(usuario.getId(), usuario.getChaveAcesso(), edtCodClube.getText().toString().trim());
                 }
             }
@@ -159,7 +159,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             @Override
             public void onClick(View v) {
                 if (!edtSenhaAtual.getText().toString().isEmpty() && !edtSenhaNova.getText().toString().isEmpty() && !edtSenhaConfirmada.getText().toString().isEmpty()) {
-                    PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
+                    PytacoRequestDAO request = new PytacoRequestDAO(ClubesActivity.this);
                     request.alteraSenha(usuario.getId(), edtSenhaAtual.getText().toString(), edtSenhaNova.getText().toString(), usuario.getChaveAcesso());
                 }
             }
@@ -187,7 +187,7 @@ public class MainActivity extends BaseActivity implements IActivity {
             @Override
             public void onClick(View v) {
                 if (!edtNomeClube.getText().toString().trim().equals("") && !edtDescricaoClube.getText().toString().trim().equals("")) {
-                    PytacoRequestDAO request = new PytacoRequestDAO(MainActivity.this);
+                    PytacoRequestDAO request = new PytacoRequestDAO(ClubesActivity.this);
                     request.criarClube(usuario.getId(), usuario.getChaveAcesso(), edtNomeClube.getText().toString(), edtDescricaoClube.getText().toString());
                 }
             }

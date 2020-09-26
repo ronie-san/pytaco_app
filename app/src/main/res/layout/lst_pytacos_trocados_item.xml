@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_centerVertical="true"
+    android:background="@drawable/list_view_rounded"
+    android:baselineAligned="false"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingVertical="10dp"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="Pytacos"
+            android:textColor="@color/pytaco"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/pytacos_trocados_item_lblQtdPytaco"
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="100"
+            android:textColor="@color/pytaco"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pytacos_trocados_item_lblUsuario"
+            style="@style/label_login"
+            android:text="NOME"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_conversao" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="Fichas"
+            android:textColor="@color/ficha"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/pytacos_trocados_item_lblQtdFicha"
+            style="@style/label_login"
+            android:layout_gravity="center"
+            android:text="100"
+            android:textColor="@color/ficha"
+            android:textSize="25sp" />
+    </LinearLayout>
+</LinearLayout>

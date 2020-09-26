@@ -145,7 +145,7 @@ public class LoginActivity extends BaseActivity {
                 usuario.setQtdFicha(Double.parseDouble(resp.getString("qtdfichasglobal")));
                 usuario.setCodUsuario(resp.getString("codusuarioglobal"));
 
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, ClubesActivity.class);
                 startActivity(intent);
             } else {
                 pCancelDialog();

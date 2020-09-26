@@ -1,6 +1,6 @@
 package br.com.enterprise.pytaco.pojo;
 
-public class Clube extends EntidadeBase {
+public class Clube extends BaseEntity {
 
     private String nome;
     private String descricao;

@@ -2,7 +2,7 @@ package br.com.enterprise.pytaco.pojo;
 
 import android.util.Log;
 
-public class Usuario extends EntidadeBase {
+public class Usuario extends BaseEntity {
 
     private String nome;
     private String celular;

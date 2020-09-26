@@ -61,7 +61,7 @@ public class DesfazerClubeActivity extends BaseActivity {
             clube = null;
             makeLongToast("Clube desfeito com sucesso");
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, ClubesActivity.class);
             //este flag faz voltar à Activity que já existe, limpando todas que existem acima dela
             intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

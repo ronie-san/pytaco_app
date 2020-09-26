@@ -91,6 +91,8 @@ public class AdministracaoActivity extends BaseActivity {
     }
 
     private void lblRelatoriosClick() {
+        Intent intent = new Intent(this, RelatoriosActivity.class);
+        startActivity(intent);
     }
 
     private void lblNotificacoesClick() {
