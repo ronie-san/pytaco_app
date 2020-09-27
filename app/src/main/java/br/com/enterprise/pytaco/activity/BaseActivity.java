@@ -37,7 +37,6 @@ public abstract class BaseActivity extends Activity implements IActivity {
     protected static Clube clube;
     protected static Membro membro;
 
-
     protected DialogView dialogLoading;
     protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;
 

@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.VolleyError;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +29,7 @@ import br.com.enterprise.pytaco.pojo.Aviso;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class AvisosActivity extends BaseActivity {
+public class AvisosActivity extends BaseRecyclerActivity {
 
     private AvisoItemAdapter adapter;
     private DialogView dialogCriarAviso;
@@ -37,16 +39,9 @@ public class AvisosActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avisos);
 
-        ListView lsvAvisos = findViewById(R.id.avisos_lsvAvisos);
-        adapter = new AvisoItemAdapter(new ArrayList<Aviso>(), this, R.layout.lst_aviso_item);
+        RecyclerView lsvAvisos = getRecyclerView();
+        adapter = new AvisoItemAdapter(this, new ArrayList<Aviso>(), R.layout.lst_aviso_item);
         lsvAvisos.setAdapter(adapter);
-        lsvAvisos.setEmptyView(findViewById(android.R.id.empty));
-        lsvAvisos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvAvisosItemClick(i);
-            }
-        });
 
         ImageButton btnVoltar = findViewById(R.id.avisos_btnVoltar);
         ImageButton btnCriarAviso = findViewById(R.id.avisos_btnCriarAviso);
@@ -77,68 +72,6 @@ public class AvisosActivity extends BaseActivity {
         } else {
             dialogCriarAviso.cancelDialog();
         }
-    }
-
-    private void lsvAvisosItemClick(int i) {
-        final Aviso aviso = adapter.getLst().get(i);
-        dialogCriarAviso = createDialog(R.layout.dialog_criar_aviso);
-
-        ImageButton btnVoltar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnVoltar);
-        EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
-        EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
-        ImageButton btnSalvar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnSalvar);
-        Button btnExcluir = dialogCriarAviso.findViewById(R.id.criar_aviso_btnExcluir);
-
-        edtTituloAviso.setText(aviso.getTitulo());
-        edtTituloAviso.setEnabled(false);
-
-        edtDescricaoAviso.setText(aviso.getDescricao());
-        edtDescricaoAviso.setEnabled(false);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pLerAviso(aviso);
-            }
-        });
-        btnSalvar.setVisibility(View.GONE);
-        btnExcluir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == DialogInterface.BUTTON_POSITIVE) {
-                            PytacoRequestDAO request = new PytacoRequestDAO(AvisosActivity.this);
-                            request.excluirAviso(aviso.getIdTabela());
-                        }
-                    }
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(AvisosActivity.this);
-                builder.setTitle("Confirmação")
-                        .setMessage("Deseja realmente excluir este aviso?")
-                        .setPositiveButton("Sim", dialogClickListener)
-                        .setNegativeButton("Não", dialogClickListener)
-                        .show();
-            }
-        });
-
-        dialogCriarAviso.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                if (i == KeyEvent.KEYCODE_BACK &&
-                        keyEvent.getAction() == KeyEvent.ACTION_UP &&
-                        !keyEvent.isCanceled()) {
-                    pLerAviso(aviso);
-                    return true;
-                }
-
-                return false;
-            }
-        });
-
-        dialogCriarAviso.showDialog();
     }
 
     private void btnCriarAvisoClick() {
@@ -267,5 +200,73 @@ public class AvisosActivity extends BaseActivity {
         } else {
             super.onSucess(response);
         }
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return findViewById(R.id.avisos_lsvAvisos);
+    }
+
+    @Override
+    public void onLstItemClick(int position) {
+        final Aviso aviso = adapter.getLst().get(position);
+        dialogCriarAviso = createDialog(R.layout.dialog_criar_aviso);
+
+        ImageButton btnVoltar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnVoltar);
+        EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
+        EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
+        ImageButton btnSalvar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnSalvar);
+        Button btnExcluir = dialogCriarAviso.findViewById(R.id.criar_aviso_btnExcluir);
+
+        edtTituloAviso.setText(aviso.getTitulo());
+        edtTituloAviso.setEnabled(false);
+
+        edtDescricaoAviso.setText(aviso.getDescricao());
+        edtDescricaoAviso.setEnabled(false);
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pLerAviso(aviso);
+            }
+        });
+        btnSalvar.setVisibility(View.GONE);
+        btnExcluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == DialogInterface.BUTTON_POSITIVE) {
+                            PytacoRequestDAO request = new PytacoRequestDAO(AvisosActivity.this);
+                            request.excluirAviso(aviso.getIdTabela());
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AvisosActivity.this);
+                builder.setTitle("Confirmação")
+                        .setMessage("Deseja realmente excluir este aviso?")
+                        .setPositiveButton("Sim", dialogClickListener)
+                        .setNegativeButton("Não", dialogClickListener)
+                        .show();
+            }
+        });
+
+        dialogCriarAviso.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                if (i == KeyEvent.KEYCODE_BACK &&
+                        keyEvent.getAction() == KeyEvent.ACTION_UP &&
+                        !keyEvent.isCanceled()) {
+                    pLerAviso(aviso);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+        dialogCriarAviso.showDialog();
     }
 }

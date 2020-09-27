@@ -1,47 +1,36 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.LayoutRes;
+import android.view.View;
 
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.BaseActivity;
+import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
+import br.com.enterprise.pytaco.holder.AvisoItemHolder;
 import br.com.enterprise.pytaco.pojo.Aviso;
 
-public class AvisoItemAdapter extends CustomAdapter<Aviso> {
+public class AvisoItemAdapter extends CustomRecyclerAdapter<Aviso, AvisoItemHolder> {
 
-    public AvisoItemAdapter(List<Aviso> lst, BaseActivity activity, @LayoutRes int resource) {
-        super(lst, activity, resource);
+    public AvisoItemAdapter(BaseRecyclerActivity activity, List<Aviso> lst, int itemLayout) {
+        super(activity, lst, itemLayout);
     }
 
     @Override
-    protected void pSetItem(int position) {
-        Aviso aviso = lst.get(position);
-        ImageView imgAviso = view.findViewById(R.id.aviso_item_imgAviso);
-        TextView lblTitulo = view.findViewById(R.id.aviso_item_lblTitulo);
-        TextView lblDescricao = view.findViewById(R.id.aviso_item_lblDescricao);
-        TextView lblData = view.findViewById(R.id.aviso_item_lblData);
-        TextView lblStatus = view.findViewById(R.id.aviso_item_lblStatus);
+    protected AvisoItemHolder pCreateHolder(View view, OnLstItemClickListener listener) {
+        return new AvisoItemHolder(view, listener);
+    }
 
-        if (aviso != null) {
-            if (aviso.getStatus().equals("E")) {
-                imgAviso.setImageResource(R.drawable.bola_vermelha);
-            } else if (aviso.getStatus().equals("L")) {
-                imgAviso.setImageResource(R.drawable.bola_cinza);
-            }
-
-            lblTitulo.setText(aviso.getTitulo());
-            lblDescricao.setText(aviso.getDescricao());
-            lblData.setText(aviso.getData());
-            lblStatus.setText(aviso.getStatusExt());
-        } else {
-            lblTitulo.setText("");
-            lblDescricao.setText("");
-            lblData.setText("");
-            lblStatus.setText("");
+    @Override
+    protected void pSetViewProperties(Aviso item, AvisoItemHolder holder) {
+        if (item.getStatus().equals("E")) {
+            holder.getImgAviso().setImageResource(R.drawable.bola_vermelha);
+        } else if (item.getStatus().equals("L")) {
+            holder.getImgAviso().setImageResource(R.drawable.bola_cinza);
         }
+
+        holder.getLblTitulo().setText(item.getTitulo());
+        holder.getLblDescricao().setText(item.getDescricao());
+        holder.getLblData().setText(item.getData());
+        holder.getLblStatus().setText(item.getStatusExt());
     }
 }

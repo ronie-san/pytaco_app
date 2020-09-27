@@ -59,7 +59,7 @@
         android:adjustViewBounds="true"
         android:src="@drawable/lbl_membros" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/membros_lsvMembros"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

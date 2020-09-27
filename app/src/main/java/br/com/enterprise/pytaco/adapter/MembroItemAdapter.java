@@ -1,37 +1,32 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.widget.TextView;
+import android.view.View;
 
-import androidx.annotation.LayoutRes;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.BaseActivity;
+import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
+import br.com.enterprise.pytaco.holder.MembroItemHolder;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.StringUtil;
 
-public class MembroItemAdapter extends CustomAdapter<Membro> {
+public class MembroItemAdapter extends CustomRecyclerAdapter<Membro, MembroItemHolder> {
 
-    public MembroItemAdapter(List<Membro> lst, BaseActivity activity, @LayoutRes int resource) {
-        super(lst, activity, resource);
+    public MembroItemAdapter(BaseRecyclerActivity activity, List<Membro> lst, int itemLayout) {
+        super(activity, lst, itemLayout);
     }
 
     @Override
-    protected void pSetItem(int position) {
-        Membro membro = lst.get(position);
-
-        TextView lblNome = view.findViewById(R.id.membro_item_lblNome);
-        lblNome.setText(membro.getNome());
-
-        TextView lblQtdFicha = view.findViewById(R.id.membro_item_lblQtdFicha);
-        lblQtdFicha.setText(StringUtil.numberToStr(membro.getQtdFicha()));
-
-        TextView lblTipo = view.findViewById(R.id.membro_item_lblTipo);
-        lblTipo.setText(membro.getTipoExt());
-
-        TextView lblStatus = view.findViewById(R.id.membro_item_lblStatus);
-        lblStatus.setText(membro.getStatusExt());
+    protected MembroItemHolder pCreateHolder(View view, OnLstItemClickListener listener) {
+        return new MembroItemHolder(view, listener);
     }
 
+    @Override
+    protected void pSetViewProperties(@NotNull Membro item, @NotNull MembroItemHolder holder) {
+        holder.getLblNome().setText(item.getNome());
+        holder.getLblQtdFicha().setText(StringUtil.numberToStr(item.getQtdFicha()));
+        holder.getLblTipo().setText(item.getTipoExt());
+        holder.getLblStatus().setText(item.getStatusExt());
+    }
 }

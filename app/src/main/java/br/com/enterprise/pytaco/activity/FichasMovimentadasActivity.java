@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 
@@ -22,16 +23,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.adapter.FichasMovimentadasItemAdapter;
+import br.com.enterprise.pytaco.adapter.FichaMovimentadaItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.FichaMovimentada;
 import br.com.enterprise.pytaco.util.DateUtil;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class FichasMovimentadasActivity extends BaseActivity {
+public class FichasMovimentadasActivity extends BaseRecyclerActivity {
 
     private EditText edtData;
-    private FichasMovimentadasItemAdapter adapter;
+    private FichaMovimentadaItemAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +43,9 @@ public class FichasMovimentadasActivity extends BaseActivity {
         ImageButton btnVoltar = findViewById(R.id.fichas_movimentadas_btnVoltar);
         TextView lblAnterior = findViewById(R.id.fichas_movimentadas_lblAnterior);
         TextView lblProximo = findViewById(R.id.fichas_movimentadas_lblProximo);
-        ListView lsvFichasMovimentadas = findViewById(R.id.fichas_movimentadas_lsvFichasMovimentadas);
+        RecyclerView lsvFichasMovimentadas = getRecyclerView();
 
-        adapter = new FichasMovimentadasItemAdapter(new ArrayList<FichaMovimentada>(), this, R.layout.lst_ficha_movimentada_item);
-        lsvFichasMovimentadas.setEmptyView(findViewById(android.R.id.empty));
+        adapter = new FichaMovimentadaItemAdapter(this, new ArrayList<FichaMovimentada>(), R.layout.lst_ficha_movimentada_item);
         lsvFichasMovimentadas.setAdapter(adapter);
 
         edtData.setText(DateUtil.getDate());
@@ -161,5 +161,10 @@ public class FichasMovimentadasActivity extends BaseActivity {
         }
 
         super.onSucess(response);
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return findViewById(R.id.fichas_movimentadas_lsvFichasMovimentadas);
     }
 }

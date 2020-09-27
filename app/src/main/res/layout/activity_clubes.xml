@@ -129,14 +129,12 @@
         android:scaleType="fitXY"
         android:src="@drawable/buscar_clube" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/clubes_lsvClubes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/clubes_pnlRodape"
         android:layout_below="@+id/clubes_pnlCabecalho"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="3dp"
         android:paddingVertical="10dp" />
 
     <TextView
@@ -150,7 +148,8 @@
         android:paddingVertical="10dp"
         android:text="Sem Clubes"
         android:textColor="@color/pytaco"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/clubes_pnlRodape"

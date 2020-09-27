@@ -1,33 +1,32 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.widget.TextView;
+import android.view.View;
 
-import androidx.annotation.LayoutRes;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.BaseActivity;
+import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
+import br.com.enterprise.pytaco.holder.ClubeItemHolder;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.StringUtil;
 
-public class ClubeItemAdapter extends CustomAdapter<Clube> {
+public class ClubeItemAdapter extends CustomRecyclerAdapter<Clube, ClubeItemHolder> {
 
-    public ClubeItemAdapter(List<Clube> lst, BaseActivity activity, @LayoutRes int resource) {
-        super(lst, activity, resource);
+    public ClubeItemAdapter(BaseRecyclerActivity activity, List<Clube> lst, int itemLayout) {
+        super(activity, lst, itemLayout);
     }
 
     @Override
-    protected void pSetItem(int position) {
-        Clube clube = lst.get(position);
-
-        TextView lblNome = view.findViewById(R.id.clube_item_lblNome);
-        lblNome.setText(clube.getNome());
-
-        TextView lblDescricao = view.findViewById(R.id.clube_item_lblDescricao);
-        lblDescricao.setText(clube.getDescricao());
-
-        TextView lblQtdFicha = view.findViewById(R.id.clube_item_lblQtdFicha);
-        lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
+    protected ClubeItemHolder pCreateHolder(View view, OnLstItemClickListener listener) {
+        return new ClubeItemHolder(view, listener);
     }
+
+    @Override
+    protected void pSetViewProperties(@NotNull Clube item, @NotNull ClubeItemHolder holder) {
+        holder.getLblNome().setText(item.getNome());
+        holder.getLblDescricao().setText(item.getDescricao());
+        holder.getLblQtdFicha().setText(StringUtil.numberToStr(item.getQtdFicha()));
+    }
+
 }

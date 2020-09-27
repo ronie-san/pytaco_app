@@ -89,7 +89,7 @@
             android:textSize="30sp" />
     </LinearLayout>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pytacos_trocados_lsvPytacosTrocados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

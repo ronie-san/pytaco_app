@@ -1,5 +1,6 @@
 package br.com.enterprise.pytaco.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -7,7 +8,7 @@ import android.widget.TextView;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 
-public class TesteActivity extends BaseActivity {
+public class TesteActivity extends Activity {
 
     private TextView lblTeste;
 
@@ -26,20 +27,6 @@ public class TesteActivity extends BaseActivity {
     }
 
     private void btnTesteClick() {
-        PytacoRequestDAO request = new PytacoRequestDAO(this);
-//        request.login("UsuTeste", "12345");
 
-//        request.listaAvisos(7, 5);
-        request.listaMembros(5);
-    }
-
-    @Override
-    public void onSucess(String response) {
-        if (!this.isDestroyed()) {
-            pCancelDialog();
-            pEnableScreen();
-            lblTeste.setText(response);
-        }
-        super.onSucess(response);
     }
 }

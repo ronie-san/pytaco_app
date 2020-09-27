@@ -79,7 +79,7 @@
         android:adjustViewBounds="true"
         android:src="@drawable/lbl_avisos" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/avisos_lsvAvisos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -20,7 +21,7 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.StringUtil;
 
-public class ContadorSelecionadoActivity extends BaseActivity {
+public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
 
     private EditText edtQtdFicha;
     private TextView lblQtdFicha;
@@ -44,8 +45,8 @@ public class ContadorSelecionadoActivity extends BaseActivity {
         ImageButton btnVoltar = findViewById(R.id.contador_selecionado_btnVoltar);
         ImageButton btnEnviarFicha = findViewById(R.id.contador_selecionado_btnEnviarFicha);
         ImageButton btnRetirarFicha = findViewById(R.id.contador_selecionado_btnRetirarFicha);
-        ListView lsvContadores = findViewById(R.id.contador_selecionado_lsvContadores);
-        adapter = new ContadorSelecionadoItemAdapter(lstMembro, this, R.layout.lst_contador_selecionado_item);
+        RecyclerView lsvContadores = getRecyclerView();
+        adapter = new ContadorSelecionadoItemAdapter(this, lstMembro, R.layout.lst_contador_selecionado_item);
         lsvContadores.setAdapter(adapter);
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +75,9 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     @NotNull
     private String pGetLstMembros() {
         StringBuilder membros = new StringBuilder();
-        for (int i = 0; i < adapter.getCount(); i++) {
+        for (int i = 0; i < adapter.getItemCount(); i++) {
             membros.append(adapter.getLst().get(i).getId());
-            if (i < adapter.getCount() - 1) {
+            if (i < adapter.getItemCount() - 1) {
                 membros.append(",");
             }
         }
@@ -86,7 +87,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     private boolean pValidaEnviarFicha() {
         double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
         double qtdUsuario = Double.parseDouble(lblQtdFicha.getText().toString());
-        return qtd <= qtdUsuario * adapter.getCount();
+        return qtd <= qtdUsuario * adapter.getItemCount();
     }
 
     private boolean pValidaRetirarFicha() {
@@ -94,7 +95,7 @@ public class ContadorSelecionadoActivity extends BaseActivity {
         boolean result = true;
         int i = 0;
 
-        while (result && i < adapter.getCount()) {
+        while (result && i < adapter.getItemCount()) {
             result = adapter.getLst().get(i).getQtdFicha() >= qtd;
             i++;
         }
@@ -195,5 +196,15 @@ public class ContadorSelecionadoActivity extends BaseActivity {
         }
 
         super.onSucess(response);
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return findViewById(R.id.contador_selecionado_lsvContadores);
+    }
+
+    @Override
+    public void onLstItemClick(int position) {
+
     }
 }

@@ -1,47 +1,37 @@
 package br.com.enterprise.pytaco.adapter;
 
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.TextView;
-
-import androidx.annotation.LayoutRes;
 
 import java.util.List;
 
-import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.BaseActivity;
+import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
+import br.com.enterprise.pytaco.holder.ContadorItemHolder;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.StringUtil;
 
-public class ContadorItemAdapter extends CustomAdapter<Membro> {
+public class ContadorItemAdapter extends CustomRecyclerAdapter<Membro, ContadorItemHolder> {
 
-    public ContadorItemAdapter(List<Membro> lst, BaseActivity activity, @LayoutRes int resource) {
-        super(lst, activity, resource);
+    public ContadorItemAdapter(BaseRecyclerActivity activity, List<Membro> lst, int itemLayout) {
+        super(activity, lst, itemLayout);
     }
 
     @Override
-    protected void pSetItem(int position) {
-        final Membro membro = lst.get(position);
+    protected ContadorItemHolder pCreateHolder(View view, OnLstItemClickListener listener) {
+        return new ContadorItemHolder(view, listener);
+    }
 
-        final CheckBox chkMarcado = view.findViewById(R.id.contador_item_chkMarcado);
-        chkMarcado.setChecked(membro.isMarcado());
-        chkMarcado.setOnClickListener(new View.OnClickListener() {
+    @Override
+    protected void pSetViewProperties(final Membro item, final ContadorItemHolder holder) {
+        holder.getChkMarcado().setChecked(item.isMarcado());
+        holder.getChkMarcado().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                membro.setMarcado(chkMarcado.isChecked());
+                item.setMarcado(holder.getChkMarcado().isChecked());
             }
         });
 
-        TextView lblNome = view.findViewById(R.id.contador_item_lblNome);
-        lblNome.setText(membro.getNome());
-
-        TextView lblQtdFicha = view.findViewById(R.id.contador_item_lblQtdFicha);
-        lblQtdFicha.setText(StringUtil.numberToStr(membro.getQtdFicha()));
-
-        TextView lblTipo = view.findViewById(R.id.contador_item_lblTipo);
-        lblTipo.setText(membro.getTipoExt());
-
-//        TextView lblStatus = view.findViewById(R.id.contador_item_lblStatus);
-//        lblStatus.setText(membro.getStatusExt());
+        holder.getLblNome().setText(item.getNome());
+        holder.getLblQtdFicha().setText(StringUtil.numberToStr(item.getQtdFicha()));
+        holder.getLblTipo().setText(item.getTipoExt());
     }
 }

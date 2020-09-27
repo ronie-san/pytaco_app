@@ -3,10 +3,10 @@ package br.com.enterprise.pytaco.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 
@@ -23,7 +23,7 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class ContadorActivity extends BaseActivity {
+public class ContadorActivity extends BaseRecyclerActivity {
 
     private TextView lblContadores;
     private ContadorItemAdapter adapter;
@@ -33,21 +33,13 @@ public class ContadorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contador);
 
-        ListView lsvContadores = findViewById(R.id.contador_lsvContadores);
+        RecyclerView lsvContadores = getRecyclerView();
         lblContadores = findViewById(R.id.contador_lblContadores);
         ImageButton btnTrocarFichas = findViewById(R.id.contador_btnTrocarFichas);
         ImageButton btnVoltar = findViewById(R.id.contador_btnVoltar);
 
-        adapter = new ContadorItemAdapter(new ArrayList<Membro>(), this, R.layout.lst_contador_item);
-        lsvContadores.setEmptyView(findViewById(android.R.id.empty));
-        lsvContadores.setItemsCanFocus(true);
+        adapter = new ContadorItemAdapter(this, new ArrayList<Membro>(), R.layout.lst_contador_item);
         lsvContadores.setAdapter(adapter);
-        lsvContadores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvContadoresItemClick(i);
-            }
-        });
 
         btnTrocarFichas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,12 +83,6 @@ public class ContadorActivity extends BaseActivity {
             intent.putExtra(getString(R.string.lst_contador), lstSelecionado);
             startActivity(intent);
         }
-    }
-
-    private void lsvContadoresItemClick(int i) {
-        Membro item = adapter.getLst().get(i);
-        item.setMarcado(!item.isMarcado());
-        adapter.notifyDataSetChanged();
     }
 
     private void pTrataRespostaListaMembros(String response) {
@@ -161,5 +147,17 @@ public class ContadorActivity extends BaseActivity {
         }
 
         super.onSucess(response);
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return findViewById(R.id.contador_lsvContadores);
+    }
+
+    @Override
+    public void onLstItemClick(int position) {
+        Membro item = adapter.getLst().get(position);
+        item.setMarcado(!item.isMarcado());
+        adapter.notifyDataSetChanged();
     }
 }

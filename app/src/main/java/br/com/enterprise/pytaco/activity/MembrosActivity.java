@@ -3,10 +3,10 @@ package br.com.enterprise.pytaco.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 
@@ -23,7 +23,7 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class MembrosActivity extends BaseActivity {
+public class MembrosActivity extends BaseRecyclerActivity {
 
     private TextView lblMembros;
     private MembroItemAdapter adapter;
@@ -33,16 +33,9 @@ public class MembrosActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membros);
 
-        ListView lsvMembros = findViewById(R.id.membros_lsvMembros);
-        adapter = new MembroItemAdapter(new ArrayList<Membro>(), this, R.layout.lst_membro_item);
+        RecyclerView lsvMembros = getRecyclerView();
+        adapter = new MembroItemAdapter(this, new ArrayList<Membro>(), R.layout.lst_membro_item);
         lsvMembros.setAdapter(adapter);
-        lsvMembros.setEmptyView(findViewById(android.R.id.empty));
-        lsvMembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvMembrosItemClick(i);
-            }
-        });
 
         ImageButton btnVoltar = findViewById(R.id.membros_btnVoltar);
         lblMembros = findViewById(R.id.membros_lblMembros);
@@ -57,12 +50,6 @@ public class MembrosActivity extends BaseActivity {
 
     private boolean pExisteDialogAberto() {
         return dialogLoading != null && dialogLoading.getDialog().isShowing();
-    }
-
-    private void lsvMembrosItemClick(int i) {
-        Intent intent = new Intent(this, MembroSelecionadoActivity.class);
-        membro = adapter.getLst().get(i);
-        startActivity(intent);
     }
 
     private void pTrataRespostaListaMembros(String response) {
@@ -83,15 +70,19 @@ public class MembrosActivity extends BaseActivity {
                 adapter.getLst().add(membro);
             }
 
-            if (adapter.getLst().isEmpty()) {
-                lblMembros.setText("Nenhum membro");
-            } else if (adapter.getLst().size() == 1) {
-                lblMembros.setText("1 membro");
-            } else {
-                lblMembros.setText(adapter.getLst().size() + " membros");
-            }
-        } catch (JSONException ignored) {
+            StringBuilder sb = new StringBuilder();
 
+            if (adapter.getLst().isEmpty()) {
+                sb.append("Nenhum membro");
+            } else if (adapter.getLst().size() == 1) {
+                sb.append("1 membro");
+            } else {
+                sb.append(adapter.getLst().size())
+                        .append(" membros");
+            }
+
+            lblMembros.setText(sb.toString());
+        } catch (JSONException ignored) {
         } finally {
             adapter.notifyDataSetChanged();
         }
@@ -129,5 +120,17 @@ public class MembrosActivity extends BaseActivity {
         }
 
         super.onSucess(response);
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return findViewById(R.id.membros_lsvMembros);
+    }
+
+    @Override
+    public void onLstItemClick(int position) {
+        Intent intent = new Intent(this, MembroSelecionadoActivity.class);
+        membro = adapter.getLst().get(position);
+        startActivity(intent);
     }
 }

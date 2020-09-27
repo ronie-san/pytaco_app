@@ -7,8 +7,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +26,7 @@ import br.com.enterprise.pytaco.pojo.PytacoTrocado;
 import br.com.enterprise.pytaco.util.DateUtil;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public class PytacosTrocadosActivity extends BaseActivity {
+public class PytacosTrocadosActivity extends BaseRecyclerActivity {
 
     private EditText edtData;
     private PytacosTrocadosItemAdapter adapter;
@@ -39,10 +40,9 @@ public class PytacosTrocadosActivity extends BaseActivity {
         ImageButton btnVoltar = findViewById(R.id.pytacos_trocados_btnVoltar);
         TextView lblAnterior = findViewById(R.id.pytacos_trocados_lblAnterior);
         TextView lblProximo = findViewById(R.id.pytacos_trocados_lblProximo);
-        ListView lsvPytacosTrocados = findViewById(R.id.pytacos_trocados_lsvPytacosTrocados);
+        RecyclerView lsvPytacosTrocados = getRecyclerView();
 
-        adapter = new PytacosTrocadosItemAdapter(new ArrayList<PytacoTrocado>(), this, R.layout.lst_pytacos_trocados_item);
-        lsvPytacosTrocados.setEmptyView(findViewById(android.R.id.empty));
+        adapter = new PytacosTrocadosItemAdapter(this, new ArrayList<PytacoTrocado>(), R.layout.lst_pytacos_trocados_item);
         lsvPytacosTrocados.setAdapter(adapter);
 
         edtData.setText(DateUtil.getDate());
@@ -143,5 +143,10 @@ public class PytacosTrocadosActivity extends BaseActivity {
         }
 
         super.onSucess(response);
+    }
+
+    @Override
+    public RecyclerView getRecyclerView() {
+        return findViewById(R.id.pytacos_trocados_lsvPytacosTrocados);
     }
 }

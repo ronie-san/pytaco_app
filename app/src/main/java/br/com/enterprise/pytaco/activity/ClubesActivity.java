@@ -1,14 +1,16 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
 
@@ -27,7 +29,7 @@ import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
 
-public class ClubesActivity extends BaseActivity implements IActivity {
+public class ClubesActivity extends BaseRecyclerActivity implements IActivity {
 
     private TextView lblQtdPytacoGlobal;
     private TextView lblQtdFichaGlobal;
@@ -43,16 +45,9 @@ public class ClubesActivity extends BaseActivity implements IActivity {
 
         lblQtdPytacoGlobal = findViewById(R.id.clubes_lblQtdPytacoGlobal);
         lblQtdFichaGlobal = findViewById(R.id.clubes_lblQtdFichaGlobal);
-        ListView lsvClubes = findViewById(R.id.clubes_lsvClubes);
-        lsvClubes.setEmptyView(findViewById(android.R.id.empty));
-        lsvClubes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvClubesItemClick(i);
-            }
-        });
 
-        adapter = new ClubeItemAdapter(new ArrayList<Clube>(), this, R.layout.lst_clube_item);
+        RecyclerView lsvClubes = getRecyclerView();
+        adapter = new ClubeItemAdapter(this, new ArrayList<Clube>(), R.layout.lst_clube_item);
         lsvClubes.setAdapter(adapter);
 
         ImageButton btnNovoClube = findViewById(R.id.clubes_btnNovoClube);
@@ -89,6 +84,18 @@ public class ClubesActivity extends BaseActivity implements IActivity {
     }
 
     @Override
+    public RecyclerView getRecyclerView() {
+        return findViewById(R.id.clubes_lsvClubes);
+    }
+
+    @Override
+    public void onLstItemClick(int position) {
+        Intent intent = new Intent(this, BolaoActivity.class);
+        clube = adapter.getLst().get(position);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -110,11 +117,11 @@ public class ClubesActivity extends BaseActivity implements IActivity {
 
     }
 
-    private void lsvClubesItemClick(int i) {
-        Intent intent = new Intent(this, BolaoActivity.class);
-        clube = adapter.getLst().get(i);
-        startActivity(intent);
-    }
+//    private void lsvClubesItemClick(int i) {
+//        Intent intent = new Intent(this, BolaoActivity.class);
+//        clube = adapter.getLst().get(i);
+//        startActivity(intent);
+//    }
 
     private void btnAssociarClubeClick() {
         dialogAssociarClube = createDialog(R.layout.dialog_associar_clube);
