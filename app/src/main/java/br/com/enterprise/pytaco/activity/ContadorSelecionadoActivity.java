@@ -84,58 +84,55 @@ public class ContadorSelecionadoActivity extends BaseActivity {
     }
 
     private boolean pValidaEnviarFicha() {
-        if (!edtQtdFicha.getText().toString().isEmpty()) {
-            double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
-            double qtdUsuario = Double.parseDouble(lblQtdFicha.getText().toString());
-            return qtd <= qtdUsuario * adapter.getCount();
-        }
-        return false;
+        double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
+        double qtdUsuario = Double.parseDouble(lblQtdFicha.getText().toString());
+        return qtd <= qtdUsuario * adapter.getCount();
     }
 
     private boolean pValidaRetirarFicha() {
-        if (!edtQtdFicha.getText().toString().isEmpty()) {
-            Double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
-            boolean result = true;
-            int i = 0;
+        Double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
+        boolean result = true;
+        int i = 0;
 
-            while (result && i < adapter.getCount()) {
-                result = adapter.getLst().get(i).getQtdFicha() >= qtd;
-                i++;
-            }
-
-            return result;
+        while (result && i < adapter.getCount()) {
+            result = adapter.getLst().get(i).getQtdFicha() >= qtd;
+            i++;
         }
 
-        return false;
+        return result;
     }
 
     private void btnEnviarFichaClick() {
-        if (pValidaEnviarFicha()) {
-            PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.enviarFichas(usuario.getId(),
-                    usuario.getChaveAcesso(),
-                    clube.getId(),
-                    Double.parseDouble(edtQtdFicha.getText().toString().trim()),
-                    pGetLstMembros(),
-                    adapter.getLst().size(),
-                    Double.parseDouble(lblQtdFicha.getText().toString()));
-        } else {
-            makeLongToast("Quantidade de fichas insuficiente");
+        if (!edtQtdFicha.getText().toString().isEmpty()) {
+            if (pValidaEnviarFicha()) {
+                PytacoRequestDAO request = new PytacoRequestDAO(this);
+                request.enviarFichas(usuario.getId(),
+                        usuario.getChaveAcesso(),
+                        clube.getId(),
+                        Double.parseDouble(edtQtdFicha.getText().toString().trim()),
+                        pGetLstMembros(),
+                        adapter.getLst().size(),
+                        Double.parseDouble(lblQtdFicha.getText().toString()));
+            } else {
+                makeLongToast("Quantidade de fichas insuficiente");
+            }
         }
     }
 
     private void btnRetirarFichaClick() {
-        if (pValidaRetirarFicha()) {
-            PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.retirarFichas(usuario.getId(),
-                    usuario.getChaveAcesso(),
-                    clube.getId(),
-                    Double.parseDouble(edtQtdFicha.getText().toString().trim()),
-                    pGetLstMembros(),
-                    adapter.getLst().size(),
-                    Double.parseDouble(lblQtdFicha.getText().toString()));
-        } else {
-            makeLongToast("Quantidade de fichas insuficiente");
+        if (!edtQtdFicha.getText().toString().isEmpty()) {
+            if (pValidaRetirarFicha()) {
+                PytacoRequestDAO request = new PytacoRequestDAO(this);
+                request.retirarFichas(usuario.getId(),
+                        usuario.getChaveAcesso(),
+                        clube.getId(),
+                        Double.parseDouble(edtQtdFicha.getText().toString().trim()),
+                        pGetLstMembros(),
+                        adapter.getLst().size(),
+                        Double.parseDouble(lblQtdFicha.getText().toString()));
+            } else {
+                makeLongToast("Quantidade de fichas insuficiente");
+            }
         }
     }
 
