@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_padrao">
+    android:background="@drawable/background_aviso">
 
     <ImageView
         android:id="@+id/avisos_imgCabecalho"
@@ -84,7 +84,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/avisos_pnlItemCabecalho"
-        android:background="@drawable/background_aviso"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp"
         android:paddingVertical="10dp" />
