@@ -48,7 +48,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
         lsvClubes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvClubesItemClick(adapterView, view, i, l);
+                lsvClubesItemClick(i);
             }
         });
 
@@ -110,7 +110,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
 
     }
 
-    private void lsvClubesItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    private void lsvClubesItemClick(int i) {
         Intent intent = new Intent(this, BolaoActivity.class);
         clube = adapter.getLst().get(i);
         startActivity(intent);
