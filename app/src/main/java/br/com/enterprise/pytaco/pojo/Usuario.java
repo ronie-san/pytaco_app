@@ -1,7 +1,5 @@
 package br.com.enterprise.pytaco.pojo;
 
-import android.util.Log;
-
 public class Usuario extends BaseEntity {
 
     private String nome;
@@ -28,12 +26,10 @@ public class Usuario extends BaseEntity {
     }
 
     public String getChaveAcesso() {
-        Log.d("CHAVE", chaveAcesso);
         return chaveAcesso;
     }
 
     public void setChaveAcesso(String chaveAcesso) {
-        Log.d("CHAVE", this.chaveAcesso + " -> " + chaveAcesso);
         this.chaveAcesso = chaveAcesso;
     }
 

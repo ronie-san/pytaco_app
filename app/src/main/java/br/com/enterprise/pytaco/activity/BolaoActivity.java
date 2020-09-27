@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class BolaoActivity extends BaseActivity {

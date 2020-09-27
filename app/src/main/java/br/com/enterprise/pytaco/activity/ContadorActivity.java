@@ -38,7 +38,8 @@ public class ContadorActivity extends BaseActivity {
         ImageButton btnTrocarFichas = findViewById(R.id.contador_btnTrocarFichas);
         ImageButton btnVoltar = findViewById(R.id.contador_btnVoltar);
 
-        adapter = new ContadorItemAdapter(new ArrayList<Membro>(), this);
+        adapter = new ContadorItemAdapter(new ArrayList<Membro>(), this, R.layout.lst_contador_item);
+        lsvContadores.setEmptyView(findViewById(android.R.id.empty));
         lsvContadores.setItemsCanFocus(true);
         lsvContadores.setAdapter(adapter);
         lsvContadores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -135,7 +136,7 @@ public class ContadorActivity extends BaseActivity {
 
     @Override
     public void onError(@NotNull VolleyError error) {
-        if(pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_MEMBROS)){
+        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_MEMBROS)) {
             adapter.getLst().clear();
             adapter.notifyDataSetChanged();
         }

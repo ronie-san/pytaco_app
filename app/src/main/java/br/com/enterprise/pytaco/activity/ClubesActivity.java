@@ -44,6 +44,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
         lblQtdPytacoGlobal = findViewById(R.id.clubes_lblQtdPytacoGlobal);
         lblQtdFichaGlobal = findViewById(R.id.clubes_lblQtdFichaGlobal);
         ListView lsvClubes = findViewById(R.id.clubes_lsvClubes);
+        lsvClubes.setEmptyView(findViewById(android.R.id.empty));
         lsvClubes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -51,7 +52,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
             }
         });
 
-        adapter = new ClubeItemAdapter(new ArrayList<Clube>(), this);
+        adapter = new ClubeItemAdapter(new ArrayList<Clube>(), this, R.layout.lst_clube_item);
         lsvClubes.setAdapter(adapter);
 
         ImageButton btnNovoClube = findViewById(R.id.clubes_btnNovoClube);
@@ -276,7 +277,7 @@ public class ClubesActivity extends BaseActivity implements IActivity {
 
     @Override
     public void onError(@NotNull VolleyError error) {
-        if(pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_CLUBES)){
+        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_CLUBES)) {
             adapter.getLst().clear();
             adapter.notifyDataSetChanged();
         }

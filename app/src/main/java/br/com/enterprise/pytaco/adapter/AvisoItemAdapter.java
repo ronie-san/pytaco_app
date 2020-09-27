@@ -6,20 +6,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
+
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.pojo.Aviso;
 
 public class AvisoItemAdapter extends CustomAdapter<Aviso> {
 
-    public AvisoItemAdapter(List<Aviso> lst, Activity activity) {
-        super(lst, activity);
+    public AvisoItemAdapter(List<Aviso> lst, BaseActivity activity, @LayoutRes int resource) {
+        super(lst, activity, resource);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = activity.getLayoutInflater().inflate(R.layout.lst_aviso_item, parent, false);
+    protected void pSetItem(int position) {
         Aviso aviso = lst.get(position);
 
         ImageView imgAviso = view.findViewById(R.id.aviso_item_imgAviso);
@@ -42,7 +44,5 @@ public class AvisoItemAdapter extends CustomAdapter<Aviso> {
 
         TextView lblStatus = view.findViewById(R.id.aviso_item_lblStatus);
         lblStatus.setText(aviso.getStatusExt());
-
-        return view;
     }
 }

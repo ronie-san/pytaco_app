@@ -1,26 +1,25 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
 
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.pojo.PytacoTrocado;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class PytacosTrocadosItemAdapter extends CustomAdapter<PytacoTrocado> {
 
-    public PytacosTrocadosItemAdapter(List<PytacoTrocado> lst, Activity activity) {
-        super(lst, activity);
+    public PytacosTrocadosItemAdapter(List<PytacoTrocado> lst, BaseActivity activity, @LayoutRes int resource) {
+        super(lst, activity, resource);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    protected void pSetItem(int position) {
         PytacoTrocado pytacoTrocado = getLst().get(position);
-        View view = activity.getLayoutInflater().inflate(R.layout.lst_pytacos_trocados_item, parent, false);
         TextView lblQtdPytaco = view.findViewById(R.id.pytacos_trocados_item_lblQtdPytaco);
         TextView lblFicha = view.findViewById(R.id.pytacos_trocados_item_lblQtdFicha);
         TextView lblUsuario = view.findViewById(R.id.pytacos_trocados_item_lblUsuario);
@@ -28,6 +27,6 @@ public class PytacosTrocadosItemAdapter extends CustomAdapter<PytacoTrocado> {
         lblQtdPytaco.setText(StringUtil.numberToStr(pytacoTrocado.getQtdPytaco()));
         lblFicha.setText(StringUtil.numberToStr(pytacoTrocado.getQtdFicha()));
         lblUsuario.setText(pytacoTrocado.getNomeUsuario());
-        return view;
     }
+
 }

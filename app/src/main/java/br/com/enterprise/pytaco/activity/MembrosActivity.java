@@ -34,8 +34,9 @@ public class MembrosActivity extends BaseActivity {
         setContentView(R.layout.activity_membros);
 
         ListView lsvMembros = findViewById(R.id.membros_lsvMembros);
-        adapter = new MembroItemAdapter(new ArrayList<Membro>(), this);
+        adapter = new MembroItemAdapter(new ArrayList<Membro>(), this, R.layout.lst_membro_item);
         lsvMembros.setAdapter(adapter);
+        lsvMembros.setEmptyView(findViewById(android.R.id.empty));
         lsvMembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

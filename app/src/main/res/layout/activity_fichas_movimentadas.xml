@@ -95,7 +95,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fichas_movimentadas_pnlFiltroData"
         android:layout_alignParentBottom="true"
-        android:layout_marginVertical="10dp"
         android:divider="@android:color/transparent"
-        android:dividerHeight="3dp" />
+        android:dividerHeight="3dp"
+        android:paddingVertical="10dp" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fichas_movimentadas_pnlFiltroData"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="Sem movimentações"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp" />
 </RelativeLayout>

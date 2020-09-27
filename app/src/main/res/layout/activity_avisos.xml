@@ -69,17 +69,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="86" />
-
-        <!--        <ImageButton-->
-        <!--            android:id="@+id/avisos_btnEnviarAviso"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_gravity="end"-->
-        <!--            android:layout_weight="7"-->
-        <!--            android:adjustViewBounds="true"-->
-        <!--            android:background="@android:color/transparent"-->
-        <!--            android:scaleType="centerInside"-->
-        <!--            android:src="@drawable/btn_enviar_aviso" />-->
     </LinearLayout>
 
     <ImageView
@@ -94,9 +83,21 @@
         android:id="@+id/avisos_lsvAvisos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="10dp"
         android:layout_below="@+id/avisos_pnlItemCabecalho"
         android:background="@drawable/background_aviso"
         android:divider="@android:color/transparent"
-        android:dividerHeight="3dp" />
+        android:dividerHeight="3dp"
+        android:paddingVertical="10dp" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/avisos_pnlItemCabecalho"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="Sem avisos"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp" />
 </RelativeLayout>

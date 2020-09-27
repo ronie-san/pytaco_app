@@ -1,25 +1,24 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
 
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class ClubeItemAdapter extends CustomAdapter<Clube> {
 
-    public ClubeItemAdapter(List<Clube> lst, Activity activity) {
-        super(lst, activity);
+    public ClubeItemAdapter(List<Clube> lst, BaseActivity activity, @LayoutRes int resource) {
+        super(lst, activity, resource);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = activity.getLayoutInflater().inflate(R.layout.lst_clube_item, parent, false);
+    protected void pSetItem(int position) {
         Clube clube = lst.get(position);
 
         TextView lblNome = view.findViewById(R.id.clube_item_lblNome);
@@ -30,7 +29,5 @@ public class ClubeItemAdapter extends CustomAdapter<Clube> {
 
         TextView lblQtdFicha = view.findViewById(R.id.clube_item_lblQtdFicha);
         lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
-
-        return view;
     }
 }

@@ -23,10 +23,12 @@ public abstract class MaskEditUtil {
             String old = "";
 
             @Override
-            public void afterTextChanged(final Editable s) {}
+            public void afterTextChanged(final Editable s) {
+            }
 
             @Override
-            public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {}
+            public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+            }
 
             @Override
             public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
@@ -59,6 +61,6 @@ public abstract class MaskEditUtil {
 
     @NotNull
     public static String unmask(@NotNull final String s) {
-        return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[ ]","").replaceAll("[:]", "").replaceAll("[)]", "");
+        return s.replaceAll("[.]", "").replaceAll("[-]", "").replaceAll("[/]", "").replaceAll("[(]", "").replaceAll("[ ]", "").replaceAll("[:]", "").replaceAll("[)]", "");
     }
 }

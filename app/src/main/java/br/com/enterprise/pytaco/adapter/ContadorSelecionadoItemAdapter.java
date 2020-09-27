@@ -1,26 +1,25 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
 
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class ContadorSelecionadoItemAdapter extends CustomAdapter<Membro> {
 
-    public ContadorSelecionadoItemAdapter(List<Membro> lst, Activity activity) {
-        super(lst, activity);
+    public ContadorSelecionadoItemAdapter(List<Membro> lst, BaseActivity activity, @LayoutRes int resource) {
+        super(lst, activity, resource);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = activity.getLayoutInflater().inflate(R.layout.lst_contador_selecionado_item, parent, false);
-        final Membro membro = lst.get(position);
+    protected void pSetItem(int position) {
+        Membro membro = lst.get(position);
 
         TextView lblNome = view.findViewById(R.id.contador_selecionado_item_lblNome);
         lblNome.setText(membro.getNome());
@@ -30,7 +29,5 @@ public class ContadorSelecionadoItemAdapter extends CustomAdapter<Membro> {
 
         TextView lblTipo = view.findViewById(R.id.contador_selecionado_item_lblTipo);
         lblTipo.setText(membro.getTipoExt());
-
-        return view;
     }
 }

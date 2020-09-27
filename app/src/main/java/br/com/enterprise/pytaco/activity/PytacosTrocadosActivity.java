@@ -10,9 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +41,8 @@ public class PytacosTrocadosActivity extends BaseActivity {
         TextView lblProximo = findViewById(R.id.pytacos_trocados_lblProximo);
         ListView lsvPytacosTrocados = findViewById(R.id.pytacos_trocados_lsvPytacosTrocados);
 
-        adapter = new PytacosTrocadosItemAdapter(new ArrayList<PytacoTrocado>(), this);
+        adapter = new PytacosTrocadosItemAdapter(new ArrayList<PytacoTrocado>(), this, R.layout.lst_pytacos_trocados_item);
+        lsvPytacosTrocados.setEmptyView(findViewById(android.R.id.empty));
         lsvPytacosTrocados.setAdapter(adapter);
 
         edtData.setText(DateUtil.getDate());
@@ -133,16 +131,6 @@ public class PytacosTrocadosActivity extends BaseActivity {
         } finally {
             adapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public void onError(@NotNull VolleyError error) {
-        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_PYTACOS_TROCADOS)) {
-            adapter.getLst().clear();
-            adapter.notifyDataSetChanged();
-        }
-
-        super.onError(error);
     }
 
     @Override

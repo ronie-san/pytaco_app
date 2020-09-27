@@ -5,7 +5,6 @@ import android.graphics.PorterDuff;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +21,7 @@ public class AcitivityUtil {
         }
     }
 
-    public static void addButtonClickEffect(@NotNull View botao){
+    public static void addButtonClickEffect(@NotNull View botao) {
         botao.setOnTouchListener(new View.OnTouchListener() {
 
             public boolean onTouch(View v, MotionEvent event) {

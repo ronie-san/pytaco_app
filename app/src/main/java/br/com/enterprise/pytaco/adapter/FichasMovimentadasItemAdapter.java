@@ -1,26 +1,25 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.LayoutRes;
 
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.pojo.FichaMovimentada;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class FichasMovimentadasItemAdapter extends CustomAdapter<FichaMovimentada> {
 
-    public FichasMovimentadasItemAdapter(List<FichaMovimentada> lst, Activity activity) {
-        super(lst, activity);
+    public FichasMovimentadasItemAdapter(List<FichaMovimentada> lst, BaseActivity activity, @LayoutRes int resource) {
+        super(lst, activity, resource);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = activity.getLayoutInflater().inflate(R.layout.lst_ficha_movimentada_item, parent, false);
+    protected void pSetItem(int position) {
         FichaMovimentada fichaMovimentada = lst.get(position);
 
         TextView lblUsuarioRecebeu = view.findViewById(R.id.ficha_movimentada_item_lblUsuarioRecebeu);
@@ -48,7 +47,6 @@ public class FichasMovimentadasItemAdapter extends CustomAdapter<FichaMovimentad
         lblUsuarioEnvio.setText(fichaMovimentada.getNomeUsuarioEnvio());
         lblQtdFichaAnteriorAdmin.setText(StringUtil.numberToStr(fichaMovimentada.getSaldoAnteriorAdmin()));
         lblQtdFichaAtualAdmin.setText(StringUtil.numberToStr(fichaMovimentada.getSaldoAtualAdmin()));
-
-        return view;
     }
+
 }

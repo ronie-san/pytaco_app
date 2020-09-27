@@ -44,7 +44,8 @@ public class FichasMovimentadasActivity extends BaseActivity {
         TextView lblProximo = findViewById(R.id.fichas_movimentadas_lblProximo);
         ListView lsvFichasMovimentadas = findViewById(R.id.fichas_movimentadas_lsvFichasMovimentadas);
 
-        adapter = new FichasMovimentadasItemAdapter(new ArrayList<FichaMovimentada>(), this);
+        adapter = new FichasMovimentadasItemAdapter(new ArrayList<FichaMovimentada>(), this, R.layout.lst_ficha_movimentada_item);
+        lsvFichasMovimentadas.setEmptyView(findViewById(android.R.id.empty));
         lsvFichasMovimentadas.setAdapter(adapter);
 
         edtData.setText(DateUtil.getDate());
@@ -142,7 +143,7 @@ public class FichasMovimentadasActivity extends BaseActivity {
 
     @Override
     public void onError(@NotNull VolleyError error) {
-        if(pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_FICHAS_MOVIMENTADAS)){
+        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_FICHAS_MOVIMENTADAS)) {
             adapter.getLst().clear();
             adapter.notifyDataSetChanged();
         }

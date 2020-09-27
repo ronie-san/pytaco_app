@@ -38,8 +38,9 @@ public class AvisosActivity extends BaseActivity {
         setContentView(R.layout.activity_avisos);
 
         ListView lsvAvisos = findViewById(R.id.avisos_lsvAvisos);
-        adapter = new AvisoItemAdapter(new ArrayList<Aviso>(), this);
+        adapter = new AvisoItemAdapter(new ArrayList<Aviso>(), this, R.layout.lst_aviso_item);
         lsvAvisos.setAdapter(adapter);
+        lsvAvisos.setEmptyView(findViewById(android.R.id.empty));
         lsvAvisos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -62,15 +63,6 @@ public class AvisosActivity extends BaseActivity {
                 btnCriarAvisoClick();
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (!pExisteDialogAberto()) {
-            pListaAvisos();
-        }
     }
 
     private boolean pExisteDialogAberto() {
@@ -211,6 +203,10 @@ public class AvisosActivity extends BaseActivity {
 
         } finally {
             adapter.notifyDataSetChanged();
+
+            if (adapter.getLst().size() == 0) {
+
+            }
         }
     }
 
@@ -226,8 +222,17 @@ public class AvisosActivity extends BaseActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (!pExisteDialogAberto()) {
+            pListaAvisos();
+        }
+    }
+
+    @Override
     public void onError(@NotNull VolleyError error) {
-        if(pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_AVISOS)){
+        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_AVISOS)) {
             adapter.getLst().clear();
             adapter.notifyDataSetChanged();
         }
