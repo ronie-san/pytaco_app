@@ -159,7 +159,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void pTrataRespostaLembrarSenha(String response) {
+    private void pTrataRespostaLembrarSenha() {
         pCancelDialog();
         pEnableScreen();
         makeLongToast("Um SMS com nova senha será enviado");
@@ -170,7 +170,7 @@ public class LoginActivity extends BaseActivity {
         if (!this.isDestroyed()) {
             switch (pytacoRequestEnum) {
                 case LEMBRAR_SENHA:
-                    pTrataRespostaLembrarSenha(response);
+                    pTrataRespostaLembrarSenha();
                     break;
                 case LOGIN:
                     pTrataRespostaLogin(response);

@@ -44,7 +44,7 @@ public class AvisosActivity extends BaseActivity {
         lsvAvisos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvAvisosItemClick(adapterView, view, i, l);
+                lsvAvisosItemClick(i);
             }
         });
 
@@ -79,7 +79,7 @@ public class AvisosActivity extends BaseActivity {
         }
     }
 
-    private void lsvAvisosItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    private void lsvAvisosItemClick(int i) {
         final Aviso aviso = adapter.getLst().get(i);
         dialogCriarAviso = createDialog(R.layout.dialog_criar_aviso);
 
@@ -203,10 +203,6 @@ public class AvisosActivity extends BaseActivity {
 
         } finally {
             adapter.notifyDataSetChanged();
-
-            if (adapter.getLst().size() == 0) {
-
-            }
         }
     }
 

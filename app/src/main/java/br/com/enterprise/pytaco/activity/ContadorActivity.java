@@ -45,7 +45,7 @@ public class ContadorActivity extends BaseActivity {
         lsvContadores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvContadoresItemClick(adapterView, view, i, l);
+                lsvContadoresItemClick(i);
             }
         });
 
@@ -93,7 +93,7 @@ public class ContadorActivity extends BaseActivity {
         }
     }
 
-    private void lsvContadoresItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    private void lsvContadoresItemClick(int i) {
         Membro item = adapter.getLst().get(i);
         item.setMarcado(!item.isMarcado());
         adapter.notifyDataSetChanged();
@@ -120,13 +120,18 @@ public class ContadorActivity extends BaseActivity {
                 }
             }
 
+            StringBuilder sb = new StringBuilder();
+
             if (adapter.getLst().isEmpty()) {
-                lblContadores.setText("Nenhum membro");
+                sb.append("Nenhum membro");
             } else if (adapter.getLst().size() == 1) {
-                lblContadores.setText("1 membro");
+                sb.append("1 membro");
             } else {
-                lblContadores.setText(adapter.getLst().size() + " membros");
+                sb.append(adapter.getLst().size())
+                        .append(" membros");
             }
+
+            lblContadores.setText(sb.toString());
         } catch (JSONException ignored) {
 
         } finally {

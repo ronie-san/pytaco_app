@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 
 import com.android.volley.VolleyError;
 
+import org.jetbrains.annotations.NotNull;
+
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.MaskEditUtil;
@@ -86,7 +88,7 @@ public class CriarContaActivity extends BaseActivity {
     }
 
     @Override
-    public void onError(VolleyError error) {
+    public void onError(@NotNull VolleyError error) {
         if (!this.isDestroyed()) {
             pCancelDialog();
             pEnableScreen();

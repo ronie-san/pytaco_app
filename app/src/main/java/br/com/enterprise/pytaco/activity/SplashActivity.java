@@ -18,8 +18,6 @@ import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 public class SplashActivity extends BaseActivity {
 
     private String nomeUsuario;
-    private String senha;
-    private boolean isShowing;
 
     private void pShowLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -40,7 +38,7 @@ public class SplashActivity extends BaseActivity {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         nomeUsuario = preferences.getString("usuario", "");
-        senha = preferences.getString("senha", "");
+        String senha = preferences.getString("senha", "");
 
         if (nomeUsuario != null && !nomeUsuario.isEmpty() && senha != null && !senha.isEmpty()) {
             PytacoRequestDAO request = new PytacoRequestDAO(this);

@@ -40,7 +40,7 @@ public class MembrosActivity extends BaseActivity {
         lsvMembros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                lsvMembrosItemClick(adapterView, view, i, l);
+                lsvMembrosItemClick(i);
             }
         });
 
@@ -59,7 +59,7 @@ public class MembrosActivity extends BaseActivity {
         return dialogLoading != null && dialogLoading.getDialog().isShowing();
     }
 
-    private void lsvMembrosItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    private void lsvMembrosItemClick(int i) {
         Intent intent = new Intent(this, MembroSelecionadoActivity.class);
         membro = adapter.getLst().get(i);
         startActivity(intent);

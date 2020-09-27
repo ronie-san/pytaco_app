@@ -1,8 +1,5 @@
 package br.com.enterprise.pytaco.adapter;
 
-import android.app.Activity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,26 +20,28 @@ public class AvisoItemAdapter extends CustomAdapter<Aviso> {
     @Override
     protected void pSetItem(int position) {
         Aviso aviso = lst.get(position);
-
         ImageView imgAviso = view.findViewById(R.id.aviso_item_imgAviso);
+        TextView lblTitulo = view.findViewById(R.id.aviso_item_lblTitulo);
+        TextView lblDescricao = view.findViewById(R.id.aviso_item_lblDescricao);
+        TextView lblData = view.findViewById(R.id.aviso_item_lblData);
+        TextView lblStatus = view.findViewById(R.id.aviso_item_lblStatus);
+
         if (aviso != null) {
             if (aviso.getStatus().equals("E")) {
                 imgAviso.setImageResource(R.drawable.bola_vermelha);
             } else if (aviso.getStatus().equals("L")) {
                 imgAviso.setImageResource(R.drawable.bola_cinza);
             }
+
+            lblTitulo.setText(aviso.getTitulo());
+            lblDescricao.setText(aviso.getDescricao());
+            lblData.setText(aviso.getData());
+            lblStatus.setText(aviso.getStatusExt());
+        } else {
+            lblTitulo.setText("");
+            lblDescricao.setText("");
+            lblData.setText("");
+            lblStatus.setText("");
         }
-
-        TextView lblTitulo = view.findViewById(R.id.aviso_item_lblTitulo);
-        lblTitulo.setText(aviso.getTitulo());
-
-        TextView lblDescricao = view.findViewById(R.id.aviso_item_lblDescricao);
-        lblDescricao.setText(aviso.getDescricao());
-
-        TextView lblData = view.findViewById(R.id.aviso_item_lblData);
-        lblData.setText(aviso.getData());
-
-        TextView lblStatus = view.findViewById(R.id.aviso_item_lblStatus);
-        lblStatus.setText(aviso.getStatusExt());
     }
 }
