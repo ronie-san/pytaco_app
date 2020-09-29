@@ -1,15 +1,12 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
@@ -74,6 +71,14 @@ public class ClubesActivity extends BaseRecyclerActivity implements IActivity {
             }
         });
 
+        ImageButton btnCompras = findViewById(R.id.clubes_btnCompras);
+        btnCompras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         ImageButton btnBolao = findViewById(R.id.clubes_btnBolao);
         btnBolao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +86,9 @@ public class ClubesActivity extends BaseRecyclerActivity implements IActivity {
                 btnBolaoClick();
             }
         });
+    }
+
+    private void btnComprasClick() {
     }
 
     @Override
@@ -116,12 +124,6 @@ public class ClubesActivity extends BaseRecyclerActivity implements IActivity {
     private void btnBolaoClick() {
 
     }
-
-//    private void lsvClubesItemClick(int i) {
-//        Intent intent = new Intent(this, BolaoActivity.class);
-//        clube = adapter.getLst().get(i);
-//        startActivity(intent);
-//    }
 
     private void btnAssociarClubeClick() {
         dialogAssociarClube = createDialog(R.layout.dialog_associar_clube);

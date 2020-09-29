@@ -86,7 +86,8 @@
         android:layout_below="@+id/avisos_pnlItemCabecalho"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp"
-        android:paddingVertical="10dp" />
+        android:paddingVertical="10dp"
+        android:scrollbars="vertical" />
 
     <TextView
         android:id="@android:id/empty"

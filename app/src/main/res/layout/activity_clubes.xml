@@ -135,7 +135,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/clubes_pnlRodape"
         android:layout_below="@+id/clubes_pnlCabecalho"
-        android:paddingVertical="10dp" />
+        android:paddingVertical="10dp"
+        android:scrollbars="vertical" />
 
     <TextView
         android:id="@android:id/empty"
@@ -159,6 +160,7 @@
         android:weightSum="90">
 
         <ImageButton
+            android:id="@+id/clubes_btnCompras"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_gravity="center"

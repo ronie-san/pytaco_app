@@ -31,6 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.activity.IActivity;
 
 public abstract class BasicRequestDAO extends Application {
@@ -66,9 +67,9 @@ public abstract class BasicRequestDAO extends Application {
             @Override
             public void onErrorResponse(VolleyError error) {
                 ConnectivityManager cm = (ConnectivityManager) activity.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-                if (cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() != NetworkInfo.State.CONNECTED &&
-                        cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() != NetworkInfo.State.CONNECTED) {
+                if (activeNetwork == null || activeNetwork.getType() != ConnectivityManager.TYPE_WIFI || activeNetwork.getType() != ConnectivityManager.TYPE_MOBILE) {
                     activity.onError(new VolleyError("Sem conexão com a internet."));
                 } else {
                     activity.onError(error);
@@ -79,10 +80,6 @@ public abstract class BasicRequestDAO extends Application {
     //endregion
 
     //region PRIVATE METHODS
-    protected void pGetRequest(@NonNull String url) {
-        pGetRequest(url, null);
-    }
-
     protected void pGetRequest(@NonNull String url, @Nullable final Map<String, String> params) {
         Request<String> request = new Request<String>(Request.Method.GET, baseUrl + url, errorListener) {
             @NotNull
@@ -96,8 +93,7 @@ public abstract class BasicRequestDAO extends Application {
             @NotNull
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                Response<String> result = Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
-                return result;
+                return Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
             }
 
             @Override
@@ -107,10 +103,6 @@ public abstract class BasicRequestDAO extends Application {
         };
 
         pMakeRequest(request);
-    }
-
-    protected void pPostRequest(@NonNull String url) {
-        pPostRequest(url, null);
     }
 
     protected void pPostRequest(@NonNull String url, @Nullable final Map<String, String> params) {
@@ -129,8 +121,7 @@ public abstract class BasicRequestDAO extends Application {
             @NotNull
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                Response<String> result = Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
-                return result;
+                return Response.success(pNetworkResponseToStr(response), HttpHeaderParser.parseCacheHeaders(response));
             }
 
             @Override
@@ -153,7 +144,7 @@ public abstract class BasicRequestDAO extends Application {
                 if (useKeyHeader) {
                     HashMap<String, String> headers = new HashMap<>();
                     /*CHAVE DA API NECESSÁRIA PARA AUTENTICAÇÃO*/
-                    headers.put("X-RapidAPI-Key", "fdecd8152bmsh85452b4495c9e18p113131jsnba0f6981f4d3");
+                    headers.put("X-RapidAPI-Key", getString(R.string.api_footbal_key));
                     return headers;
                 }
 
@@ -163,15 +154,13 @@ public abstract class BasicRequestDAO extends Application {
             @NotNull
             @Override
             public String getUrl() {
-                String computedUrl = super.getUrl() + pGetUrlParams(params);
-                return computedUrl;
+                return super.getUrl() + pGetUrlParams(params);
             }
 
             @Override
             protected Response<JSONObject> parseNetworkResponse(@NotNull NetworkResponse response) {
                 try {
-                    Response<JSONObject> result = Response.success(new JSONObject(pNetworkResponseToStr(response)), HttpHeaderParser.parseCacheHeaders(response));
-                    return result;
+                    return Response.success(new JSONObject(pNetworkResponseToStr(response)), HttpHeaderParser.parseCacheHeaders(response));
                 } catch (JSONException e) {
                     return Response.error(new ParseError(e));
                 }
@@ -181,7 +170,16 @@ public abstract class BasicRequestDAO extends Application {
         pMakeRequest(request);
     }
 
-    private void pMakeRequest(@NotNull Request request) {
+    private void pMakeRequest(@NotNull JsonObjectRequest request) {
+        DefaultRetryPolicy policy = new DefaultRetryPolicy(1000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        request.setRetryPolicy(policy);
+        request.setShouldCache(false);
+        this.activity.onStartRequest();
+        RequestQueue queue = Volley.newRequestQueue(activity.getActivity());
+        queue.add(request);
+    }
+
+    private void pMakeRequest(@NotNull Request<String> request) {
         DefaultRetryPolicy policy = new DefaultRetryPolicy(1000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         request.setShouldCache(false);
@@ -208,8 +206,7 @@ public abstract class BasicRequestDAO extends Application {
     @NotNull
     private String pNetworkResponseToStr(@NotNull NetworkResponse response) {
         try {
-            String result = new String(response.data, HttpHeaderParser.parseCharset(response.headers, String.valueOf(StandardCharsets.UTF_8)));
-            return result;
+            return new String(response.data, HttpHeaderParser.parseCharset(response.headers, String.valueOf(StandardCharsets.UTF_8)));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             return "";

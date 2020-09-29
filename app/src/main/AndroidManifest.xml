@@ -2,15 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.enterprise.pytaco">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        android:required="true" />
     <uses-permission
         android:name="android.permission.ACCESS_WIFI_STATE"
         android:required="true" />
     <uses-permission
-        android:name="android.permission.CHANGE_WIFI_STATE"
+        android:name="android.permission.INTERNET"
         android:required="true" />
     <uses-permission
-        android:name="android.permission.INTERNET"
+        android:name="com.android.vending.BILLING"
         android:required="true" />
 
     <application
