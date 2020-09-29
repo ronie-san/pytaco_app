@@ -99,5 +99,6 @@
         android:paddingVertical="10dp"
         android:text="Sem avisos"
         android:textColor="@color/pytaco"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -109,7 +109,7 @@ public class ContadorActivity extends BaseRecyclerActivity {
             StringBuilder sb = new StringBuilder();
 
             if (adapter.getLst().isEmpty()) {
-                sb.append("Nenhum membro");
+                sb.append("Sem membros");
             } else if (adapter.getLst().size() == 1) {
                 sb.append("1 membro");
             } else {

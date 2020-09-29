@@ -110,5 +110,6 @@
         android:paddingVertical="10dp"
         android:text="Sem movimentações"
         android:textColor="@color/pytaco"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:visibility="gone" />
 </RelativeLayout>
