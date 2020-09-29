@@ -26,7 +26,7 @@ import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
 
-public class ClubesActivity extends BaseRecyclerActivity implements IActivity {
+public class ClubesActivity extends BaseRecyclerActivity {
 
     private TextView lblQtdPytacoGlobal;
     private TextView lblQtdFichaGlobal;

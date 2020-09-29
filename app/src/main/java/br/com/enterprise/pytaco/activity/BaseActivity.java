@@ -30,7 +30,7 @@ import br.com.enterprise.pytaco.util.AcitivityUtil;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-public abstract class BaseActivity extends Activity implements IActivity {
+public abstract class BaseActivity extends Activity {
 
     private boolean keyboardShowing;
     protected static Usuario usuario;
@@ -153,17 +153,14 @@ public abstract class BaseActivity extends Activity implements IActivity {
         });
     }
 
-    @Override
     public void setPytacoRequest(PytacoRequestEnum value) {
         this.pytacoRequestEnum = value;
     }
 
-    @Override
     public void onSucess(String response) {
         this.pytacoRequestEnum = PytacoRequestEnum.NONE;
     }
 
-    @Override
     public void onError(@NotNull VolleyError error) {
         pCancelDialog();
         pEnableScreen();
@@ -171,16 +168,10 @@ public abstract class BaseActivity extends Activity implements IActivity {
         this.pytacoRequestEnum = PytacoRequestEnum.NONE;
     }
 
-    @Override
     public void onStartRequest() {
         if (dialogLoading == null) {
             pDisableScreen();
             pShowProgress();
         }
-    }
-
-    @Override
-    public Activity getActivity() {
-        return this;
     }
 }

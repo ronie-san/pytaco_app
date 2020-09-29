@@ -8,12 +8,12 @@ import androidx.annotation.Nullable;
 import java.util.Date;
 import java.util.HashMap;
 
-import br.com.enterprise.pytaco.activity.IActivity;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.util.DateUtil;
 
 public class APIFootballRequestDAO extends BasicRequestDAO {
 
-    public APIFootballRequestDAO(IActivity activity) {
+    public APIFootballRequestDAO(BaseActivity activity) {
         super(activity);
         useKeyHeader = true;
         baseUrl = "https://api-football-v1.p.rapidapi.com/v2/";

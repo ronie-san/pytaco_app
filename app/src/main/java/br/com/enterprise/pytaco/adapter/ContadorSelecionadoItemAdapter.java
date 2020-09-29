@@ -2,6 +2,8 @@ package br.com.enterprise.pytaco.adapter;
 
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
@@ -21,7 +23,7 @@ public class ContadorSelecionadoItemAdapter extends CustomRecyclerAdapter<Membro
     }
 
     @Override
-    protected void pSetViewProperties(Membro item, ContadorSelecionadoItemHolder holder) {
+    protected void pSetViewProperties(@NotNull Membro item, @NotNull ContadorSelecionadoItemHolder holder) {
         holder.getLblNome().setText(item.getNome());
         holder.getLblQtdFicha().setText(StringUtil.numberToStr(item.getQtdFicha()));
         holder.getLblTipo().setText(item.getTipoExt());

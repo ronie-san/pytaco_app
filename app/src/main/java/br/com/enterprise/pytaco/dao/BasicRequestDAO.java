@@ -1,6 +1,5 @@
 package br.com.enterprise.pytaco.dao;
 
-import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,19 +31,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.activity.IActivity;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 
-public abstract class BasicRequestDAO extends Application {
+public abstract class BasicRequestDAO {
 
     protected String baseUrl;
     protected Boolean useKeyHeader;
     private Response.Listener<JSONObject> jsonRespListener;
     private Response.Listener<String> respListener;
     private Response.ErrorListener errorListener;
-    protected IActivity activity;
+    protected BaseActivity activity;
 
     //region CONSTRUCTOR
-    public BasicRequestDAO(final IActivity activity) {
+    public BasicRequestDAO(final BaseActivity activity) {
         this.activity = activity;
 
         this.jsonRespListener = new Response.Listener<JSONObject>() {
@@ -66,7 +65,7 @@ public abstract class BasicRequestDAO extends Application {
         this.errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ConnectivityManager cm = (ConnectivityManager) activity.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
                 if (activeNetwork == null || activeNetwork.getType() != ConnectivityManager.TYPE_WIFI || activeNetwork.getType() != ConnectivityManager.TYPE_MOBILE) {
@@ -144,7 +143,7 @@ public abstract class BasicRequestDAO extends Application {
                 if (useKeyHeader) {
                     HashMap<String, String> headers = new HashMap<>();
                     /*CHAVE DA API NECESSÁRIA PARA AUTENTICAÇÃO*/
-                    headers.put("X-RapidAPI-Key", getString(R.string.api_footbal_key));
+                    headers.put("X-RapidAPI-Key", activity.getString(R.string.api_footbal_key));
                     return headers;
                 }
 
@@ -174,8 +173,8 @@ public abstract class BasicRequestDAO extends Application {
         DefaultRetryPolicy policy = new DefaultRetryPolicy(1000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         request.setShouldCache(false);
-        this.activity.onStartRequest();
-        RequestQueue queue = Volley.newRequestQueue(activity.getActivity());
+        activity.onStartRequest();
+        RequestQueue queue = Volley.newRequestQueue(activity);
         queue.add(request);
     }
 
@@ -183,8 +182,8 @@ public abstract class BasicRequestDAO extends Application {
         DefaultRetryPolicy policy = new DefaultRetryPolicy(1000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         request.setShouldCache(false);
-        this.activity.onStartRequest();
-        RequestQueue queue = Volley.newRequestQueue(activity.getActivity());
+        activity.onStartRequest();
+        RequestQueue queue = Volley.newRequestQueue(activity);
         queue.add(request);
     }
 
@@ -208,7 +207,6 @@ public abstract class BasicRequestDAO extends Application {
         try {
             return new String(response.data, HttpHeaderParser.parseCharset(response.headers, String.valueOf(StandardCharsets.UTF_8)));
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
             return "";
         }
     }

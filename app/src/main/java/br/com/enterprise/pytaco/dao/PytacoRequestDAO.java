@@ -4,13 +4,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-import br.com.enterprise.pytaco.activity.IActivity;
+import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class PytacoRequestDAO extends BasicRequestDAO {
 
-    public PytacoRequestDAO(IActivity activity) {
+    public PytacoRequestDAO(BaseActivity activity) {
         super(activity);
         useKeyHeader = false;
 //        baseUrl = "http://easycliente.com.br/pitaco/php/"; //ANTIGO
@@ -33,18 +33,6 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         activity.setPytacoRequest(PytacoRequestEnum.LOGIN);
         pGetRequest("login.php", map);
     }
-
-//    public void checkVersion(String versao) {
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("versao", versao);
-//        activity.setPytacoRequest(PytacoRequestEnum.CHECK_VERSION);
-//        pGetRequest("checkVersion.php", map);
-//    }
-//
-//    public void geraChaveSeguranca() {
-//        activity.setPytacoRequest(PytacoRequestEnum.GERA_CHAVE_SEGURANCA);
-//        pGetRequest("geraChaveSeguranca.php");
-//    }
 
     public void listaClubes(int idUsuario, String chaveAcesso) {
         HashMap<String, String> map = new HashMap<>();

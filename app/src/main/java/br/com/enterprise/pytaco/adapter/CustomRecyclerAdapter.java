@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
+import br.com.enterprise.pytaco.holder.CustomViewHolder;
 import br.com.enterprise.pytaco.pojo.BaseEntity;
 
-public abstract class CustomRecyclerAdapter<T extends BaseEntity, R extends RecyclerView.ViewHolder>
+public abstract class CustomRecyclerAdapter<T extends BaseEntity, R extends CustomViewHolder>
         extends RecyclerView.Adapter<R> {
 
     private List<T> lst;

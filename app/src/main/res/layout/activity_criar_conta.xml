@@ -75,16 +75,17 @@
                 style="@style/input_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Celular"
                 app:boxStrokeColor="@android:color/white"
                 app:hintAnimationEnabled="true"
-                app:hintTextColor="@android:color/white">
+                app:hintTextColor="@android:color/white"
+                app:placeholderText="(##)#####-#####">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/criar_conta_edtCelular"
                     style="@style/edit_color"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="(##)#####-#####"
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>

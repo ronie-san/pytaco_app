@@ -2,6 +2,8 @@ package br.com.enterprise.pytaco.adapter;
 
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
@@ -21,7 +23,7 @@ public class ContadorItemAdapter extends CustomRecyclerAdapter<Membro, ContadorI
     }
 
     @Override
-    protected void pSetViewProperties(final Membro item, final ContadorItemHolder holder) {
+    protected void pSetViewProperties(@NotNull final Membro item, @NotNull final ContadorItemHolder holder) {
         holder.getChkMarcado().setChecked(item.isMarcado());
         holder.getChkMarcado().setOnClickListener(new View.OnClickListener() {
             @Override

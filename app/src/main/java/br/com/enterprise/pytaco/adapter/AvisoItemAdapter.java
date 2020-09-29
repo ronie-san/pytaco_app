@@ -2,6 +2,8 @@ package br.com.enterprise.pytaco.adapter;
 
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
@@ -21,7 +23,7 @@ public class AvisoItemAdapter extends CustomRecyclerAdapter<Aviso, AvisoItemHold
     }
 
     @Override
-    protected void pSetViewProperties(Aviso item, AvisoItemHolder holder) {
+    protected void pSetViewProperties(@NotNull Aviso item, AvisoItemHolder holder) {
         if (item.getStatus().equals("E")) {
             holder.getImgAviso().setImageResource(R.drawable.bola_vermelha);
         } else if (item.getStatus().equals("L")) {
