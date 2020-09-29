@@ -23,7 +23,7 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Custo
             }
 
             if (((RecyclerView) v).getItemDecorationCount() == 0) {
-                ((RecyclerView) v).addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL) {
+                ((RecyclerView) v).addItemDecoration(new DividerItemDecoration(this, 0) {
                     @Override
                     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                         if (parent.getAdapter() != null && parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
