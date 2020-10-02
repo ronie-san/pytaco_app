@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackground"
             android:paddingStart="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/botao_voltar" />
+            android:src="@drawable/btn_voltar" />
 
         <ImageView
             android:layout_width="0dp"
@@ -64,60 +64,65 @@
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-        <TextView
-            android:id="@+id/administracao_lblTrocarPytacos"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/administracao_btnTrocarPytacos"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Trocar Pytacos"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_trocar_pytacos" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
-        <TextView
-            android:id="@+id/administracao_lblNotificacoes"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/administracao_btnNotificacoes"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Notificações"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_notificacoes" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
-        <TextView
-            android:id="@+id/administracao_lblRelatorios"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/administracao_btnRelatorios"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Relatórios"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_relatorios" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
-        <TextView
-            android:id="@+id/administracao_lblDesfazerClube"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/administracao_btnDesfazerClube"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Desfazer Clube"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_desfazer_clube" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
-        <TextView
-            android:id="@+id/administracao_lblSairClube"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/administracao_btnSairClube"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Sair do Clube"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_sair_clube" />
     </LinearLayout>
 </RelativeLayout>

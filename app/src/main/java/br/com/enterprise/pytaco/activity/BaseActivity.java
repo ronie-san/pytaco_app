@@ -2,6 +2,7 @@ package br.com.enterprise.pytaco.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 
 import com.android.volley.VolleyError;
@@ -90,18 +92,30 @@ public abstract class BaseActivity extends Activity {
         return (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
     }
 
-    public boolean isKeyboardShowing() {
-        return keyboardShowing;
-    }
-
     protected void pFocusEdit(@NotNull EditText edit) {
         edit.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(edit, InputMethodManager.SHOW_IMPLICIT);
     }
 
+    protected int pGetVisible(boolean visible) {
+        return visible ? View.VISIBLE : View.GONE;
+    }
+
     protected void pHideKeyboard() {
         AcitivityUtil.hideKeyboard(this, getCurrentFocus());
+    }
+
+    //este flag faz voltar à Activity que já existe, limpando todas que existem acima dela
+    protected void pStartActivityClearTop(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    protected void pStartActivity(Class<?> cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
     }
 
     private void pMakeToast(String msg, int periodo) {
@@ -116,8 +130,12 @@ public abstract class BaseActivity extends Activity {
         }
     }
 
+    public boolean isKeyboardShowing() {
+        return keyboardShowing;
+    }
+
     @Override
-    public <T extends View> T findViewById(int id) {
+    public <T extends View> T findViewById(@IdRes int id) {
         T v = super.findViewById(id);
 
         if (v instanceof Button) {

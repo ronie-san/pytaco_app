@@ -41,7 +41,7 @@
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_voltar" />
+                android:src="@drawable/btn_voltar" />
 
             <ImageView
                 android:layout_width="90dp"
@@ -64,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit"
+                android:hint="Título"
                 android:inputType="text"
                 android:maxLines="1" />
 
@@ -77,12 +78,13 @@
 
             <EditText
                 android:id="@+id/criar_aviso_edtDescricaoAviso"
-                style="@style/memo" />
+                style="@style/memo"
+                android:hint="Descrição" />
 
             <ImageButton
                 android:id="@+id/criar_aviso_btnSalvar"
                 android:layout_width="150dp"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
@@ -116,7 +118,7 @@
             <!--                    android:layout_gravity="center"-->
             <!--                    android:layout_weight="50"-->
             <!--                    android:adjustViewBounds="true"-->
-            <!--                    android:background="?attr/selectableItemBackground"-->
+            <!--                    android:background_login="?attr/selectableItemBackground"-->
             <!--                    android:scaleType="centerInside"-->
             <!--                    android:src="@drawable/btn_salvar" />-->
 
@@ -126,7 +128,7 @@
             <!--                    android:layout_height="36dp"-->
             <!--                    android:layout_gravity="center"-->
             <!--                    android:layout_weight="50"-->
-            <!--                    android:background="@drawable/btn_padrao_vermelho"-->
+            <!--                    android:background_login="@drawable/btn_padrao_vermelho"-->
             <!--                    android:text="Excluir"-->
             <!--                    android:textColor="#ffffff"-->
             <!--                    android:textSize="18sp" />-->

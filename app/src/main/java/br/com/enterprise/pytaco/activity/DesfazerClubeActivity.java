@@ -1,9 +1,7 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import org.json.JSONException;
@@ -13,8 +11,6 @@ import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-
 public class DesfazerClubeActivity extends BaseActivity {
 
     @Override
@@ -22,7 +18,7 @@ public class DesfazerClubeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desfazer_clube);
         ImageButton btnVoltar = findViewById(R.id.desfazer_clube_btnVoltar);
-        Button btnDesfazer = findViewById(R.id.desfazer_clube_btnDesfazer);
+        ImageButton btnDesfazer = findViewById(R.id.desfazer_clube_btnDesfazer);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,11 +56,7 @@ public class DesfazerClubeActivity extends BaseActivity {
             usuario.setChaveAcesso(resp.getString("chaveacesso"));
             clube = null;
             makeLongToast("Clube desfeito com sucesso");
-
-            Intent intent = new Intent(this, ClubesActivity.class);
-            //este flag faz voltar à Activity que já existe, limpando todas que existem acima dela
-            intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            pStartActivityClearTop(ClubesActivity.class);
         } catch (JSONException ignored) {
         }
     }

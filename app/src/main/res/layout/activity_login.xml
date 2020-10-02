@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background_login">
 
     <Button
         android:id="@+id/login_btnTeste"
@@ -107,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:orientation="horizontal"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:weightSum="100">
@@ -114,12 +115,12 @@
             <ImageButton
                 android:id="@+id/login_btnEntrar"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="48"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_entrar" />
+                android:src="@drawable/btn_entrar" />
 
             <Space
                 android:layout_width="0dp"
@@ -129,12 +130,12 @@
             <ImageButton
                 android:id="@+id/login_btnCriarConta"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="48"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_criar_conta" />
+                android:src="@drawable/btn_criar_conta" />
         </LinearLayout>
 
         <CheckBox

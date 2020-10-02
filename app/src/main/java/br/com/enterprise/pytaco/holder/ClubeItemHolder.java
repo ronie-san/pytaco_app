@@ -13,6 +13,7 @@ public class ClubeItemHolder extends CustomViewHolder {
     private TextView lblNome;
     private TextView lblDescricao;
     private TextView lblQtdFicha;
+    private TextView lblCodClube;
 
     public ClubeItemHolder(@NonNull View itemView, CustomRecyclerAdapter.OnLstItemClickListener listener) {
         super(itemView, listener);
@@ -30,10 +31,15 @@ public class ClubeItemHolder extends CustomViewHolder {
         return lblQtdFicha;
     }
 
+    public TextView getLblCodClube() {
+        return lblCodClube;
+    }
+
     @Override
     protected void pFindViews(@NonNull View itemView) {
         lblNome = itemView.findViewById(R.id.clube_item_lblNome);
         lblDescricao = itemView.findViewById(R.id.clube_item_lblDescricao);
         lblQtdFicha = itemView.findViewById(R.id.clube_item_lblQtdFicha);
+        lblCodClube = itemView.findViewById(R.id.clube_item_lblCodClube);
     }
 }

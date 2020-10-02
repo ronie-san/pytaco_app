@@ -19,12 +19,6 @@ public class SplashActivity extends BaseActivity {
 
     private String nomeUsuario;
 
-    private void pShowLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +38,7 @@ public class SplashActivity extends BaseActivity {
             PytacoRequestDAO request = new PytacoRequestDAO(this);
             request.login(nomeUsuario, senha);
         } else {
-            pShowLogin();
+            pStartActivityClearTop(LoginActivity.class);
         }
     }
 
@@ -69,17 +63,17 @@ public class SplashActivity extends BaseActivity {
                     startActivity(intent);
                 }
             } catch (JSONException ignored) {
-                pShowLogin();
+                pStartActivityClearTop(LoginActivity.class);
             }
         } else {
             pytacoRequestEnum = PytacoRequestEnum.NONE;
-            pShowLogin();
+            pStartActivityClearTop(LoginActivity.class);
         }
     }
 
     @Override
     public void onError(@NotNull VolleyError error) {
         pytacoRequestEnum = PytacoRequestEnum.NONE;
-        pShowLogin();
+        pStartActivityClearTop(LoginActivity.class);
     }
 }

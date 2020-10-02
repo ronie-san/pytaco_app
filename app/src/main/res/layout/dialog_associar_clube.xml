@@ -41,7 +41,7 @@
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_voltar" />
+                android:src="@drawable/btn_voltar" />
 
             <ImageView
                 android:layout_width="90dp"
@@ -64,13 +64,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit"
+                android:hint="Código"
                 android:inputType="text"
                 android:maxLines="1" />
 
             <ImageButton
                 android:id="@+id/associar_clube_btnAssociar"
-                android:layout_width="170dp"
-                android:layout_height="60dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"

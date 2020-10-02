@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackground"
             android:paddingStart="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/botao_voltar" />
+            android:src="@drawable/btn_voltar" />
 
         <ImageView
             android:layout_width="0dp"

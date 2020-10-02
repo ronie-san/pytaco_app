@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackground"
             android:paddingStart="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/botao_voltar" />
+            android:src="@drawable/btn_voltar" />
 
         <ImageView
             android:layout_width="0dp"
@@ -70,14 +70,14 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/desfazer_clube_btnDesfazer"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:layout_gravity="center"
-            android:background="@drawable/btn_padrao_vermelho"
-            android:text="Desfazer"
-            android:textSize="20sp"
-            android:textColor="@android:color/white" />
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_desfazer" />
     </LinearLayout>
 </RelativeLayout>

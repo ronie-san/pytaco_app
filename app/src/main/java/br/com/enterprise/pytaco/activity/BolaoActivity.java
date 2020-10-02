@@ -24,10 +24,10 @@ public class BolaoActivity extends BaseActivity {
         ImageButton btnVoltar = findViewById(R.id.bolao_btnVoltar);
         ImageButton btnCriarBolao = findViewById(R.id.bolao_btnCriarBolao);
         ImageButton btnMeusBoloes = findViewById(R.id.bolao_btnMeusBoloes);
-        ImageButton lblAvisos = findViewById(R.id.bolao_lblAvisos);
-        ImageButton lblMembros = findViewById(R.id.bolao_lblMembros);
-        ImageButton lblContador = findViewById(R.id.bolao_lblContador);
-        ImageButton lblAdministrador = findViewById(R.id.bolao_lblAdministrador);
+        ImageButton btnAvisos = findViewById(R.id.bolao_btnAvisos);
+        ImageButton btnMembros = findViewById(R.id.bolao_btnMembros);
+        ImageButton btnContador = findViewById(R.id.bolao_btnContador);
+        ImageButton btnAdministrador = findViewById(R.id.bolao_btnAdministrador);
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,42 +35,56 @@ public class BolaoActivity extends BaseActivity {
                 btnVoltarClick();
             }
         });
+
         btnCriarBolao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 btnCriarBolaoClick();
             }
         });
+//        btnCriarBolao.setVisibility(pGetVisible(pIsAgenteAdmin()));
+
         btnMeusBoloes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 btnMeusBoloesClick();
             }
         });
-        lblAvisos.setOnClickListener(new View.OnClickListener() {
+
+        btnAvisos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblAvisosClick();
+                btnAvisosClick();
             }
         });
-        lblMembros.setOnClickListener(new View.OnClickListener() {
+
+        btnMembros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblMembrosClick();
+                btnMembrosClick();
             }
         });
-        lblContador.setOnClickListener(new View.OnClickListener() {
+//        btnMembros.setVisibility(pGetVisible(pIsAgenteAdmin()));
+
+        btnContador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblContadorClick();
+                btnContadorClick();
             }
         });
-        lblAdministrador.setOnClickListener(new View.OnClickListener() {
+//        btnContador.setVisibility(pGetVisible(pIsAgenteAdmin()));
+
+        btnAdministrador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblAdministradorClick();
+                btnAdministradorClick();
             }
         });
+//        btnAdministrador.setVisibility(pGetVisible(pIsAgenteAdmin()));
+    }
+
+    private boolean pIsAgenteAdmin() {
+        return clube.getTipoUsuario().equals("2") || clube.getTipoUsuario().equals("3");
     }
 
     @Override
@@ -87,22 +101,22 @@ public class BolaoActivity extends BaseActivity {
 
     }
 
-    private void lblAvisosClick() {
+    private void btnAvisosClick() {
         Intent intent = new Intent(this, AvisosActivity.class);
         startActivity(intent);
     }
 
-    private void lblMembrosClick() {
+    private void btnMembrosClick() {
         Intent intent = new Intent(this, MembrosActivity.class);
         startActivity(intent);
     }
 
-    private void lblContadorClick() {
+    private void btnContadorClick() {
         Intent intent = new Intent(this, ContadorActivity.class);
         startActivity(intent);
     }
 
-    private void lblAdministradorClick() {
+    private void btnAdministradorClick() {
         Intent intent = new Intent(this, AdministracaoActivity.class);
         startActivity(intent);
     }

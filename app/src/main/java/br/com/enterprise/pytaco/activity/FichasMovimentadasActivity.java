@@ -87,6 +87,7 @@ public class FichasMovimentadasActivity extends BaseRecyclerActivity {
 
     private void edtDataClick() {
         final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtil.parse(edtData.getText().toString()));
         int dia = calendar.get(Calendar.DAY_OF_MONTH);
         int mes = calendar.get(Calendar.MONTH);
         int ano = calendar.get(Calendar.YEAR);
@@ -166,5 +167,9 @@ public class FichasMovimentadasActivity extends BaseRecyclerActivity {
     @Override
     public RecyclerView getRecyclerView() {
         return findViewById(R.id.fichas_movimentadas_lsvFichasMovimentadas);
+    }
+
+    @Override
+    public void onLstItemClick(int position) {
     }
 }

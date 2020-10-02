@@ -10,7 +10,6 @@ import android.widget.TextView;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
-import br.com.enterprise.pytaco.util.StringUtil;
 
 public class MembroSelecionadoActivity extends BaseActivity {
 
@@ -29,9 +28,9 @@ public class MembroSelecionadoActivity extends BaseActivity {
         lblAgente = findViewById(R.id.membro_selecionado_lblAgente);
         lblTipo = findViewById(R.id.membro_selecionado_lblTipo);
         lblStatus = findViewById(R.id.membro_selecionado_lblStatus);
-        TextView lblAceitarMembros = findViewById(R.id.membro_selecionado_lblAceitarMembros);
-        TextView lblTornarAgente = findViewById(R.id.membro_selecionado_lblTornarAgente);
-        TextView lblDesativarMembro = findViewById(R.id.membro_selecionado_lblDesativarMembro);
+        ImageButton btnAceitar = findViewById(R.id.membro_selecionado_btnAceitar);
+        ImageButton btnAgente = findViewById(R.id.membro_selecionado_btnAgente);
+        ImageButton btnDesativar = findViewById(R.id.membro_selecionado_btnDesativar);
 
         lblCodMembro.setText(membro.getCodClube());
         lblNome.setText(membro.getNome());
@@ -44,27 +43,24 @@ public class MembroSelecionadoActivity extends BaseActivity {
             }
         });
 
-        lblAceitarMembros.setText(StringUtil.textoSublinhado(lblAceitarMembros.getText().toString()));
-        lblAceitarMembros.setOnClickListener(new View.OnClickListener() {
+        btnAceitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblAceitarMembrosClick();
+                btnAceitarClick();
             }
         });
 
-        lblTornarAgente.setText(StringUtil.textoSublinhado(lblTornarAgente.getText().toString()));
-        lblTornarAgente.setOnClickListener(new View.OnClickListener() {
+        btnAgente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblTornarAgenteClick();
+                btnAgenteClick();
             }
         });
 
-        lblDesativarMembro.setText(StringUtil.textoSublinhado(lblDesativarMembro.getText().toString()));
-        lblDesativarMembro.setOnClickListener(new View.OnClickListener() {
+        btnDesativar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblDesativarMembroClick();
+                btnDesativarClick();
             }
         });
 
@@ -77,15 +73,15 @@ public class MembroSelecionadoActivity extends BaseActivity {
         lblStatus.setText(membro.getStatusExt());
     }
 
-    private void lblAceitarMembrosClick() {
+    private void btnAceitarClick() {
         pAcaoMembro(PytacoRequestEnum.ACEITAR_MEMBROS);
     }
 
-    private void lblTornarAgenteClick() {
+    private void btnAgenteClick() {
         pAcaoMembro(PytacoRequestEnum.TORNAR_AGENTE);
     }
 
-    private void lblDesativarMembroClick() {
+    private void btnDesativarClick() {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -125,14 +121,17 @@ public class MembroSelecionadoActivity extends BaseActivity {
                 case ACEITAR_MEMBROS:
                     membro.setStatus("1");
                     membro.setTipo("1");
+                    clube.setTipoUsuario("1");
                     break;
                 case TORNAR_AGENTE:
                     membro.setStatus("1");
                     membro.setTipo("2");
+                    clube.setTipoUsuario("2");
                     break;
                 case DESATIVAR_MEMBRO:
                     membro.setStatus("0");
                     membro.setTipo("1");
+                    clube.setTipoUsuario("1");
                     break;
                 default:
                     break;

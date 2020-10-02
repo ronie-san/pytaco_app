@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackground"
             android:paddingStart="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/botao_voltar" />
+            android:src="@drawable/btn_voltar" />
 
         <ImageView
             android:layout_width="0dp"
@@ -52,37 +52,40 @@
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
-        <TextView
-            android:id="@+id/relatorios_lblPytacosTrocados"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/relatorios_btnPytacosTrocados"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Pytacos trocados"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_pytacos_trocados" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-        <TextView
-            android:id="@+id/relatorios_lblFichasMovimentadas"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/relatorios_btnFichasMovimentadas"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Fichas movimentadas"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_fichas_movimentadas" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-        <TextView
-            android:id="@+id/relatorios_lblFinanceiro"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:id="@+id/relatorios_btnFinanceiro"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackground"
-            android:text="Financeiro"
-            android:textSize="30sp" />
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_financeiro" />
     </LinearLayout>
 
 

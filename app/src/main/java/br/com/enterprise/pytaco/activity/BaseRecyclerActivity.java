@@ -3,6 +3,7 @@ package br.com.enterprise.pytaco.activity;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.IdRes;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,7 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Custo
     public abstract RecyclerView getRecyclerView();
 
     @Override
-    public <T extends View> T findViewById(int id) {
+    public <T extends View> T findViewById(@IdRes int id) {
         T v = super.findViewById(id);
 
         if (v instanceof RecyclerView) {
@@ -35,9 +36,5 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Custo
         }
 
         return v;
-    }
-
-    @Override
-    public void onLstItemClick(int position) {
     }
 }

@@ -38,7 +38,11 @@ public class ClubesActivity extends BaseRecyclerActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clubes);
+        try {
+            setContentView(R.layout.activity_clubes);
+        } catch (Exception e) {
+            makeLongToast(e.getMessage());
+        }
 
         lblQtdPytacoGlobal = findViewById(R.id.clubes_lblQtdPytacoGlobal);
         lblQtdFichaGlobal = findViewById(R.id.clubes_lblQtdFichaGlobal);
@@ -75,7 +79,7 @@ public class ClubesActivity extends BaseRecyclerActivity {
         btnCompras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                btnComprasClick();
             }
         });
 
@@ -89,6 +93,7 @@ public class ClubesActivity extends BaseRecyclerActivity {
     }
 
     private void btnComprasClick() {
+        pStartActivity(CompraActivity.class);
     }
 
     @Override
@@ -255,12 +260,12 @@ public class ClubesActivity extends BaseRecyclerActivity {
                         clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
                         clube.setQtdFicha(Double.parseDouble(resp.getJSONObject(i).getString("qtdfichas")));
                         clube.setCodClube(resp.getJSONObject(i).getString("codigousuario"));
+                        clube.setTipoUsuario(resp.getJSONObject(i).getString("tipousuario"));
                         adapter.getLst().add(clube);
                     }
                 }
             }
         } catch (JSONException ignored) {
-
         } finally {
             adapter.notifyDataSetChanged();
         }

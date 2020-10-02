@@ -7,7 +7,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.util.StringUtil;
 
 public class AdministracaoActivity extends BaseActivity {
 
@@ -20,11 +19,11 @@ public class AdministracaoActivity extends BaseActivity {
 
         ImageButton btnVoltar = findViewById(R.id.administracao_btnVoltar);
         lblCodClube = findViewById(R.id.administracao_lblCodClube);
-        TextView lblTrocarPytacos = findViewById(R.id.administracao_lblTrocarPytacos);
-        TextView lblNotificacoes = findViewById(R.id.administracao_lblNotificacoes);
-        TextView lblRelatorios = findViewById(R.id.administracao_lblRelatorios);
-        TextView lblDesfazerClube = findViewById(R.id.administracao_lblDesfazerClube);
-        TextView lblSairClube = findViewById(R.id.administracao_lblSairClube);
+        ImageButton btnTrocarPytacos = findViewById(R.id.administracao_btnTrocarPytacos);
+        ImageButton btnNotificacoes = findViewById(R.id.administracao_btnNotificacoes);
+        ImageButton btnRelatorios = findViewById(R.id.administracao_btnRelatorios);
+        ImageButton btnDesfazerClube = findViewById(R.id.administracao_btnDesfazerClube);
+        ImageButton btnSairClube = findViewById(R.id.administracao_btnSairClube);
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,43 +32,38 @@ public class AdministracaoActivity extends BaseActivity {
             }
         });
 
-        lblTrocarPytacos.setText(StringUtil.textoSublinhado(lblTrocarPytacos.getText().toString()));
-        lblTrocarPytacos.setOnClickListener(new View.OnClickListener() {
+        btnTrocarPytacos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblTrocarPytacosClick();
+                btnTrocarPytacosClick();
             }
         });
 
-        lblNotificacoes.setText(StringUtil.textoSublinhado(lblNotificacoes.getText().toString()));
-        lblNotificacoes.setOnClickListener(new View.OnClickListener() {
+        btnNotificacoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblNotificacoesClick();
+                btnNotificacoesClick();
             }
         });
 
-        lblRelatorios.setText(StringUtil.textoSublinhado(lblRelatorios.getText().toString()));
-        lblRelatorios.setOnClickListener(new View.OnClickListener() {
+        btnRelatorios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblRelatoriosClick();
+                btnRelatoriosClick();
             }
         });
 
-        lblDesfazerClube.setText(StringUtil.textoSublinhado(lblDesfazerClube.getText().toString()));
-        lblDesfazerClube.setOnClickListener(new View.OnClickListener() {
+        btnDesfazerClube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblDesfazerClubeClick();
+                btnDesfazerClubeClick();
             }
         });
 
-        lblSairClube.setText(StringUtil.textoSublinhado(lblSairClube.getText().toString()));
-        lblSairClube.setOnClickListener(new View.OnClickListener() {
+        btnSairClube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblSairClubeClick();
+                btnSairClubeClick();
             }
         });
     }
@@ -80,28 +74,23 @@ public class AdministracaoActivity extends BaseActivity {
         lblCodClube.setText(clube.getCodClube());
     }
 
-    private void lblSairClubeClick() {
-        Intent intent = new Intent(this, SairClubeActivity.class);
-        startActivity(intent);
+    private void btnSairClubeClick() {
+        pStartActivity(SairClubeActivity.class);
     }
 
-    private void lblDesfazerClubeClick() {
-        Intent intent = new Intent(this, DesfazerClubeActivity.class);
-        startActivity(intent);
+    private void btnDesfazerClubeClick() {
+        pStartActivity(DesfazerClubeActivity.class);
     }
 
-    private void lblRelatoriosClick() {
-        Intent intent = new Intent(this, RelatoriosActivity.class);
-        startActivity(intent);
+    private void btnRelatoriosClick() {
+        pStartActivity(RelatoriosActivity.class);
     }
 
-    private void lblNotificacoesClick() {
-        Intent intent = new Intent(this, AvisosActivity.class);
-        startActivity(intent);
+    private void btnNotificacoesClick() {
+        pStartActivity(AvisosActivity.class);
     }
 
-    private void lblTrocarPytacosClick() {
-        Intent intent = new Intent(this, TrocarPytacosActivity.class);
-        startActivity(intent);
+    private void btnTrocarPytacosClick() {
+        pStartActivity(TrocarPytacosActivity.class);
     }
 }

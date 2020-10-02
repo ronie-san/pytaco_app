@@ -133,7 +133,6 @@ public class AvisosActivity extends BaseRecyclerActivity {
                 adapter.getLst().add(aviso);
             }
         } catch (JSONException ignored) {
-
         } finally {
             adapter.notifyDataSetChanged();
         }

@@ -41,7 +41,7 @@
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_voltar" />
+                android:src="@drawable/btn_voltar" />
 
             <ImageView
                 android:layout_width="90dp"
@@ -64,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit"
+                android:hint="Nome"
                 android:inputType="text"
                 android:maxLines="1" />
 
@@ -77,12 +78,13 @@
 
             <EditText
                 android:id="@+id/criar_clube_edtDescricaoClube"
-                style="@style/memo" />
+                style="@style/memo"
+                android:hint="Descrição" />
 
             <ImageButton
                 android:id="@+id/criar_clube_btnCriarClube"
                 android:layout_width="170dp"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"

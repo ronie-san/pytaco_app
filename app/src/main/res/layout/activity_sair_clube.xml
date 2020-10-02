@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_clube">
+    android:background="@drawable/background_sair_clube">
 
     <LinearLayout
         android:id="@+id/sair_clube_pnlCabecalho"
@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackground"
             android:paddingStart="15dp"
             android:scaleType="centerInside"
-            android:src="@drawable/botao_voltar" />
+            android:src="@drawable/btn_voltar" />
 
         <ImageView
             android:layout_width="0dp"
@@ -70,14 +70,14 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/sair_clube_btnSair"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/btn_padrao_vermelho"
-            android:text="Sair"
-            android:textColor="@android:color/white"
-            android:textSize="25sp" />
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_sair" />
     </LinearLayout>
 </RelativeLayout>

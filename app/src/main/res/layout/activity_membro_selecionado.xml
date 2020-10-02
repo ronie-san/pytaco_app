@@ -15,7 +15,7 @@
         android:adjustViewBounds="true"
         android:background="?attr/selectableItemBackground"
         android:scaleType="centerCrop"
-        android:src="@drawable/botao_voltar" />
+        android:src="@drawable/btn_voltar" />
 
     <TextView
         android:id="@+id/membro_selecionado_lblCodMembro"
@@ -111,44 +111,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/membro_selecionado_lblDesativarMembro"
-        android:divider="@drawable/linear_layout_divider_width"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="15dp"
-        android:showDividers="middle">
-
-        <TextView
-            android:id="@+id/membro_selecionado_lblAceitarMembros"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:text="Tornar Membro"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/membro_selecionado_lblTornarAgente"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:text="Tornar Agente"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/membro_selecionado_lblDesativarMembro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="20dp"
-        android:background="?attr/selectableItemBackground"
-        android:text="Desativar Membro"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="20sp" />
+        android:divider="@drawable/linear_layout_divider_height"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="15dp"
+        android:showDividers="beginning|middle|end">
+
+        <ImageButton
+            android:id="@+id/membro_selecionado_btnAceitar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_aceitar" />
+
+        <ImageButton
+            android:id="@+id/membro_selecionado_btnAgente"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_agente" />
+
+        <ImageButton
+            android:id="@+id/membro_selecionado_btnDesativar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_desativar" />
+    </LinearLayout>
 </RelativeLayout>

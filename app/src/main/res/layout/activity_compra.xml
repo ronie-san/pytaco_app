@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_troca_ficha">
+
+    <LinearLayout
+        android:id="@+id/compras_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <ImageButton
+            android:id="@+id/compras_btnVoltar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:paddingStart="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_voltar" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:paddingVertical="10dp"
+            android:src="@drawable/escudo_pitaco" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/compras_imgFundoPytaco"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/compras_imgPytaco"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/compras_imgFundoPytaco"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
+                android:src="@drawable/bola_pytaco" />
+
+            <TextView
+                android:id="@+id/compras_lblQtdPytaco"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/compras_imgPytaco"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/pytaco"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/compras_lsvPacotes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/compras_pnlCabecalho"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:paddingVertical="10dp"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/compras_pnlCabecalho"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="Sem pacotes"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp"
+        android:visibility="gone" />
+</RelativeLayout>

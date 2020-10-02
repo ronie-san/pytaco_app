@@ -84,9 +84,11 @@ public class PytacosTrocadosActivity extends BaseRecyclerActivity {
 
     private void edtDataClick() {
         final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtil.parse(edtData.getText().toString()));
         int dia = calendar.get(Calendar.DAY_OF_MONTH);
         int mes = calendar.get(Calendar.MONTH);
         int ano = calendar.get(Calendar.YEAR);
+
 
         DatePickerDialog calendario = new DatePickerDialog(this, R.style.DateDialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -148,5 +150,10 @@ public class PytacosTrocadosActivity extends BaseRecyclerActivity {
     @Override
     public RecyclerView getRecyclerView() {
         return findViewById(R.id.pytacos_trocados_lsvPytacosTrocados);
+    }
+
+    @Override
+    public void onLstItemClick(int position) {
+
     }
 }

@@ -7,6 +7,7 @@ public class Clube extends BaseEntity {
     private Double qtdPytaco;
     private Double qtdFicha;
     private String codClube;
+    private String tipoUsuario;
 
     public String getNome() {
         return nome;
@@ -46,5 +47,13 @@ public class Clube extends BaseEntity {
 
     public void setCodClube(String codClube) {
         this.codClube = codClube;
+    }
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 }

@@ -234,4 +234,9 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         activity.setPytacoRequest(PytacoRequestEnum.LISTA_FICHAS_MOVIMENTADAS);
         pGetRequest("ListaFichasMovimentadas.php", map);
     }
+
+    public void listaPacoteCompra() {
+        activity.setPytacoRequest(PytacoRequestEnum.LISTA_PACOTE_COMPRA);
+        pGetRequest("ListaPacotes.php");
+    }
 }

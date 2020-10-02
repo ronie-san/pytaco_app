@@ -79,6 +79,10 @@ public abstract class BasicRequestDAO {
     //endregion
 
     //region PRIVATE METHODS
+    protected void pGetRequest(@NonNull String url) {
+        pGetRequest(url, null);
+    }
+
     protected void pGetRequest(@NonNull String url, @Nullable final Map<String, String> params) {
         Request<String> request = new Request<String>(Request.Method.GET, baseUrl + url, errorListener) {
             @NotNull

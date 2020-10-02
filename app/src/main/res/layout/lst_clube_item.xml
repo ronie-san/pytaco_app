@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_view_rounded"
@@ -17,37 +18,87 @@
         <TextView
             android:id="@+id/clube_item_lblNome"
             style="@style/label_login"
+            android:maxLines="1"
             android:padding="5dp"
-            android:text="Nome do clube" />
+            android:text="Nome do clube"
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/clube_item_lblDescricao"
             style="@style/label_login"
             android:maxLines="1"
             android:padding="5dp"
-            android:text="Descrição do clube" />
+            android:text="Descrição do clube"
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeTextType="uniform" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="Cód. Clube:"
+                android:textColor="@color/pytaco"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/clube_item_lblCodClube"
+                style="@style/label_login"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:textColor="@color/pytaco"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
         android:layout_weight="35"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:id="@+id/clube_item_imgFundoPytaco"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:adjustViewBounds="true"
-            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/fundo_ficha_pytaco" />
+
+        <ImageView
+            android:id="@+id/clube_item_imgFicha"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/clube_item_imgFundoPytaco"
+            android:paddingVertical="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="0dp"
             android:src="@drawable/ficha_pytaco" />
 
         <TextView
             android:id="@+id/clube_item_lblQtdFicha"
-            style="@style/label_login"
-            android:layout_gravity="center"
-            android:text="100"
-            android:textColor="@color/ficha" />
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@+id/clube_item_imgFicha"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/ficha"
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeTextType="uniform" />
+    </RelativeLayout>
 </LinearLayout>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:background="@drawable/list_view_rounded"
     android:orientation="vertical"
     android:paddingHorizontal="10dp"
@@ -10,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="50"
         android:orientation="horizontal"
         android:weightSum="100">
@@ -26,27 +28,40 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:gravity="end|center_vertical"
-            android:paddingTop="5dp">
+            android:layout_weight="50">
+
+            <ImageView
+                android:id="@+id/membro_item_imgFundoPytaco"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
 
             <ImageView
                 android:id="@+id/membro_item_imgFicha"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/membro_item_lblQtdFicha"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/membro_item_imgFundoPytaco"
+                android:paddingVertical="5dp"
+                android:paddingStart="5dp"
                 android:src="@drawable/ficha_pytaco" />
 
             <TextView
                 android:id="@+id/membro_item_lblQtdFicha"
-                style="@style/label_login"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:text="100"
-                android:textAlignment="textEnd"
-                android:textColor="@color/ficha" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignEnd="@+id/membro_item_imgFundoPytaco"
+                android:layout_alignBottom="@+id/membro_item_imgFundoPytaco"
+                android:layout_toEndOf="@+id/membro_item_imgFicha"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingEnd="4dp"
+                android:textColor="@color/ficha"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
         </RelativeLayout>
     </LinearLayout>
 

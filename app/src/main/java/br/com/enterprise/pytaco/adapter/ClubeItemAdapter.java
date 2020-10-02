@@ -27,6 +27,7 @@ public class ClubeItemAdapter extends CustomRecyclerAdapter<Clube, ClubeItemHold
         holder.getLblNome().setText(item.getNome());
         holder.getLblDescricao().setText(item.getDescricao());
         holder.getLblQtdFicha().setText(StringUtil.numberToStr(item.getQtdFicha()));
+        holder.getLblCodClube().setText(item.getCodClube());
     }
 
 }

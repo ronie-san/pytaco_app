@@ -40,17 +40,17 @@
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
-                    android:src="@drawable/botao_voltar" />
+                    android:src="@drawable/btn_voltar" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
+                    android:layout_height="40dp">
 
                     <ImageView
                         android:id="@+id/bolao_imgFundoPytaco"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
                         android:src="@drawable/fundo_ficha_pytaco" />
@@ -60,17 +60,21 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_alignStart="@+id/bolao_imgFundoPytaco"
-                        android:padding="5dp"
+                        android:paddingVertical="5dp"
+                        android:paddingStart="5dp"
                         android:src="@drawable/ficha_pytaco" />
 
                     <TextView
                         android:id="@+id/bolao_lblQtdFicha"
-                        style="@style/label_login"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
                         android:layout_toEndOf="@+id/bolao_imgFicha"
-                        android:text="100"
-                        android:textColor="@color/ficha" />
+                        android:gravity="center"
+                        android:textColor="@color/ficha"
+                        app:autoSizeMaxTextSize="30sp"
+                        app:autoSizeMinTextSize="5sp"
+                        app:autoSizeTextType="uniform" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -82,7 +86,7 @@
 
                 <ImageButton
                     android:id="@+id/bolao_btnCriarBolao"
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
@@ -97,7 +101,7 @@
 
                 <ImageButton
                     android:id="@+id/bolao_btnMeusBoloes"
-                    android:layout_width="170dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
@@ -110,56 +114,56 @@
                     android:layout_height="50dp" />
 
                 <ImageButton
-                    android:id="@+id/bolao_lblAvisos"
-                    android:layout_width="100dp"
+                    android:id="@+id/bolao_btnAvisos"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
-                    android:src="@drawable/lbl_avisos" />
+                    android:src="@drawable/btn_avisos" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
 
                 <ImageButton
-                    android:id="@+id/bolao_lblMembros"
-                    android:layout_width="120dp"
+                    android:id="@+id/bolao_btnMembros"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
-                    android:src="@drawable/lbl_membros" />
+                    android:src="@drawable/btn_membros" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
 
                 <ImageButton
-                    android:id="@+id/bolao_lblContador"
-                    android:layout_width="130dp"
+                    android:id="@+id/bolao_btnContador"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
-                    android:src="@drawable/lbl_contador" />
+                    android:src="@drawable/btn_contador" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
 
                 <ImageButton
-                    android:id="@+id/bolao_lblAdministrador"
-                    android:layout_width="170dp"
+                    android:id="@+id/bolao_btnAdministrador"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackground"
                     android:scaleType="centerInside"
-                    android:src="@drawable/lbl_administracao" />
+                    android:src="@drawable/btn_administracao" />
             </LinearLayout>
         </LinearLayout>
 

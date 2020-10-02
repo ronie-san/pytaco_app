@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background_login">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_voltar" />
+                android:src="@drawable/btn_voltar" />
 
             <Space
                 android:layout_width="match_parent"
@@ -92,14 +92,14 @@
 
             <ImageButton
                 android:id="@+id/criar_conta_btnCriarConta"
-                android:layout_width="170dp"
-                android:layout_height="60dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:adjustViewBounds="true"
                 android:background="?attr/selectableItemBackground"
                 android:scaleType="centerInside"
-                android:src="@drawable/botao_criar_conta" />
+                android:src="@drawable/btn_criar_conta" />
         </LinearLayout>
 
         <Space

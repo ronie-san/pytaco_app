@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import br.com.enterprise.pytaco.R;
-import br.com.enterprise.pytaco.util.StringUtil;
 
 public class RelatoriosActivity extends BaseActivity {
 
@@ -17,30 +15,29 @@ public class RelatoriosActivity extends BaseActivity {
         setContentView(R.layout.activity_relatorios);
 
         ImageButton btnVoltar = findViewById(R.id.relatorios_btnVoltar);
-        final TextView lblPytacosTrocados = findViewById(R.id.relatorios_lblPytacosTrocados);
-        TextView lblFichasMovimentadas = findViewById(R.id.relatorios_lblFichasMovimentadas);
-        TextView lblFinanceiro = findViewById(R.id.relatorios_lblFinanceiro);
+        ImageButton btnPytacosTrocados = findViewById(R.id.relatorios_btnPytacosTrocados);
+        ImageButton btnFichasMovimentadas = findViewById(R.id.relatorios_btnFichasMovimentadas);
+        ImageButton btnFinanceiro = findViewById(R.id.relatorios_btnFinanceiro);
 
-        lblPytacosTrocados.setText(StringUtil.textoSublinhado(lblPytacosTrocados.getText().toString()));
-        lblPytacosTrocados.setOnClickListener(new View.OnClickListener() {
+        btnPytacosTrocados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblPytacosTrocadosClick();
+                btnPytacosTrocadosClick();
             }
         });
-        lblFichasMovimentadas.setText(StringUtil.textoSublinhado(lblFichasMovimentadas.getText().toString()));
-        lblFichasMovimentadas.setOnClickListener(new View.OnClickListener() {
+
+        btnFichasMovimentadas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblFichasMovimentadasClick();
+                btnFichasMovimentadasClick();
             }
         });
-        lblFinanceiro.setVisibility(View.GONE);
-        lblFinanceiro.setText(StringUtil.textoSublinhado(lblFinanceiro.getText().toString()));
-        lblFinanceiro.setOnClickListener(new View.OnClickListener() {
+
+        btnFinanceiro.setVisibility(View.GONE);
+        btnFinanceiro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lblFinanceiroClick();
+                btnFinanceiroClick();
             }
         });
 
@@ -52,15 +49,15 @@ public class RelatoriosActivity extends BaseActivity {
         });
     }
 
-    private void lblFinanceiroClick() {
+    private void btnFinanceiroClick() {
     }
 
-    private void lblFichasMovimentadasClick() {
+    private void btnFichasMovimentadasClick() {
         Intent intent = new Intent(this, FichasMovimentadasActivity.class);
         startActivity(intent);
     }
 
-    private void lblPytacosTrocadosClick() {
+    private void btnPytacosTrocadosClick() {
         Intent intent = new Intent(this, PytacosTrocadosActivity.class);
         startActivity(intent);
     }

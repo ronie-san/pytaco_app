@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_padrao">
 
-    <ImageView
-        android:id="@+id/clubes_imgCabecalho"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:src="@drawable/cabecalho_clube" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/clubes_pnlCabecalho">
+        android:layout_alignBottom="@+id/clubes_pnlCabecalho"
+        android:elevation="1dp">
 
         <ImageButton
             android:id="@+id/clubes_btnNovoClube"
@@ -43,34 +37,33 @@
     <LinearLayout
         android:id="@+id/clubes_pnlCabecalho"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignBottom="@+id/clubes_imgCabecalho"
-        android:layout_alignParentTop="true"
+        android:layout_height="160dp"
+        android:background="@drawable/cabecalho_clube"
         android:orientation="horizontal"
-        android:paddingHorizontal="30dp"
-        android:weightSum="100">
+        android:paddingTop="10dp"
+        android:paddingBottom="60dp"
+        android:weightSum="90">
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="20"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
             android:adjustViewBounds="true"
-            android:paddingTop="25dp"
-            android:scaleType="fitStart"
+            android:scaleType="centerInside"
             android:src="@drawable/escudo_pitaco" />
-
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="80"
-            android:paddingStart="15dp"
-            android:paddingTop="40dp">
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/clubes_imgFundoPytaco"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/fundo_ficha_pytaco" />
@@ -80,24 +73,37 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignStart="@+id/clubes_imgFundoPytaco"
-                android:padding="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
                 android:src="@drawable/bola_pytaco" />
 
             <TextView
                 android:id="@+id/clubes_lblQtdPytacoGlobal"
-                style="@style/label_login"
-                android:layout_marginTop="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/clubes_imgPytaco"
                 android:gravity="center"
-                android:text="100"
-                android:textColor="@color/pytaco" />
+                android:maxLines="1"
+                android:textColor="@color/pytaco"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/clubes_imgFundoFicha"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/clubes_imgFundoPytaco"
+                android:layout_alignParentEnd="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/fundo_ficha_pytaco" />
@@ -107,19 +113,25 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignStart="@+id/clubes_imgFundoFicha"
-                android:padding="5dp"
+                android:paddingVertical="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
                 android:src="@drawable/ficha_pytaco" />
 
             <TextView
                 android:id="@+id/clubes_lblQtdFichaGlobal"
-                style="@style/label_login"
-                android:layout_marginTop="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/clubes_imgFicha"
-                android:text="100"
-                android:textColor="@color/ficha" />
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/ficha"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
         </RelativeLayout>
-
-
     </LinearLayout>
 
     <ImageView
@@ -147,7 +159,7 @@
         android:fontFamily="@font/britanic"
         android:gravity="center_horizontal"
         android:paddingVertical="10dp"
-        android:text="Sem Clubes"
+        android:text="Sem clubes"
         android:textColor="@color/pytaco"
         android:textSize="25sp"
         android:visibility="gone" />

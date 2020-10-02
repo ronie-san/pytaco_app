@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_centerVertical="true"
@@ -26,11 +27,14 @@
 
         <TextView
             android:id="@+id/pytacos_trocados_item_lblQtdPytaco"
-            style="@style/label_login"
-            android:layout_gravity="center"
-            android:text="100"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:maxLines="1"
             android:textColor="@color/pytaco"
-            android:textSize="25sp" />
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeTextType="uniform" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,10 +75,13 @@
 
         <TextView
             android:id="@+id/pytacos_trocados_item_lblQtdFicha"
-            style="@style/label_login"
-            android:layout_gravity="center"
-            android:text="100"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:maxLines="1"
             android:textColor="@color/ficha"
-            android:textSize="25sp" />
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeTextType="uniform" />
     </LinearLayout>
 </LinearLayout>
