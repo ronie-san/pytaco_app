@@ -18,15 +18,7 @@ public class SairClubeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sair_clube);
-        ImageButton btnVoltar = findViewById(R.id.sair_clube_btnVoltar);
         ImageButton btnSair = findViewById(R.id.sair_clube_btnSair);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
 
         btnSair.setOnClickListener(new View.OnClickListener() {
             @Override

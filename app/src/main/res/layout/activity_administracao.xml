@@ -9,20 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <ImageButton
-            android:id="@+id/administracao_btnVoltar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="30"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackground"
-            android:paddingStart="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/btn_voltar" />
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="0dp"
@@ -33,11 +20,6 @@
             android:paddingVertical="20dp"
             android:scaleType="centerInside"
             android:src="@drawable/escudo_pitaco" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30" />
     </LinearLayout>
 
     <LinearLayout

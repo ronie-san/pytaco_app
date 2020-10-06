@@ -12,18 +12,15 @@ import androidx.annotation.Nullable;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -35,24 +32,16 @@ import br.com.enterprise.pytaco.activity.BaseActivity;
 
 public abstract class BasicRequestDAO {
 
-    protected String baseUrl;
-    protected Boolean useKeyHeader;
-    private Response.Listener<JSONObject> jsonRespListener;
     private Response.Listener<String> respListener;
     private Response.ErrorListener errorListener;
+
+    protected String baseUrl;
+    protected Boolean useKeyHeader;
     protected BaseActivity activity;
 
     //region CONSTRUCTOR
     public BasicRequestDAO(final BaseActivity activity) {
         this.activity = activity;
-
-        this.jsonRespListener = new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(activity.getClass().getSimpleName(), response.toString());
-                activity.onSucess(response.toString());
-            }
-        };
 
         this.respListener = new Response.Listener<String>() {
             @Override
@@ -68,7 +57,7 @@ public abstract class BasicRequestDAO {
                 ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-                if (activeNetwork == null || activeNetwork.getType() != ConnectivityManager.TYPE_WIFI || activeNetwork.getType() != ConnectivityManager.TYPE_MOBILE) {
+                if (!(error instanceof TimeoutError) || activeNetwork == null || activeNetwork.getType() != ConnectivityManager.TYPE_WIFI || activeNetwork.getType() != ConnectivityManager.TYPE_MOBILE) {
                     activity.onError(new VolleyError("Sem conexão com a internet."));
                 } else {
                     activity.onError(error);
@@ -78,13 +67,25 @@ public abstract class BasicRequestDAO {
     }
     //endregion
 
-    //region PRIVATE METHODS
+    //region PROTECTED METHODS
     protected void pGetRequest(@NonNull String url) {
         pGetRequest(url, null);
     }
 
     protected void pGetRequest(@NonNull String url, @Nullable final Map<String, String> params) {
         Request<String> request = new Request<String>(Request.Method.GET, baseUrl + url, errorListener) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                if (useKeyHeader) {
+                    HashMap<String, String> headers = new HashMap<>();
+                    /*CHAVE DA API NECESSÁRIA PARA AUTENTICAÇÃO*/
+                    headers.put("X-RapidAPI-Key", activity.getString(R.string.api_footbal_key));
+                    return headers;
+                }
+
+                return super.getHeaders();
+            }
+
             @NotNull
             @Override
             public String getUrl() {
@@ -135,55 +136,11 @@ public abstract class BasicRequestDAO {
 
         pMakeRequest(request);
     }
+    //endregion
 
-    protected void pGetJsonRequest(@NonNull String url) {
-        pGetJsonRequest(url, null);
-    }
-
-    protected void pGetJsonRequest(@NonNull String url, @Nullable final Map<String, String> params) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, baseUrl + url, null, jsonRespListener, errorListener) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                if (useKeyHeader) {
-                    HashMap<String, String> headers = new HashMap<>();
-                    /*CHAVE DA API NECESSÁRIA PARA AUTENTICAÇÃO*/
-                    headers.put("X-RapidAPI-Key", activity.getString(R.string.api_footbal_key));
-                    return headers;
-                }
-
-                return super.getHeaders();
-            }
-
-            @NotNull
-            @Override
-            public String getUrl() {
-                return super.getUrl() + pGetUrlParams(params);
-            }
-
-            @Override
-            protected Response<JSONObject> parseNetworkResponse(@NotNull NetworkResponse response) {
-                try {
-                    return Response.success(new JSONObject(pNetworkResponseToStr(response)), HttpHeaderParser.parseCacheHeaders(response));
-                } catch (JSONException e) {
-                    return Response.error(new ParseError(e));
-                }
-            }
-        };
-
-        pMakeRequest(request);
-    }
-
-    private void pMakeRequest(@NotNull JsonObjectRequest request) {
-        DefaultRetryPolicy policy = new DefaultRetryPolicy(1000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        request.setRetryPolicy(policy);
-        request.setShouldCache(false);
-        activity.onStartRequest();
-        RequestQueue queue = Volley.newRequestQueue(activity);
-        queue.add(request);
-    }
-
+    //region PRIVATE METHODS
     private void pMakeRequest(@NotNull Request<String> request) {
-        DefaultRetryPolicy policy = new DefaultRetryPolicy(1000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        DefaultRetryPolicy policy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         request.setShouldCache(false);
         activity.onStartRequest();

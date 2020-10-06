@@ -14,7 +14,6 @@ public class RelatoriosActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relatorios);
 
-        ImageButton btnVoltar = findViewById(R.id.relatorios_btnVoltar);
         ImageButton btnPytacosTrocados = findViewById(R.id.relatorios_btnPytacosTrocados);
         ImageButton btnFichasMovimentadas = findViewById(R.id.relatorios_btnFichasMovimentadas);
         ImageButton btnFinanceiro = findViewById(R.id.relatorios_btnFinanceiro);
@@ -38,13 +37,6 @@ public class RelatoriosActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 btnFinanceiroClick();
-            }
-        });
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
             }
         });
     }

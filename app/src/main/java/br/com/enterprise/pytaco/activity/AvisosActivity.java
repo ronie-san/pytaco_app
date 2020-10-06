@@ -5,11 +5,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,15 +41,8 @@ public class AvisosActivity extends BaseRecyclerActivity {
         adapter = new AvisoItemAdapter(this, new ArrayList<Aviso>(), R.layout.lst_aviso_item);
         lsvAvisos.setAdapter(adapter);
 
-        ImageButton btnVoltar = findViewById(R.id.avisos_btnVoltar);
         ImageButton btnCriarAviso = findViewById(R.id.avisos_btnCriarAviso);
 
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
         btnCriarAviso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,19 +68,12 @@ public class AvisosActivity extends BaseRecyclerActivity {
     private void btnCriarAvisoClick() {
         dialogCriarAviso = createDialog(R.layout.dialog_criar_aviso);
 
-        ImageButton btnVoltar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnVoltar);
         ImageButton btnSalvar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnSalvar);
         Button btnExcluir = dialogCriarAviso.findViewById(R.id.criar_aviso_btnExcluir);
         final EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
         final EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
 
         btnExcluir.setVisibility(View.GONE);
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogCriarAviso.cancelDialog();
-            }
-        });
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,7 +195,6 @@ public class AvisosActivity extends BaseRecyclerActivity {
         final Aviso aviso = adapter.getLst().get(position);
         dialogCriarAviso = createDialog(R.layout.dialog_criar_aviso);
 
-        ImageButton btnVoltar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnVoltar);
         EditText edtTituloAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtTituloAviso);
         EditText edtDescricaoAviso = dialogCriarAviso.findViewById(R.id.criar_aviso_edtDescricaoAviso);
         ImageButton btnSalvar = dialogCriarAviso.findViewById(R.id.criar_aviso_btnSalvar);
@@ -222,13 +205,6 @@ public class AvisosActivity extends BaseRecyclerActivity {
 
         edtDescricaoAviso.setText(aviso.getDescricao());
         edtDescricaoAviso.setEnabled(false);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pLerAviso(aviso);
-            }
-        });
         btnSalvar.setVisibility(View.GONE);
         btnExcluir.setOnClickListener(new View.OnClickListener() {
             @Override

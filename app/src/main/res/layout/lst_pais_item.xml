@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="100"
+    android:background="@drawable/list_view_rounded"
+    android:divider="@drawable/linear_layout_divider_width"
+    android:orientation="horizontal"
+    android:paddingVertical="7dp"
+    android:showDividers="beginning|middle|end">
+
+    <ImageView
+        android:id="@+id/pais_item_imgBandeira"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/pais_item_lblNome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="70"
+        android:maxLines="1"
+        android:textSize="25dp" />
+</LinearLayout>

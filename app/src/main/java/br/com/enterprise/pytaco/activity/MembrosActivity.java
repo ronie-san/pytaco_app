@@ -2,8 +2,6 @@ package br.com.enterprise.pytaco.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +20,7 @@ import br.com.enterprise.pytaco.adapter.MembroItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class MembrosActivity extends BaseRecyclerActivity {
 
@@ -37,15 +36,7 @@ public class MembrosActivity extends BaseRecyclerActivity {
         adapter = new MembroItemAdapter(this, new ArrayList<Membro>(), R.layout.lst_membro_item);
         lsvMembros.setAdapter(adapter);
 
-        ImageButton btnVoltar = findViewById(R.id.membros_btnVoltar);
         lblMembros = findViewById(R.id.membros_lblMembros);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
     }
 
     private boolean pExisteDialogAberto() {
@@ -65,7 +56,7 @@ public class MembrosActivity extends BaseRecyclerActivity {
                 membro.setNome(membroJson.getString("nomemembro"));
                 membro.setStatus(membroJson.getString("statusmembro"));
                 membro.setTipo(membroJson.getString("tipomembro"));
-                membro.setQtdFicha(Double.parseDouble(membroJson.getString("qtdfichasclube")));
+                membro.setQtdFicha(StringUtil.strToNumber(membroJson.getString("qtdfichasclube")));
                 membro.setCodClube(membroJson.getString("codigoclube"));
                 adapter.getLst().add(membro);
             }
@@ -129,8 +120,7 @@ public class MembrosActivity extends BaseRecyclerActivity {
 
     @Override
     public void onLstItemClick(int position) {
-        Intent intent = new Intent(this, MembroSelecionadoActivity.class);
         membro = adapter.getLst().get(position);
-        startActivity(intent);
+        pStartActivity( MembroSelecionadoActivity.class);
     }
 }

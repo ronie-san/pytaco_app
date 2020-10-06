@@ -21,20 +21,12 @@ public class BolaoActivity extends BaseActivity {
         setContentView(R.layout.activity_bolao);
 
         lblQtdFicha = findViewById(R.id.bolao_lblQtdFicha);
-        ImageButton btnVoltar = findViewById(R.id.bolao_btnVoltar);
         ImageButton btnCriarBolao = findViewById(R.id.bolao_btnCriarBolao);
         ImageButton btnMeusBoloes = findViewById(R.id.bolao_btnMeusBoloes);
         ImageButton btnAvisos = findViewById(R.id.bolao_btnAvisos);
         ImageButton btnMembros = findViewById(R.id.bolao_btnMembros);
         ImageButton btnContador = findViewById(R.id.bolao_btnContador);
         ImageButton btnAdministrador = findViewById(R.id.bolao_btnAdministrador);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
 
         btnCriarBolao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +86,7 @@ public class BolaoActivity extends BaseActivity {
     }
 
     private void btnCriarBolaoClick() {
-
+        pStartActivity(CriarBolaoActivity.class);
     }
 
     private void btnMeusBoloesClick() {

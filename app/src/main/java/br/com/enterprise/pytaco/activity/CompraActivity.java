@@ -1,8 +1,6 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,19 +31,11 @@ public class CompraActivity extends BaseRecyclerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra);
 
-        ImageButton btnVoltar = findViewById(R.id.compras_btnVoltar);
         RecyclerView lsvPacotes = getRecyclerView();
         lblQtdPytaco = findViewById(R.id.compras_lblQtdPytaco);
 
         adapter = new PacoteCompraItemAdapter(this, new ArrayList<PacoteCompra>(), R.layout.lst_pacote_compra_item);
         lsvPacotes.setAdapter(adapter);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
     }
 
     private void pAtualizaPytacos() {
@@ -73,7 +63,7 @@ public class CompraActivity extends BaseRecyclerActivity {
                     pacoteCompra.setId(Integer.parseInt(item.getString("id_pacote")));
                     pacoteCompra.setNome(item.getString("nomepacote"));
                     pacoteCompra.setResumo(item.getString("resumopacote"));
-                    pacoteCompra.setValor(Double.parseDouble(item.getString("valorpacote").substring(3).replace(",", ".")));
+                    pacoteCompra.setValor(StringUtil.strToNumber(item.getString("valorpacote").substring(3).replace(",", ".")));
                     pacoteCompra.setDescricao(item.getString("descricaopacote"));
                     adapter.getLst().add(pacoteCompra);
                 }

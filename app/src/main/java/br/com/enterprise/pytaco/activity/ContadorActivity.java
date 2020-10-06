@@ -22,6 +22,7 @@ import br.com.enterprise.pytaco.adapter.ContadorItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class ContadorActivity extends BaseRecyclerActivity {
 
@@ -36,7 +37,6 @@ public class ContadorActivity extends BaseRecyclerActivity {
         RecyclerView lsvContadores = getRecyclerView();
         lblContadores = findViewById(R.id.contador_lblContadores);
         ImageButton btnTrocarFichas = findViewById(R.id.contador_btnTrocarFichas);
-        ImageButton btnVoltar = findViewById(R.id.contador_btnVoltar);
 
         adapter = new ContadorItemAdapter(this, new ArrayList<Membro>(), R.layout.lst_contador_item);
         lsvContadores.setAdapter(adapter);
@@ -45,13 +45,6 @@ public class ContadorActivity extends BaseRecyclerActivity {
             @Override
             public void onClick(View view) {
                 btnTrocarFichasClick();
-            }
-        });
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
             }
         });
     }
@@ -100,7 +93,7 @@ public class ContadorActivity extends BaseRecyclerActivity {
                     membro.setNome(membroJson.getString("nomemembro"));
                     membro.setStatus(membroJson.getString("statusmembro"));
                     membro.setTipo(membroJson.getString("tipomembro"));
-                    membro.setQtdFicha(Double.parseDouble(membroJson.getString("qtdfichasclube")));
+                    membro.setQtdFicha(StringUtil.strToNumber(membroJson.getString("qtdfichasclube")));
                     membro.setCodClube(membroJson.getString("codigoclube"));
                     adapter.getLst().add(membro);
                 }

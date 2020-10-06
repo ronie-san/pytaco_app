@@ -2,7 +2,6 @@ package br.com.enterprise.pytaco.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,7 +23,7 @@ public class TrocarPytacosActivity extends BaseActivity {
     private TextView lblQtdFichaReceber;
     private ImageButton btnConfirmar;
     private ImageButton btnTrocar;
-    private Button btnRepetir;
+    private ImageButton btnDesfazer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +38,8 @@ public class TrocarPytacosActivity extends BaseActivity {
         lblQtdFichaReceber = findViewById(R.id.trocar_pytacos_lblQtdFichaReceber);
         btnTrocar = findViewById(R.id.trocar_pytacos_btnTrocar);
         btnConfirmar = findViewById(R.id.trocar_pytacos_btnConfirmar);
-        btnRepetir = findViewById(R.id.trocar_pytacos_btnRepetir);
+        btnDesfazer = findViewById(R.id.trocar_pytacos_btnDesfazer);
 
-        ImageButton btnVoltar = findViewById(R.id.trocar_pytacos_btnVoltar);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
         lblQtdPytaco.setText(StringUtil.numberToStr(usuario.getQtdPytaco()));
         lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
         pAlteraVisao(true);
@@ -60,10 +51,10 @@ public class TrocarPytacosActivity extends BaseActivity {
             }
         });
 
-        btnRepetir.setOnClickListener(new View.OnClickListener() {
+        btnDesfazer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnRepetirClick();
+                btnDesfazerClick();
             }
         });
 
@@ -85,7 +76,7 @@ public class TrocarPytacosActivity extends BaseActivity {
         lblQtdFichaReceber.setVisibility(gone);
         lblTituloFichaReceber.setVisibility(gone);
         btnConfirmar.setVisibility(gone);
-        btnRepetir.setVisibility(gone);
+        btnDesfazer.setVisibility(gone);
     }
 
     private void btnConfirmarClick() {
@@ -93,18 +84,18 @@ public class TrocarPytacosActivity extends BaseActivity {
 
         if (pValidaQtdPytaco()) {
             PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.trocarPytacos(usuario.getId(), usuario.getChaveAcesso(), clube.getId(), Double.parseDouble(edtQtdPytaco.getText().toString().trim()), Double.parseDouble(lblQtdFichaReceber.getText().toString().trim()));
+            request.trocarPytacos(usuario.getId(), usuario.getChaveAcesso(), clube.getId(), StringUtil.strToNumber(edtQtdPytaco.getText().toString().trim()), Double.parseDouble(lblQtdFichaReceber.getText().toString().trim()));
         }
     }
 
-    private void btnRepetirClick() {
+    private void btnDesfazerClick() {
         pAlteraVisao(true);
         pFocusEdit(edtQtdPytaco);
     }
 
     private boolean pValidaQtdPytaco() {
         String qtd = edtQtdPytaco.getText().toString().trim();
-        return !qtd.isEmpty() && Double.parseDouble(qtd) < usuario.getQtdPytaco();
+        return !qtd.isEmpty() && StringUtil.strToNumber(qtd) < usuario.getQtdPytaco();
     }
 
     private void btnTrocarClick() {
@@ -121,7 +112,7 @@ public class TrocarPytacosActivity extends BaseActivity {
         if (response != null && !response.isEmpty() && !response.toUpperCase().equals("ERRO")) {
             pAlteraVisao(false);
             lblQtdPytacoTrocar.setText(edtQtdPytaco.getText());
-            double qtdFichaReceber = Double.parseDouble(response.trim()) * Double.parseDouble(edtQtdPytaco.getText().toString().trim());
+            double qtdFichaReceber = StringUtil.strToNumber(response.trim()) * StringUtil.strToNumber(edtQtdPytaco.getText().toString().trim());
             lblQtdFichaReceber.setText(StringUtil.numberToStr(qtdFichaReceber));
         } else {
             makeLongToast("Operação não permitida");
@@ -132,8 +123,8 @@ public class TrocarPytacosActivity extends BaseActivity {
         try {
             JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
             usuario.setChaveAcesso(resp.getString("chaveacesso"));
-            usuario.setQtdPytaco(Double.parseDouble(resp.getString("novosaldopytacos")));
-            clube.setQtdFicha(Double.parseDouble(resp.getString("novosaldofichas")));
+            usuario.setQtdPytaco(StringUtil.strToNumber(resp.getString("novosaldopytacos")));
+            clube.setQtdFicha(StringUtil.strToNumber(resp.getString("novosaldofichas")));
             lblQtdPytaco.setText(resp.getString("novosaldopytacos"));
             lblQtdFicha.setText(resp.getString("novosaldofichas"));
             pAlteraVisao(true);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="200dp"
     android:background="@drawable/list_view_rounded"
     android:divider="@drawable/linear_layout_divider_height"
     android:orientation="vertical"
@@ -18,13 +18,27 @@
         android:scaleType="centerInside"
         android:src="@drawable/bola_pytaco" />
 
-    <ImageButton
-        android:id="@+id/pacote_compra_item_btnComprar"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/pacote_compra_item_lblDescricao"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:background="?attr/selectableItemBackground"
-        android:scaleType="centerInside"
-        android:src="@drawable/btn_agente" />
+        android:maxLines="2"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/pacote_compra_item_lblResumo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:maxLines="2"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/pacote_compra_item_lblValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/pytaco"
+        android:textSize="25dp" />
 </LinearLayout>

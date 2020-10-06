@@ -24,7 +24,7 @@ public class DialogView {
 
         dialog = builder.create();
         dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.setView(view, 0, 0, 0, 0);
 
         view.setClickable(true);

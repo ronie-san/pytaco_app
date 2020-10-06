@@ -87,7 +87,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="@color/pytaco"
-                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="5sp"
                 app:autoSizeTextType="uniform" />
         </RelativeLayout>
@@ -128,7 +128,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="@color/ficha"
-                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="5sp"
                 app:autoSizeTextType="uniform" />
         </RelativeLayout>

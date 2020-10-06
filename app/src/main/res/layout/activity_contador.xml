@@ -12,17 +12,10 @@
         android:orientation="horizontal"
         android:weightSum="100">
 
-        <ImageButton
-            android:id="@+id/contador_btnVoltar"
+        <Space
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="30"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackground"
-            android:paddingStart="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/btn_voltar" />
+            android:layout_weight="30" />
 
         <ImageView
             android:layout_width="0dp"

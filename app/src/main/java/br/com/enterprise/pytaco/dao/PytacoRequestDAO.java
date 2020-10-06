@@ -239,4 +239,23 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         activity.setPytacoRequest(PytacoRequestEnum.LISTA_PACOTE_COMPRA);
         pGetRequest("ListaPacotes.php");
     }
+
+    public void listaJogos(String data) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("data", data);
+        activity.setPytacoRequest(PytacoRequestEnum.LISTA_JOGOS);
+        pGetRequest("APIListaJogosSplash.php", map);
+    }
+
+    public void listaPaises() {
+        activity.setPytacoRequest(PytacoRequestEnum.LISTA_PAISES);
+        pGetRequest("listaPaises.php");
+    }
+
+    public void listaLigas(String sigla) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id_pais", sigla);
+        activity.setPytacoRequest(PytacoRequestEnum.LISTA_LIGAS);
+        pGetRequest("listaLigas.php", map);
+    }
 }

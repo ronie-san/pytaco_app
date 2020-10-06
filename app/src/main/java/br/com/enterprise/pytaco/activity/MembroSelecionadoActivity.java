@@ -22,7 +22,6 @@ public class MembroSelecionadoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_membro_selecionado);
 
-        ImageButton btnVoltar = findViewById(R.id.membro_selecionado_btnVoltar);
         TextView lblCodMembro = findViewById(R.id.membro_selecionado_lblCodMembro);
         TextView lblNome = findViewById(R.id.membro_selecionado_lblNome);
         lblAgente = findViewById(R.id.membro_selecionado_lblAgente);
@@ -35,13 +34,6 @@ public class MembroSelecionadoActivity extends BaseActivity {
         lblCodMembro.setText(membro.getCodClube());
         lblNome.setText(membro.getNome());
         pAtualizaStatusTipo();
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
 
         btnAceitar.setOnClickListener(new View.OnClickListener() {
             @Override

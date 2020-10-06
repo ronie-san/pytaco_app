@@ -17,14 +17,8 @@ public class DesfazerClubeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desfazer_clube);
-        ImageButton btnVoltar = findViewById(R.id.desfazer_clube_btnVoltar);
         ImageButton btnDesfazer = findViewById(R.id.desfazer_clube_btnDesfazer);
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
+
         btnDesfazer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

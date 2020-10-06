@@ -42,19 +42,11 @@ public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
 
         edtQtdFicha = findViewById(R.id.contador_selecionado_edtQtdFicha);
         lblQtdFicha = findViewById(R.id.contador_selecionado_lblQtdFicha);
-        ImageButton btnVoltar = findViewById(R.id.contador_selecionado_btnVoltar);
         ImageButton btnEnviarFicha = findViewById(R.id.contador_selecionado_btnEnviarFicha);
         ImageButton btnRetirarFicha = findViewById(R.id.contador_selecionado_btnRetirarFicha);
         RecyclerView lsvContadores = getRecyclerView();
         adapter = new ContadorSelecionadoItemAdapter(this, lstMembro, R.layout.lst_contador_selecionado_item);
         lsvContadores.setAdapter(adapter);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
         lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
 
         btnEnviarFicha.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +77,13 @@ public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
     }
 
     private boolean pValidaEnviarFicha() {
-        double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
-        double qtdUsuario = Double.parseDouble(lblQtdFicha.getText().toString());
+        double qtd = StringUtil.strToNumber(edtQtdFicha.getText().toString().trim());
+        double qtdUsuario = StringUtil.strToNumber(lblQtdFicha.getText().toString());
         return qtd <= qtdUsuario * adapter.getItemCount();
     }
 
     private boolean pValidaRetirarFicha() {
-        Double qtd = Double.parseDouble(edtQtdFicha.getText().toString().trim());
+        Double qtd = StringUtil.strToNumber(edtQtdFicha.getText().toString().trim());
         boolean result = true;
         int i = 0;
 
@@ -104,16 +96,18 @@ public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
     }
 
     private void btnEnviarFichaClick() {
+        pHideKeyboard();
+
         if (!edtQtdFicha.getText().toString().isEmpty()) {
             if (pValidaEnviarFicha()) {
                 PytacoRequestDAO request = new PytacoRequestDAO(this);
                 request.enviarFichas(usuario.getId(),
                         usuario.getChaveAcesso(),
                         clube.getId(),
-                        Double.parseDouble(edtQtdFicha.getText().toString().trim()),
+                        StringUtil.strToNumber(edtQtdFicha.getText().toString().trim()),
                         pGetLstMembros(),
                         adapter.getLst().size(),
-                        Double.parseDouble(lblQtdFicha.getText().toString()));
+                        StringUtil.strToNumber(lblQtdFicha.getText().toString()));
             } else {
                 makeLongToast("Quantidade de fichas insuficiente");
             }
@@ -121,16 +115,18 @@ public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
     }
 
     private void btnRetirarFichaClick() {
+        pHideKeyboard();
+
         if (!edtQtdFicha.getText().toString().isEmpty()) {
             if (pValidaRetirarFicha()) {
                 PytacoRequestDAO request = new PytacoRequestDAO(this);
                 request.retirarFichas(usuario.getId(),
                         usuario.getChaveAcesso(),
                         clube.getId(),
-                        Double.parseDouble(edtQtdFicha.getText().toString().trim()),
+                        StringUtil.strToNumber(edtQtdFicha.getText().toString().trim()),
                         pGetLstMembros(),
                         adapter.getLst().size(),
-                        Double.parseDouble(lblQtdFicha.getText().toString()));
+                        StringUtil.strToNumber(lblQtdFicha.getText().toString()));
             } else {
                 makeLongToast("Quantidade de fichas insuficiente");
             }
@@ -141,12 +137,12 @@ public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
         try {
             JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
             usuario.setChaveAcesso(resp.getString("chaveacesso"));
-            clube.setQtdFicha(Double.parseDouble(resp.getString("novosaldoadmin")));
+            clube.setQtdFicha(StringUtil.strToNumber(resp.getString("novosaldoadmin")));
             Double qtd;
 
             for (Membro membro : adapter.getLst()) {
                 qtd = membro.getQtdFicha();
-                qtd += Double.parseDouble(edtQtdFicha.getText().toString().trim());
+                qtd += StringUtil.strToNumber(edtQtdFicha.getText().toString().trim());
                 membro.setQtdFicha(qtd);
             }
 
@@ -162,12 +158,12 @@ public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
         try {
             JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
             usuario.setChaveAcesso(resp.getString("chaveacesso"));
-            clube.setQtdFicha(Double.parseDouble(resp.getString("novosaldoadmin")));
+            clube.setQtdFicha(StringUtil.strToNumber(resp.getString("novosaldoadmin")));
             Double qtd;
 
             for (Membro membro : adapter.getLst()) {
                 qtd = membro.getQtdFicha();
-                qtd -= Double.parseDouble(edtQtdFicha.getText().toString().trim());
+                qtd -= StringUtil.strToNumber(edtQtdFicha.getText().toString().trim());
                 membro.setQtdFicha(qtd);
             }
 

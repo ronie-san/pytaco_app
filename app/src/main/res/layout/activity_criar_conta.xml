@@ -1,110 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login">
+    android:background="@drawable/background_login"
+    android:weightSum="100">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="100">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="90"
+        android:background="@drawable/list_view_rounded"
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5" />
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/input_color"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            app:boxStrokeColor="@android:color/white"
+            app:hintTextColor="@android:color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/criar_conta_edtUsuario"
+                style="@style/edit_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Usuário"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/input_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            app:boxStrokeColor="@android:color/white"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@android:color/white"
+            app:hintTextColor="@android:color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/criar_conta_edtSenha"
+                style="@style/edit_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Senha"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/input_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Celular"
+            android:paddingHorizontal="5dp"
+            app:boxStrokeColor="@android:color/white"
+            app:hintAnimationEnabled="true"
+            app:hintTextColor="@android:color/white"
+            app:placeholderText="(##)#####-#####">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/criar_conta_edtCelular"
+                style="@style/edit_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/criar_conta_btnCriarConta"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:layout_weight="90"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/criar_clube_btnVoltar"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="?attr/selectableItemBackground"
-                android:scaleType="centerInside"
-                android:src="@drawable/btn_voltar" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="30dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/input_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxStrokeColor="@android:color/white"
-                app:hintTextColor="@android:color/white">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/criar_conta_edtUsuario"
-                    style="@style/edit_color"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Usuário"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/input_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:boxStrokeColor="@android:color/white"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@android:color/white"
-                app:hintTextColor="@android:color/white">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/criar_conta_edtSenha"
-                    style="@style/edit_color"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Senha"
-                    android:inputType="textPassword" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/input_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Celular"
-                app:boxStrokeColor="@android:color/white"
-                app:hintAnimationEnabled="true"
-                app:hintTextColor="@android:color/white"
-                app:placeholderText="(##)#####-#####">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/criar_conta_edtCelular"
-                    style="@style/edit_color"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageButton
-                android:id="@+id/criar_conta_btnCriarConta"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:adjustViewBounds="true"
-                android:background="?attr/selectableItemBackground"
-                android:scaleType="centerInside"
-                android:src="@drawable/btn_criar_conta" />
-        </LinearLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5" />
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_criar_conta" />
     </LinearLayout>
-</RelativeLayout>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5" />
+</LinearLayout>

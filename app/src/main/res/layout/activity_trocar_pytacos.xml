@@ -10,20 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        android:weightSum="100">
-
-        <ImageButton
-            android:id="@+id/trocar_pytacos_btnVoltar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="30"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackground"
-            android:paddingStart="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/btn_voltar" />
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="0dp"
@@ -34,11 +21,6 @@
             android:paddingVertical="20dp"
             android:scaleType="centerInside"
             android:src="@drawable/escudo_pitaco" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30" />
     </LinearLayout>
 
     <!-- Fichas e Pytacos -->
@@ -87,7 +69,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="@color/pytaco"
-                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="5sp"
                 app:autoSizeTextType="uniform" />
         </RelativeLayout>
@@ -128,7 +110,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textColor="@color/ficha"
-                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMaxTextSize="50sp"
                 app:autoSizeMinTextSize="5sp"
                 app:autoSizeTextType="uniform" />
         </RelativeLayout>
@@ -214,16 +196,16 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/btn_confirmar" />
 
-            <Button
-                android:id="@+id/trocar_pytacos_btnRepetir"
+            <ImageButton
+                android:id="@+id/trocar_pytacos_btnDesfazer"
                 android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/btn_padrao_vermelho"
-                android:text="Repetir"
-                android:textColor="#ffffff"
-                android:textSize="18sp" />
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_desfazer" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

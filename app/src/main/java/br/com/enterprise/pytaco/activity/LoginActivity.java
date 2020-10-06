@@ -1,6 +1,5 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -38,8 +37,7 @@ public class LoginActivity extends BaseActivity {
         btnTeste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, TesteActivity.class);
-                startActivity(intent);
+                pStartActivity(TesteActivity.class);
             }
         });
 
@@ -89,8 +87,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void btnCriarContaClick() {
-        Intent intent = new Intent(this, CriarContaActivity.class);
-        startActivity(intent);
+        pStartActivity(CriarContaActivity.class);
     }
 
     private void lblEsqueciSenhaClick() {
@@ -127,26 +124,37 @@ public class LoginActivity extends BaseActivity {
         try {
             JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
             if (!resp.getString("id_usuario").equals("")) {
+                SharedPreferences.Editor editor = preferences.edit();
+
                 if (chkLembrar.isChecked()) {
-                    SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("usuario", edtUsuario.getText().toString());
                     editor.putString("senha", edtSenha.getText().toString());
                     editor.putBoolean("lembrar", chkLembrar.isChecked());
-                    editor.apply();
                 } else {
-                    preferences.edit().clear().apply();
+                    if (preferences.contains("usuario")) {
+                        editor.remove("usuario");
+                    }
+
+                    if (preferences.contains("senha")) {
+                        editor.remove("senha");
+                    }
+
+                    if (preferences.contains("lembrar")) {
+                        editor.remove("lembrar");
+                    }
                 }
+
+                editor.apply();
 
                 usuario = new Usuario();
                 usuario.setId(Integer.parseInt(resp.getString("id_usuario")));
                 usuario.setChaveAcesso(resp.getString("chaveacesso"));
                 usuario.setNome(edtUsuario.getText().toString().trim());
-                usuario.setQtdPytaco(Double.parseDouble(resp.getString("qtdpytacosglobal")));
-                usuario.setQtdFicha(Double.parseDouble(resp.getString("qtdfichasglobal")));
+                usuario.setQtdPytaco(StringUtil.strToNumber(resp.getString("qtdpytacosglobal")));
+                usuario.setQtdFicha(StringUtil.strToNumber(resp.getString("qtdfichasglobal")));
                 usuario.setCodUsuario(resp.getString("codusuarioglobal"));
-
-                Intent intent = new Intent(this, ClubesActivity.class);
-                startActivity(intent);
+                
+                pStartActivity(ClubesActivity.class);
             } else {
                 pCancelDialog();
                 pEnableScreen();
@@ -176,7 +184,6 @@ public class LoginActivity extends BaseActivity {
                     pTrataRespostaLogin(response);
                     break;
                 default:
-                    makeLongToast("Requisição não reconhecida: " + pytacoRequestEnum.toString());
                     break;
             }
         }

@@ -16,6 +16,12 @@ public class DateUtil {
     }
 
     @NotNull
+    public static String toAPIFormat(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
+    }
+
+    @NotNull
     public static String getDateTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date agora = Calendar.getInstance().getTime();
@@ -23,7 +29,17 @@ public class DateUtil {
     }
 
     @NotNull
-    public static String getDate() {
+    public static Date getDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    @NotNull
+    public static String getStrDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date agora = Calendar.getInstance().getTime();
         return sdf.format(agora);

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_campo">
+
+    <LinearLayout
+        android:id="@+id/criar_bolao_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:adjustViewBounds="true"
+            android:paddingVertical="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/escudo_pitaco" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/criar_bolao_lsvPaises"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/criar_bolao_pnlCabecalho"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:paddingVertical="10dp"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/criar_bolao_pnlCabecalho"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="Sem países"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp"
+        android:visibility="gone" />
+</RelativeLayout>

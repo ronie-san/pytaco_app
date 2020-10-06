@@ -6,7 +6,6 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +24,7 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.PytacoTrocado;
 import br.com.enterprise.pytaco.util.DateUtil;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class PytacosTrocadosActivity extends BaseRecyclerActivity {
 
@@ -37,7 +37,6 @@ public class PytacosTrocadosActivity extends BaseRecyclerActivity {
         setContentView(R.layout.activity_pytacos_trocados);
 
         edtData = findViewById(R.id.pytacos_trocados_edtData);
-        ImageButton btnVoltar = findViewById(R.id.pytacos_trocados_btnVoltar);
         TextView lblAnterior = findViewById(R.id.pytacos_trocados_lblAnterior);
         TextView lblProximo = findViewById(R.id.pytacos_trocados_lblProximo);
         RecyclerView lsvPytacosTrocados = getRecyclerView();
@@ -45,7 +44,7 @@ public class PytacosTrocadosActivity extends BaseRecyclerActivity {
         adapter = new PytacosTrocadosItemAdapter(this, new ArrayList<PytacoTrocado>(), R.layout.lst_pytacos_trocados_item);
         lsvPytacosTrocados.setAdapter(adapter);
 
-        edtData.setText(DateUtil.getDate());
+        edtData.setText(DateUtil.getStrDate());
         edtData.setInputType(InputType.TYPE_NULL);
         edtData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,12 +52,7 @@ public class PytacosTrocadosActivity extends BaseRecyclerActivity {
                 edtDataClick();
             }
         });
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
+
         lblAnterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,8 +118,8 @@ public class PytacosTrocadosActivity extends BaseRecyclerActivity {
                     PytacoTrocado pytacoTrocado = new PytacoTrocado();
                     pytacoTrocado.setId(Integer.parseInt(item.getString("id_log")));
                     pytacoTrocado.setNomeUsuario(item.getString("nomeUsuario"));
-                    pytacoTrocado.setQtdFicha(Double.parseDouble(item.getString("qtdFichasNovas")));
-                    pytacoTrocado.setQtdPytaco(Double.parseDouble(item.getString("qtdPytacosTrocados")));
+                    pytacoTrocado.setQtdFicha(StringUtil.strToNumber(item.getString("qtdFichasNovas")));
+                    pytacoTrocado.setQtdPytaco(StringUtil.strToNumber(item.getString("qtdPytacosTrocados")));
                     adapter.getLst().add(pytacoTrocado);
                 }
             }

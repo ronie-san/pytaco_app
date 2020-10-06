@@ -6,7 +6,6 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +27,7 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.FichaMovimentada;
 import br.com.enterprise.pytaco.util.DateUtil;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class FichasMovimentadasActivity extends BaseRecyclerActivity {
 
@@ -40,7 +40,6 @@ public class FichasMovimentadasActivity extends BaseRecyclerActivity {
         setContentView(R.layout.activity_fichas_movimentadas);
 
         edtData = findViewById(R.id.fichas_movimentadas_edtData);
-        ImageButton btnVoltar = findViewById(R.id.fichas_movimentadas_btnVoltar);
         TextView lblAnterior = findViewById(R.id.fichas_movimentadas_lblAnterior);
         TextView lblProximo = findViewById(R.id.fichas_movimentadas_lblProximo);
         RecyclerView lsvFichasMovimentadas = getRecyclerView();
@@ -48,7 +47,7 @@ public class FichasMovimentadasActivity extends BaseRecyclerActivity {
         adapter = new FichaMovimentadaItemAdapter(this, new ArrayList<FichaMovimentada>(), R.layout.lst_ficha_movimentada_item);
         lsvFichasMovimentadas.setAdapter(adapter);
 
-        edtData.setText(DateUtil.getDate());
+        edtData.setText(DateUtil.getStrDate());
         edtData.setInputType(InputType.TYPE_NULL);
         edtData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,12 +55,7 @@ public class FichasMovimentadasActivity extends BaseRecyclerActivity {
                 edtDataClick();
             }
         });
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
+
         lblAnterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,11 +121,11 @@ public class FichasMovimentadasActivity extends BaseRecyclerActivity {
                     fichaMovimentada.setId(Integer.parseInt(item.getString("id_log")));
                     fichaMovimentada.setNomeUsuarioEnvio(item.getString("NomeUsuarioQFez"));
                     fichaMovimentada.setNomeUsuarioRecebimento(item.getString("NomeUsuarioQRecebeu"));
-                    fichaMovimentada.setQtdFichaAnterior(Double.parseDouble(item.getString("QtdFichasAnteriores")));
-                    fichaMovimentada.setQtdFichaAtual(Double.parseDouble(item.getString("QtdFichasAtuais")));
-                    fichaMovimentada.setQtdFichaMovimento(Double.parseDouble(item.getString("QtdFichasMovimentadas")));
-                    fichaMovimentada.setSaldoAtualAdmin(Double.parseDouble(item.getString("SaldoAtualAdmin")));
-                    fichaMovimentada.setSaldoAnteriorAdmin(Double.parseDouble(item.getString("SaldoAnteriorAdmin")));
+                    fichaMovimentada.setQtdFichaAnterior(StringUtil.strToNumber(item.getString("QtdFichasAnteriores")));
+                    fichaMovimentada.setQtdFichaAtual(StringUtil.strToNumber(item.getString("QtdFichasAtuais")));
+                    fichaMovimentada.setQtdFichaMovimento(StringUtil.strToNumber(item.getString("QtdFichasMovimentadas")));
+                    fichaMovimentada.setSaldoAtualAdmin(StringUtil.strToNumber(item.getString("SaldoAtualAdmin")));
+                    fichaMovimentada.setSaldoAnteriorAdmin(StringUtil.strToNumber(item.getString("SaldoAnteriorAdmin")));
                     fichaMovimentada.setAcao(item.getString("acao"));
                     adapter.getLst().add(fichaMovimentada);
                 }

@@ -26,17 +26,12 @@ public class CriarContaActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criar_conta);
+
         edtUsuario = findViewById(R.id.criar_conta_edtUsuario);
         edtSenha = findViewById(R.id.criar_conta_edtSenha);
         edtCelular = findViewById(R.id.criar_conta_edtCelular);
         edtCelular.addTextChangedListener(MaskEditUtil.mask(edtCelular, MaskEditUtil.FORMAT_FONE));
-        ImageButton btnVoltar = findViewById(R.id.criar_clube_btnVoltar);
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnVoltarClick();
-            }
-        });
+
         final ImageButton btnCriarConta = findViewById(R.id.criar_conta_btnCriarConta);
         btnCriarConta.setOnClickListener(new View.OnClickListener() {
             @Override

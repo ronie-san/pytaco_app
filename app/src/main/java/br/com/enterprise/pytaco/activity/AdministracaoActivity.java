@@ -17,20 +17,12 @@ public class AdministracaoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administracao);
 
-        ImageButton btnVoltar = findViewById(R.id.administracao_btnVoltar);
         lblCodClube = findViewById(R.id.administracao_lblCodClube);
         ImageButton btnTrocarPytacos = findViewById(R.id.administracao_btnTrocarPytacos);
         ImageButton btnNotificacoes = findViewById(R.id.administracao_btnNotificacoes);
         ImageButton btnRelatorios = findViewById(R.id.administracao_btnRelatorios);
         ImageButton btnDesfazerClube = findViewById(R.id.administracao_btnDesfazerClube);
         ImageButton btnSairClube = findViewById(R.id.administracao_btnSairClube);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnVoltarClick();
-            }
-        });
 
         btnTrocarPytacos.setOnClickListener(new View.OnClickListener() {
             @Override

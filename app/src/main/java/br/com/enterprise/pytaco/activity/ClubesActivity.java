@@ -103,9 +103,8 @@ public class ClubesActivity extends BaseRecyclerActivity {
 
     @Override
     public void onLstItemClick(int position) {
-        Intent intent = new Intent(this, BolaoActivity.class);
         clube = adapter.getLst().get(position);
-        startActivity(intent);
+        pStartActivity(BolaoActivity.class);
     }
 
     @Override
@@ -133,16 +132,8 @@ public class ClubesActivity extends BaseRecyclerActivity {
     private void btnAssociarClubeClick() {
         dialogAssociarClube = createDialog(R.layout.dialog_associar_clube);
 
-        final ImageButton btnVoltar = dialogAssociarClube.findViewById(R.id.associar_clube_btnVoltar);
         final TextView edtCodClube = dialogAssociarClube.findViewById(R.id.associar_clube_edtCodClube);
         final ImageButton btnAssociar = dialogAssociarClube.findViewById(R.id.associar_clube_btnAssociar);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogAssociarClube.cancelDialog();
-            }
-        });
 
         btnAssociar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,18 +151,10 @@ public class ClubesActivity extends BaseRecyclerActivity {
     private void btnAlterarSenhaClick() {
         dialogAlterarSenha = createDialog(R.layout.dialog_alterar_senha);
 
-        final ImageButton btnVoltar = dialogAlterarSenha.findViewById(R.id.alterar_senha_btnVoltar);
         final TextView edtSenhaAtual = dialogAlterarSenha.findViewById(R.id.alterar_senha_edtSenhaAtual);
         final TextView edtSenhaNova = dialogAlterarSenha.findViewById(R.id.alterar_senha_edtSenhaNova);
         final TextView edtSenhaConfirmada = dialogAlterarSenha.findViewById(R.id.alterar_senha_edtSenhaConfirmada);
         final ImageButton btnAlterarSenha = dialogAlterarSenha.findViewById(R.id.alterar_senha_btnAlterarSenha);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogAlterarSenha.cancelDialog();
-            }
-        });
 
         btnAlterarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,17 +172,9 @@ public class ClubesActivity extends BaseRecyclerActivity {
     private void btnNovoClubeClick() {
         dialogNovoClube = createDialog(R.layout.dialog_criar_clube);
 
-        final ImageButton btnVoltar = dialogNovoClube.findViewById(R.id.criar_clube_btnVoltar);
         final TextView edtNomeClube = dialogNovoClube.findViewById(R.id.criar_clube_edtNomeClube);
         final TextView edtDescricaoClube = dialogNovoClube.findViewById(R.id.criar_clube_edtDescricaoClube);
         final ImageButton btnCriarClube = dialogNovoClube.findViewById(R.id.criar_clube_btnCriarClube);
-
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogNovoClube.cancelDialog();
-            }
-        });
 
         btnCriarClube.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -258,7 +233,7 @@ public class ClubesActivity extends BaseRecyclerActivity {
                         clube.setId(Integer.parseInt(resp.getJSONObject(i).getString("id_clube")));
                         clube.setNome(resp.getJSONObject(i).getString("nomeclube"));
                         clube.setDescricao(resp.getJSONObject(i).getString("descricaoclube"));
-                        clube.setQtdFicha(Double.parseDouble(resp.getJSONObject(i).getString("qtdfichas")));
+                        clube.setQtdFicha(StringUtil.strToNumber(resp.getJSONObject(i).getString("qtdfichas")));
                         clube.setCodClube(resp.getJSONObject(i).getString("codigousuario"));
                         clube.setTipoUsuario(resp.getJSONObject(i).getString("tipousuario"));
                         adapter.getLst().add(clube);

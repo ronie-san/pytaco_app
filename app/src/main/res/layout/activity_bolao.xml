@@ -33,15 +33,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/bolao_btnVoltar"
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/btn_voltar" />
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
@@ -72,7 +63,7 @@
                         android:layout_toEndOf="@+id/bolao_imgFicha"
                         android:gravity="center"
                         android:textColor="@color/ficha"
-                        app:autoSizeMaxTextSize="30sp"
+                        app:autoSizeMaxTextSize="50sp"
                         app:autoSizeMinTextSize="5sp"
                         app:autoSizeTextType="uniform" />
                 </RelativeLayout>

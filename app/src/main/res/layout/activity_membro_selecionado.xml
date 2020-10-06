@@ -4,24 +4,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_membro">
 
-    <ImageButton
-        android:id="@+id/membro_selecionado_btnVoltar"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:adjustViewBounds="true"
-        android:background="?attr/selectableItemBackground"
-        android:scaleType="centerCrop"
-        android:src="@drawable/btn_voltar" />
-
     <TextView
         android:id="@+id/membro_selecionado_lblCodMembro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/membro_selecionado_btnVoltar"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
@@ -118,23 +104,33 @@
         android:paddingHorizontal="15dp"
         android:showDividers="beginning|middle|end">
 
-        <ImageButton
-            android:id="@+id/membro_selecionado_btnAceitar"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerInside"
-            android:src="@drawable/btn_aceitar" />
+            android:divider="@drawable/linear_layout_divider_width"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:showDividers="beginning|middle|end">
 
-        <ImageButton
-            android:id="@+id/membro_selecionado_btnAgente"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerInside"
-            android:src="@drawable/btn_agente" />
+            <ImageButton
+                android:id="@+id/membro_selecionado_btnAceitar"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_aceitar" />
+
+            <ImageButton
+                android:id="@+id/membro_selecionado_btnAgente"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerInside"
+                android:src="@drawable/btn_agente" />
+        </LinearLayout>
+
 
         <ImageButton
             android:id="@+id/membro_selecionado_btnDesativar"

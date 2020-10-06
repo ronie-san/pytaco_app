@@ -33,16 +33,6 @@
             android:layout_weight="90"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/alterar_senha_btnVoltar"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:adjustViewBounds="true"
-                android:background="?attr/selectableItemBackground"
-                android:scaleType="centerInside"
-                android:src="@drawable/btn_voltar" />
-
             <ImageView
                 android:layout_width="90dp"
                 android:layout_height="90dp"
