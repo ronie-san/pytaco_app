@@ -1,6 +1,6 @@
 package br.com.enterprise.pytaco.pojo;
 
-public class Team extends BaseEntity {
+public class Time extends BaseEntity {
 
     private String name;
 

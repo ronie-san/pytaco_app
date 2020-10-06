@@ -65,6 +65,7 @@ public class ContadorActivity extends BaseRecyclerActivity {
 
     private void btnTrocarFichasClick() {
         ArrayList<Membro> lstSelecionado = new ArrayList<>();
+
         for (Membro item : adapter.getLst()) {
             if (item.isMarcado()) {
                 lstSelecionado.add(item);

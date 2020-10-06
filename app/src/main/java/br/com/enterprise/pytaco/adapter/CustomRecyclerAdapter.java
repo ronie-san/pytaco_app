@@ -59,6 +59,11 @@ public abstract class CustomRecyclerAdapter<T extends BaseEntity, R extends Cust
     }
 
     @Override
+    public long getItemId(int position) {
+        return lst == null ? 0 : lst.get(position).getId();
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull R holder, int position) {
         T item = lst.get(holder.getAdapterPosition());
         pSetViewProperties(item, holder);

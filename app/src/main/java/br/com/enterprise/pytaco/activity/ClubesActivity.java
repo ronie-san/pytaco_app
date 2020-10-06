@@ -110,6 +110,7 @@ public class ClubesActivity extends BaseRecyclerActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        lstJogoSelecionado.clear();
 
         if (!pExisteDialogAberto()) {
             lblQtdPytacoGlobal.setText(StringUtil.numberToStr(usuario.getQtdPytaco()));

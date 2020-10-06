@@ -25,13 +25,12 @@ import com.android.volley.VolleyError;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.pojo.Clube;
-import br.com.enterprise.pytaco.pojo.Fixture;
-import br.com.enterprise.pytaco.pojo.League;
+import br.com.enterprise.pytaco.pojo.Jogo;
+import br.com.enterprise.pytaco.pojo.Liga;
 import br.com.enterprise.pytaco.pojo.Membro;
 import br.com.enterprise.pytaco.pojo.Pais;
 import br.com.enterprise.pytaco.pojo.Usuario;
@@ -46,8 +45,9 @@ public abstract class BaseActivity extends Activity {
     protected static Clube clube;
     protected static Membro membro;
     protected static Pais pais;
-    protected static League liga;
-    protected static List<Fixture> lstFixture = new ArrayList<>();
+    protected static Liga liga;
+    protected static List<Jogo> lstJogo = new ArrayList<>();
+    protected static List<Jogo> lstJogoSelecionado = new ArrayList<>();
 
     protected DialogView dialogLoading;
     protected PytacoRequestEnum pytacoRequestEnum = PytacoRequestEnum.NONE;

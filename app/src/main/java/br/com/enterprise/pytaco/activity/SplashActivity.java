@@ -13,9 +13,9 @@ import java.util.Date;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
-import br.com.enterprise.pytaco.pojo.Fixture;
-import br.com.enterprise.pytaco.pojo.League;
-import br.com.enterprise.pytaco.pojo.Team;
+import br.com.enterprise.pytaco.pojo.Jogo;
+import br.com.enterprise.pytaco.pojo.Liga;
+import br.com.enterprise.pytaco.pojo.Time;
 import br.com.enterprise.pytaco.util.DateUtil;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
@@ -27,7 +27,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        lstFixture.clear();
+        lstJogo.clear();
         pListaJogos(DateUtil.addDay(DateUtil.getDate()));
     }
 
@@ -48,6 +48,7 @@ public class SplashActivity extends BaseActivity {
         pytacoRequestEnum = PytacoRequestEnum.NONE;
         qtdRequestListaJogos = 0;
         makeShortToast(error.getMessage());
+        pStartActivity(LoginActivity.class);
     }
 
     private void pListaJogos(Date data) {
@@ -62,32 +63,31 @@ public class SplashActivity extends BaseActivity {
 
             for (int i = 0; i < resp.length(); i++) {
                 JSONObject item = resp.getJSONObject(i);
-                Fixture fixture = new Fixture();
+                Jogo jogo = new Jogo();
 
-                Team homeTeam = new Team();
-                homeTeam.setId(item.getJSONObject("homeTeam").getInt("team_id"));
-                homeTeam.setName(item.getJSONObject("homeTeam").getString("team_name"));
-                fixture.setHomeTeam(homeTeam);
+                Time homeTime = new Time();
+                homeTime.setId(item.getJSONObject("homeTeam").getInt("team_id"));
+                homeTime.setName(item.getJSONObject("homeTeam").getString("team_name"));
+                jogo.setHomeTime(homeTime);
 
-                Team awayTeam = new Team();
-                homeTeam.setId(item.getJSONObject("awayTeam").getInt("team_id"));
-                homeTeam.setName(item.getJSONObject("awayTeam").getString("team_name"));
-                fixture.setAwayTeam(awayTeam);
+                Time awayTime = new Time();
+                awayTime.setId(item.getJSONObject("awayTeam").getInt("team_id"));
+                awayTime.setName(item.getJSONObject("awayTeam").getString("team_name"));
+                jogo.setAwayTime(awayTime);
 
-                League league = new League();
+                Liga league = new Liga();
                 league.setId(item.getInt("league_id"));
                 league.setName(item.getJSONObject("league").getString("name"));
                 league.setCountry(item.getJSONObject("league").getString("country"));
-                fixture.setLeague(league);
+                jogo.setLiga(league);
 
-                fixture.setId(item.getInt("fixture_id"));
-                fixture.setEventDate(item.getString("event_date"));
-
-                fixture.setGoalsAwayTeam(item.isNull("goalsAwayTeam") ? null : item.getInt("goalsAwayTeam"));
-                fixture.setGoalsHomeTeam(item.isNull("goalsHomeTeam") ? null : item.getInt("goalsHomeTeam"));
-                fixture.setVenue(item.getString("venue"));
-                fixture.setStatusShort(item.getString("statusShort"));
-                lstFixture.add(fixture);
+                jogo.setId(item.getInt("fixture_id"));
+                jogo.setEventDate(item.getString("event_date"));
+                jogo.setGolsTimeAway(item.isNull("goalsAwayTeam") ? null : item.getInt("goalsAwayTeam"));
+                jogo.setGolsTimeHome(item.isNull("goalsHomeTeam") ? null : item.getInt("goalsHomeTeam"));
+                jogo.setLocal(item.getString("venue"));
+                jogo.setStatusShort(item.getString("statusShort"));
+                lstJogo.add(jogo);
             }
 
             if (qtdRequestListaJogos < 4) {
@@ -96,8 +96,7 @@ public class SplashActivity extends BaseActivity {
                 qtdRequestListaJogos = 0;
                 pStartActivity(LoginActivity.class);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException ignored) {
         }
     }
 }

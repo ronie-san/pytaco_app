@@ -1,6 +1,6 @@
 package br.com.enterprise.pytaco.pojo;
 
-public class League extends BaseEntity {
+public class Liga extends BaseEntity {
 
     private String name;
     private String country;

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/jogos_imgCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:src="@drawable/cabecalho" />
+
+    <RelativeLayout
+        android:id="@+id/jogos_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/jogos_pnlTitulo"
+        android:gravity="end|center_vertical">
+
+        <ImageButton
+            android:id="@+id/jogos_btnVerJogos"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="1dp"
+            android:layout_toStartOf="@+id/jogos_lblVerJogos"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/icone_buscar" />
+
+        <TextView
+            android:id="@+id/jogos_lblVerJogos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:labelFor="@+id/jogos_btnVerJogos"
+            android:text="Ver jogos"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/pytaco"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/jogos_pnlTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/jogos_imgCabecalho">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Selecione os jogos"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/jogos_imgCabecalho"
+        android:background="@drawable/background_campo" />
+
+    <LinearLayout
+        android:id="@+id/jogos_pnlBolao"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/jogos_imgCabecalho"
+        android:background="@android:color/transparent"
+        android:divider="@drawable/linear_layout_divider_width"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="5dp"
+        android:showDividers="beginning|middle|end"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:gravity="end|center_vertical"
+            android:text="Valor"
+            android:textColor="@color/pytaco"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:background="@drawable/edit"
+            android:gravity="start"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:gravity="end|center_vertical"
+            android:text="%PG"
+            android:textColor="@color/pytaco"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:background="@drawable/edit"
+            android:gravity="start"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/jogos_lsvJogos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/jogos_pnlBolao"
+        android:background="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:paddingVertical="10dp"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/jogos_pnlBolao"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="Sem jogos"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp"
+        android:visibility="gone" />
+</RelativeLayout>

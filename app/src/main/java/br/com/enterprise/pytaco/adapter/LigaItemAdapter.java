@@ -8,11 +8,11 @@ import java.util.List;
 
 import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
 import br.com.enterprise.pytaco.holder.LigaItemHolder;
-import br.com.enterprise.pytaco.pojo.League;
+import br.com.enterprise.pytaco.pojo.Liga;
 
-public class LigaItemAdapter extends CustomRecyclerAdapter<League, LigaItemHolder> {
+public class LigaItemAdapter extends CustomRecyclerAdapter<Liga, LigaItemHolder> {
 
-    public LigaItemAdapter(BaseRecyclerActivity activity, List<League> lst, int itemLayout) {
+    public LigaItemAdapter(BaseRecyclerActivity activity, List<Liga> lst, int itemLayout) {
         super(activity, lst, itemLayout);
     }
 
@@ -22,7 +22,7 @@ public class LigaItemAdapter extends CustomRecyclerAdapter<League, LigaItemHolde
     }
 
     @Override
-    protected void pSetViewProperties(@NotNull League item, @NotNull LigaItemHolder holder) {
+    protected void pSetViewProperties(@NotNull Liga item, @NotNull LigaItemHolder holder) {
         holder.getLblNome().setText(item.getName());
     }
 }

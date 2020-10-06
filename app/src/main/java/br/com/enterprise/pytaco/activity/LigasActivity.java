@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.adapter.LigaItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
-import br.com.enterprise.pytaco.pojo.League;
+import br.com.enterprise.pytaco.pojo.Liga;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 
 public class LigasActivity extends BaseRecyclerActivity {
@@ -29,7 +29,7 @@ public class LigasActivity extends BaseRecyclerActivity {
         setContentView(R.layout.activity_ligas);
 
         RecyclerView lsvLigas = getRecyclerView();
-        adapter = new LigaItemAdapter(this, new ArrayList<League>(), R.layout.lst_liga_item);
+        adapter = new LigaItemAdapter(this, new ArrayList<Liga>(), R.layout.lst_liga_item);
         lsvLigas.setAdapter(adapter);
     }
 
@@ -41,7 +41,7 @@ public class LigasActivity extends BaseRecyclerActivity {
     @Override
     public void onLstItemClick(int position) {
         liga = adapter.getLst().get(position);
-
+        pStartActivity(JogosActivity.class);
     }
 
     @Override
@@ -81,10 +81,10 @@ public class LigasActivity extends BaseRecyclerActivity {
 
             for (int i = 0; i < resp.length(); i++) {
                 JSONObject item = resp.getJSONObject(i);
-                League league = new League();
-                league.setId(Integer.parseInt(item.getString("id_liga")));
-                league.setName(item.getString("nome"));
-                adapter.getLst().add(league);
+                Liga liga = new Liga();
+                liga.setId(Integer.parseInt(item.getString("id_liga")));
+                liga.setName(item.getString("nome"));
+                adapter.getLst().add(liga);
             }
         } catch (JSONException ignored) {
         } finally {
