@@ -2,6 +2,7 @@ package br.com.enterprise.pytaco.pojo;
 
 public class Jogo extends BaseEntity {
 
+    private boolean marcado;
     private Liga liga;
     private String eventDate;
     private String statusShort;
@@ -10,6 +11,14 @@ public class Jogo extends BaseEntity {
     private Integer golsTimeAway;
     private Time homeTime;
     private Time awayTime;
+
+    public boolean isMarcado() {
+        return marcado;
+    }
+
+    public void setMarcado(boolean marcado) {
+        this.marcado = marcado;
+    }
 
     public Liga getLiga() {
         return liga;

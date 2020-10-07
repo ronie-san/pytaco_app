@@ -1,6 +1,8 @@
 package br.com.enterprise.pytaco.holder;
 
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,8 @@ import br.com.enterprise.pytaco.adapter.CustomRecyclerAdapter;
 
 public class JogoItemHolder extends CustomViewHolder {
 
+    private ImageView imgJogo;
+    private CheckBox chkMarcado;
     private TextView lblNomeLiga;
     private TextView lblStatus;
     private TextView lblVenue;
@@ -18,6 +22,14 @@ public class JogoItemHolder extends CustomViewHolder {
 
     public JogoItemHolder(@NonNull View itemView, CustomRecyclerAdapter.OnLstItemClickListener listener) {
         super(itemView, listener);
+    }
+
+    public ImageView getImgJogo() {
+        return imgJogo;
+    }
+
+    public CheckBox getChkMarcado() {
+        return chkMarcado;
     }
 
     public TextView getLblNomeLiga() {
@@ -42,6 +54,8 @@ public class JogoItemHolder extends CustomViewHolder {
 
     @Override
     protected void pFindViews(@NonNull View itemView) {
+        imgJogo = itemView.findViewById(R.id.jogo_item_imgJogo);
+        chkMarcado = itemView.findViewById(R.id.jogo_item_chkMarcado);
         lblNomeLiga = itemView.findViewById(R.id.jogo_item_lblNomeLiga);
         lblStatus = itemView.findViewById(R.id.jogo_item_lblStatus);
         lblVenue = itemView.findViewById(R.id.jogo_item_lblLocal);

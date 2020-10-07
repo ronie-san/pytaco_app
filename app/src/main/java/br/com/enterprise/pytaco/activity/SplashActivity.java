@@ -1,6 +1,11 @@
 package br.com.enterprise.pytaco.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 
@@ -16,11 +21,14 @@ import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Jogo;
 import br.com.enterprise.pytaco.pojo.Liga;
 import br.com.enterprise.pytaco.pojo.Time;
+import br.com.enterprise.pytaco.pojo.Usuario;
 import br.com.enterprise.pytaco.util.DateUtil;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.StringUtil;
 
 public class SplashActivity extends BaseActivity {
 
+    private String login;
     private int qtdRequestListaJogos = 0;
 
     @Override
@@ -28,6 +36,11 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         lstJogo.clear();
+        ImageView imgBola = findViewById(R.id.splash_imgBola);
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotation);
+        rotation.setFillAfter(true);
+        rotation.setInterpolator(new LinearInterpolator());
+        imgBola.startAnimation(rotation);
         pListaJogos(DateUtil.addDay(DateUtil.getDate()));
     }
 
@@ -39,7 +52,15 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onSucess(String response) {
         if (!isDestroyed()) {
-            pTrataRespostaListaJogos(response);
+            switch (pytacoRequestEnum) {
+                case LISTA_JOGOS:
+                    pTrataRespostaListaJogos(response);
+                    break;
+                case LOGIN:
+                    pTrataRespostaLogin(response);
+                    super.onSucess(response);
+                    break;
+            }
         }
     }
 
@@ -54,6 +75,52 @@ public class SplashActivity extends BaseActivity {
     private void pListaJogos(Date data) {
         PytacoRequestDAO request = new PytacoRequestDAO(this);
         request.listaJogos(DateUtil.toAPIFormat(data));
+    }
+
+    private void pIniciaApp() {
+        SharedPreferences preferences = getSharedPreferences("PrefsFile", MODE_PRIVATE);
+
+        if (preferences.contains("usuario") && preferences.contains("senha")) {
+            login = preferences.getString("usuario", "");
+            String password = preferences.getString("senha", "");
+
+            if (login != null && !login.isEmpty() && password != null && !password.isEmpty()) {
+                PytacoRequestDAO request = new PytacoRequestDAO(this);
+                request.login(login, password);
+            } else {
+                pStartActivity(LoginActivity.class);
+            }
+        } else {
+            pStartActivity(LoginActivity.class);
+        }
+    }
+
+    private void pTrataRespostaLogin(String response) {
+        try {
+            JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
+            if (!resp.getString("id_usuario").equals("")) {
+                usuario = new Usuario();
+                usuario.setId(Integer.parseInt(resp.getString("id_usuario")));
+                usuario.setChaveAcesso(resp.getString("chaveacesso"));
+                usuario.setNome(login);
+                usuario.setQtdPytaco(StringUtil.strToNumber(resp.getString("qtdpytacosglobal")));
+                usuario.setQtdFicha(StringUtil.strToNumber(resp.getString("qtdfichasglobal")));
+                usuario.setCodUsuario(resp.getString("codusuarioglobal"));
+
+                pStartActivity(LoginActivity.class);
+                pStartActivity(ClubesActivity.class);
+            } else {
+                pCancelLoading();
+                pEnableScreen();
+                makeLongToast("Usuário e/ou senha inválidos.");
+                pStartActivity(LoginActivity.class);
+            }
+        } catch (JSONException e) {
+            pCancelLoading();
+            pEnableScreen();
+            makeLongToast("Não foi possível entrar. Houve erro na autenticação");
+            pStartActivity(LoginActivity.class);
+        }
     }
 
     private void pTrataRespostaListaJogos(@NotNull String response) {
@@ -94,7 +161,7 @@ public class SplashActivity extends BaseActivity {
                 pListaJogos(DateUtil.addDay(DateUtil.getDate(), qtdRequestListaJogos + 1));
             } else {
                 qtdRequestListaJogos = 0;
-                pStartActivity(LoginActivity.class);
+                pIniciaApp();
             }
         } catch (JSONException ignored) {
         }

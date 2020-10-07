@@ -148,6 +148,7 @@
         android:layout_above="@+id/clubes_pnlRodape"
         android:layout_below="@+id/clubes_pnlCabecalho"
         android:paddingVertical="10dp"
+        android:requiresFadingEdge="vertical"
         android:scrollbars="vertical" />
 
     <TextView

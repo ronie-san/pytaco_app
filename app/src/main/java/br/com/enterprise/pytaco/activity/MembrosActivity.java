@@ -1,6 +1,5 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -102,7 +101,7 @@ public class MembrosActivity extends BaseRecyclerActivity {
     @Override
     public void onSucess(String response) {
         if (!this.isDestroyed()) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
 
             if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_MEMBROS)) {

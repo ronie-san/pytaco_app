@@ -132,7 +132,7 @@ public class ContadorActivity extends BaseRecyclerActivity {
     @Override
     public void onSucess(String response) {
         if (!this.isDestroyed()) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
 
             if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_MEMBROS)) {

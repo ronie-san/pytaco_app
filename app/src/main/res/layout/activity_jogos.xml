@@ -18,10 +18,17 @@
         android:layout_above="@+id/jogos_pnlTitulo"
         android:gravity="end|center_vertical">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingVertical="10dp"
+            android:src="@drawable/escudo_pitaco" />
+
         <ImageButton
             android:id="@+id/jogos_btnVerJogos"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="1dp"
             android:layout_toStartOf="@+id/jogos_lblVerJogos"
@@ -34,13 +41,14 @@
             android:id="@+id/jogos_lblVerJogos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
             android:labelFor="@+id/jogos_btnVerJogos"
             android:text="Ver jogos"
             android:textAlignment="viewEnd"
             android:textColor="@color/pytaco"
-            android:textSize="25sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -86,6 +94,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/jogos_edtValor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="25"
@@ -103,6 +112,7 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/jogos_edtPerc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="25"
@@ -120,6 +130,7 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp"
         android:paddingVertical="10dp"
+        android:requiresFadingEdge="vertical"
         android:scrollbars="vertical" />
 
     <TextView

@@ -136,7 +136,7 @@ public class MembroSelecionadoActivity extends BaseActivity {
     @Override
     public void onSucess(String response) {
         if (!this.isDestroyed()) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
 
             switch (pytacoRequestEnum) {

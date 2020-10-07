@@ -1,8 +1,9 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,8 @@ import br.com.enterprise.pytaco.pojo.Jogo;
 
 public class JogosActivity extends BaseRecyclerActivity {
 
+    private EditText edtValor;
+    private EditText edtPerc;
     private JogoItemAdapter adapter;
 
     @Override
@@ -26,7 +29,9 @@ public class JogosActivity extends BaseRecyclerActivity {
         setContentView(R.layout.activity_jogos);
 
         RecyclerView lsvJogos = getRecyclerView();
-        final ImageButton btnVerJogos = findViewById(R.id.jogos_btnVerJogos);
+        ImageButton btnVerJogos = findViewById(R.id.jogos_btnVerJogos);
+        edtValor = findViewById(R.id.jogos_edtValor);
+        edtPerc = findViewById(R.id.jogos_edtPerc);
 
         adapter = new JogoItemAdapter(this, pGetLstJogos(), R.layout.lst_jogo_item);
         lsvJogos.setAdapter(adapter);
@@ -41,8 +46,21 @@ public class JogosActivity extends BaseRecyclerActivity {
     }
 
     private void btnVerJogosClick() {
-        if (lstJogoSelecionado.size() > 0) {
+        if (pValidaInfo()) {
+            Intent intent = new Intent(this, JogosSelecionadosActivity.class);
+            intent.putExtra(getString(R.string.valor_bolao), Double.parseDouble(edtValor.getText().toString().trim()));
+            intent.putExtra(getString(R.string.percentual_bolao), Double.parseDouble(edtPerc.getText().toString().trim()));
+            startActivity(intent);
+        }
+    }
 
+    private boolean pValidaInfo() {
+        try {
+            double valorBolao = Double.parseDouble(edtValor.getText().toString().trim());
+            double perc = Double.parseDouble(edtPerc.getText().toString().trim());
+            return lstJogoSelecionado.size() > 0 && valorBolao > 0 && perc > 0 && perc < 100;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
@@ -51,7 +69,7 @@ public class JogosActivity extends BaseRecyclerActivity {
         List<Jogo> lst = new ArrayList<>();
 
         for (Jogo item : lstJogo) {
-            if (item.getLiga().getName().equals(liga.getName())) {
+            if (item.getLiga().getId().equals(liga.getId())) {
                 lst.add(item);
             }
         }
@@ -64,34 +82,23 @@ public class JogosActivity extends BaseRecyclerActivity {
         return findViewById(R.id.jogos_lsvJogos);
     }
 
+
     @Override
     public void onLstItemClick(int position) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Atenção");
-        alert.setPositiveButton("OK", null);
+        Jogo item = adapter.getLst().get(position);
 
         if (adapter.getLst().get(position).getStatusShort().equals("NS")) {
-            boolean existe = false;
-            int i = 0;
+            item.setMarcado(!item.isMarcado());
+            adapter.notifyItemChanged(position);
 
-            while (i < lstJogoSelecionado.size() && !existe) {
-                if (adapter.getLst().get(position).getId().equals(lstJogoSelecionado.get(i).getId())) {
-                    existe = true;
-                }
-
-                i++;
-            }
-
-            if (!existe) {
-                alert.setMessage("Jogo selecionado com sucesso");
-                lstJogoSelecionado.add(adapter.getLst().get(position));
+            if (item.isMarcado()) {
+                lstJogoSelecionado.add(item);
             } else {
-                alert.setMessage("Jogo já selecionado");
+                lstJogoSelecionado.remove(item);
             }
         } else {
-            alert.setMessage("Este jogo foi " + adapter.getLst().get(position).getStatusExt());
+            item.setMarcado(false);
+            adapter.notifyItemChanged(position);
         }
-
-        alert.show();
     }
 }

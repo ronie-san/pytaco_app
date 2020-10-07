@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.pojo.Jogo;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class BolaoActivity extends BaseActivity {
@@ -83,6 +84,11 @@ public class BolaoActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         lblQtdFicha.setText(StringUtil.numberToStr(clube.getQtdFicha()));
+        lstJogoSelecionado.clear();
+
+        for (Jogo jogo : lstJogo) {
+            jogo.setMarcado(false);
+        }
     }
 
     private void btnCriarBolaoClick() {

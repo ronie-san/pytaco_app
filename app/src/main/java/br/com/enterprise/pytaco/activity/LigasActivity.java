@@ -56,7 +56,7 @@ public class LigasActivity extends BaseRecyclerActivity {
     @Override
     public void onSucess(String response) {
         if (!isDestroyed() && pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_LIGAS)) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
             pTrataRespostaListaLigas(response);
         }

@@ -34,7 +34,7 @@ public class DesfazerClubeActivity extends BaseActivity {
 
     @Override
     public void onSucess(String response) {
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
 
         if (pytacoRequestEnum.equals(PytacoRequestEnum.DESFAZER_CLUBE)) {

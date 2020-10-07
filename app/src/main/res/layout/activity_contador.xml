@@ -66,6 +66,7 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp"
         android:paddingVertical="10dp"
+        android:requiresFadingEdge="vertical"
         android:scrollbars="vertical" />
 
     <TextView

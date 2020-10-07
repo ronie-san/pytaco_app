@@ -10,7 +10,19 @@
     android:gravity="center"
     app:cardCornerRadius="10dp">
 
+    <CheckBox
+        android:id="@+id/jogo_item_chkMarcado"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginStart="5dp"
+        android:buttonTint="@android:color/black"
+        android:elevation="1dp"
+        android:enabled="false"
+        android:padding="5dp" />
+
     <ImageView
+        android:id="@+id/jogo_item_imgJogo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"

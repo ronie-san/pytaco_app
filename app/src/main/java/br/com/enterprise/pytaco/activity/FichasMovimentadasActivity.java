@@ -148,7 +148,7 @@ public class FichasMovimentadasActivity extends BaseRecyclerActivity {
 
     @Override
     public void onSucess(String response) {
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
 
         if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_FICHAS_MOVIMENTADAS)) {

@@ -82,7 +82,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
     }
 
@@ -156,19 +156,19 @@ public class LoginActivity extends BaseActivity {
                 
                 pStartActivity(ClubesActivity.class);
             } else {
-                pCancelDialog();
+                pCancelLoading();
                 pEnableScreen();
                 makeLongToast("Usuário e/ou senha inválidos.");
             }
         } catch (JSONException e) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
             makeLongToast("Não foi possível entrar. Houve erro na autenticação");
         }
     }
 
     private void pTrataRespostaLembrarSenha() {
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
         makeLongToast("Um SMS com nova senha será enviado");
     }

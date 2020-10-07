@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_campo">
+
+    <LinearLayout
+        android:id="@+id/jogos_selecionados_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:adjustViewBounds="true"
+            android:paddingVertical="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/escudo_pitaco" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/jogos_selecionados_pnlBolao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/jogos_selecionados_pnlCabecalho"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:labelFor="@+id/jogos_selecionados_edtNomeBolao"
+            android:text="Nome do Bolão"
+            android:textAlignment="center"
+            android:textColor="@color/pytaco"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/jogos_selecionados_edtNomeBolao"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:background="@drawable/edit"
+            android:gravity="center"
+            android:hint="Nome"
+            android:inputType="text"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/jogos_selecionados_lsvJogosSelecionados"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/jogos_selecionados_pnlRodape"
+        android:layout_below="@+id/jogos_selecionados_pnlBolao"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:paddingVertical="10dp"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/jogos_selecionados_pnlRodape"
+        android:layout_below="@+id/jogos_selecionados_pnlBolao"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="Sem jogos"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/jogos_selecionados_pnlRodape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="30dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/jogos_selecionados_btnConfirmar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_confirmar" />
+    </RelativeLayout>
+</RelativeLayout>

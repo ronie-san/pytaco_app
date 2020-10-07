@@ -1,6 +1,5 @@
 package br.com.enterprise.pytaco.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,6 +21,7 @@ import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.adapter.ClubeItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
+import br.com.enterprise.pytaco.pojo.Jogo;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
@@ -110,7 +110,6 @@ public class ClubesActivity extends BaseRecyclerActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        lstJogoSelecionado.clear();
 
         if (!pExisteDialogAberto()) {
             lblQtdPytacoGlobal.setText(StringUtil.numberToStr(usuario.getQtdPytaco()));
@@ -280,13 +279,13 @@ public class ClubesActivity extends BaseRecyclerActivity {
         if (!this.isDestroyed()) {
             switch (pytacoRequestEnum) {
                 case LISTA_CLUBES:
-                    pCancelDialog();
+                    pCancelLoading();
                     pEnableScreen();
                     pTrataRespostaListaClubes(response);
                     super.onSucess(response);
                     break;
                 case ASSOCIAR:
-                    pCancelDialog();
+                    pCancelLoading();
                     pEnableScreen();
                     pTrataRespostaAssociarClube(response);
                     super.onSucess(response);
@@ -296,13 +295,13 @@ public class ClubesActivity extends BaseRecyclerActivity {
                     pListaClubes();
                     break;
                 case ALTERAR_SENHA:
-                    pCancelDialog();
+                    pCancelLoading();
                     pEnableScreen();
                     pTrataRespostaAlterarSenha(response);
                     super.onSucess(response);
                     break;
                 default:
-                    pCancelDialog();
+                    pCancelLoading();
                     pEnableScreen();
                     super.onSucess(response);
                     break;

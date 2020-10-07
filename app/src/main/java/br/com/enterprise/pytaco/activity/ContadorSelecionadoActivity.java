@@ -177,7 +177,7 @@ public class ContadorSelecionadoActivity extends BaseRecyclerActivity {
 
     @Override
     public void onSucess(String response) {
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
 
         switch (pytacoRequestEnum) {

@@ -136,7 +136,7 @@ public class TrocarPytacosActivity extends BaseActivity {
 
     @Override
     public void onSucess(String response) {
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
 
         switch (pytacoRequestEnum) {

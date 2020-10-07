@@ -108,7 +108,7 @@ public class CompraActivity extends BaseRecyclerActivity {
     public void onSucess(String response) {
         if (!this.isDestroyed()) {
             if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_PACOTE_COMPRA)) {
-                pCancelDialog();
+                pCancelLoading();
                 pEnableScreen();
                 pTrataRespostaListaPacoteCompra(response);
             }

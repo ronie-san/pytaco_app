@@ -157,7 +157,7 @@ public class AvisosActivity extends BaseRecyclerActivity {
         if (!this.isDestroyed()) {
             switch (pytacoRequestEnum) {
                 case LISTA_AVISOS:
-                    pCancelDialog();
+                    pCancelLoading();
                     pEnableScreen();
                     pTrataRespostaListaAvisos(response);
                     super.onSucess(response);
@@ -175,7 +175,7 @@ public class AvisosActivity extends BaseRecyclerActivity {
                     pListaAvisos();
                     break;
                 default:
-                    pCancelDialog();
+                    pCancelLoading();
                     pEnableScreen();
                     super.onSucess(response);
                     break;

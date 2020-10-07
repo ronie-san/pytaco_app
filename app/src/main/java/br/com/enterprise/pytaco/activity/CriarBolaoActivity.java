@@ -45,7 +45,7 @@ public class CriarBolaoActivity extends BaseRecyclerActivity {
     @Override
     public void onSucess(String response) {
         if (!isDestroyed() && pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_PAISES)) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
             pTrataRespostaListaPaises(response);
         }

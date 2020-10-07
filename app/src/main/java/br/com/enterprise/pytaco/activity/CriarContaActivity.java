@@ -63,7 +63,7 @@ public class CriarContaActivity extends BaseActivity {
     @Override
     public void onSucess(String response) {
         if (!this.isDestroyed()) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
 
             switch (response) {
@@ -85,7 +85,7 @@ public class CriarContaActivity extends BaseActivity {
     @Override
     public void onError(@NotNull VolleyError error) {
         if (!this.isDestroyed()) {
-            pCancelDialog();
+            pCancelLoading();
             pEnableScreen();
             makeLongToast("Não foi possível criar conta. Erro na comunicação.");
         }

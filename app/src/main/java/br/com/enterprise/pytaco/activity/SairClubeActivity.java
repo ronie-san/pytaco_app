@@ -48,7 +48,7 @@ public class SairClubeActivity extends BaseActivity {
 
     @Override
     public void onSucess(String response) {
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
 
         if (pytacoRequestEnum.equals(PytacoRequestEnum.SAIR_CLUBE)) {

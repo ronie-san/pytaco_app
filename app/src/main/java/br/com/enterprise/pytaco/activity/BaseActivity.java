@@ -1,7 +1,9 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.view.View;
@@ -64,6 +66,19 @@ public abstract class BaseActivity extends Activity {
         pMakeToast(msg, Toast.LENGTH_SHORT);
     }
 
+    protected void pShowOkDialog(String title, String msg) {
+        pShowOkDialog(title, msg, null);
+    }
+
+    protected void pShowOkDialog(String title, String msg, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setCancelable(false);
+        alert.setTitle(title);
+        alert.setPositiveButton("OK", listener);
+        alert.setMessage(msg);
+        alert.show();
+    }
+
     protected void pShowProgress() {
         dialogLoading = createDialog(R.layout.dialog_loading);
 
@@ -78,7 +93,7 @@ public abstract class BaseActivity extends Activity {
         dialogLoading.showDialog();
     }
 
-    protected void pCancelDialog() {
+    protected void pCancelLoading() {
         if (dialogLoading != null && dialogLoading.dialogShowing()) {
             dialogLoading.cancelDialog();
             dialogLoading = null;
@@ -186,7 +201,7 @@ public abstract class BaseActivity extends Activity {
     }
 
     public void onError(@NotNull VolleyError error) {
-        pCancelDialog();
+        pCancelLoading();
         pEnableScreen();
         makeShortToast("Erro: " + (error.getMessage() == null ? "Desconhecido" : error.getMessage()));
         this.pytacoRequestEnum = PytacoRequestEnum.NONE;
