@@ -10,6 +10,7 @@ import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.activity.BaseRecyclerActivity;
 import br.com.enterprise.pytaco.holder.JogoItemHolder;
 import br.com.enterprise.pytaco.pojo.Jogo;
+import br.com.enterprise.pytaco.util.DateUtil;
 
 public class JogoItemAdapter extends CustomRecyclerAdapter<Jogo, JogoItemHolder> implements CustomRecyclerAdapter.OnLstItemClickListener {
 
@@ -32,7 +33,7 @@ public class JogoItemAdapter extends CustomRecyclerAdapter<Jogo, JogoItemHolder>
 
         holder.getChkMarcado().setChecked(item.isMarcado());
         holder.getLblNomeLiga().setText(item.getLiga().getName());
-        holder.getLblStatus().setText(item.getStatusExt());
+        holder.getLblData().setText(DateUtil.toDefaultFormat(DateUtil.parse(item.getEventDate(), "yyyy-MM-dd")));
         holder.getLblHomeTeam().setText(item.getHomeTime().getName());
         holder.getLblAwayTeam().setText(item.getAwayTime().getName());
         holder.getLblVenue().setText(item.getLocal());

@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
+import br.com.enterprise.pytaco.pojo.Bolao;
 import br.com.enterprise.pytaco.pojo.Clube;
 import br.com.enterprise.pytaco.pojo.Jogo;
 import br.com.enterprise.pytaco.pojo.Liga;
@@ -48,6 +49,7 @@ public abstract class BaseActivity extends Activity {
     protected static Membro membro;
     protected static Pais pais;
     protected static Liga liga;
+    protected static Bolao bolao;
     protected static List<Jogo> lstJogo = new ArrayList<>();
     protected static List<Jogo> lstJogoSelecionado = new ArrayList<>();
 

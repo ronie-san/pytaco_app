@@ -96,7 +96,7 @@ public class BolaoActivity extends BaseActivity {
     }
 
     private void btnMeusBoloesClick() {
-
+        pStartActivity(MeusBoloesActivity.class);
     }
 
     private void btnAvisosClick() {

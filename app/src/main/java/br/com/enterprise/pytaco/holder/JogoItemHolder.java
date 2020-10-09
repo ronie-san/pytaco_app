@@ -15,7 +15,7 @@ public class JogoItemHolder extends CustomViewHolder {
     private ImageView imgJogo;
     private CheckBox chkMarcado;
     private TextView lblNomeLiga;
-    private TextView lblStatus;
+    private TextView lblData;
     private TextView lblVenue;
     private TextView lblHomeTeam;
     private TextView lblAwayTeam;
@@ -36,8 +36,8 @@ public class JogoItemHolder extends CustomViewHolder {
         return lblNomeLiga;
     }
 
-    public TextView getLblStatus() {
-        return lblStatus;
+    public TextView getLblData() {
+        return lblData;
     }
 
     public TextView getLblVenue() {
@@ -57,7 +57,7 @@ public class JogoItemHolder extends CustomViewHolder {
         imgJogo = itemView.findViewById(R.id.jogo_item_imgJogo);
         chkMarcado = itemView.findViewById(R.id.jogo_item_chkMarcado);
         lblNomeLiga = itemView.findViewById(R.id.jogo_item_lblNomeLiga);
-        lblStatus = itemView.findViewById(R.id.jogo_item_lblStatus);
+        lblData = itemView.findViewById(R.id.jogo_item_lblData);
         lblVenue = itemView.findViewById(R.id.jogo_item_lblLocal);
         lblHomeTeam = itemView.findViewById(R.id.jogo_item_lblHomeTeam);
         lblAwayTeam = itemView.findViewById(R.id.jogo_item_lblAwayTeam);

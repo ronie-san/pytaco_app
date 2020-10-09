@@ -47,7 +47,7 @@
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/jogo_item_lblStatus"
+            android:id="@+id/jogo_item_lblData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

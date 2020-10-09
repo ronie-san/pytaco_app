@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="5dp"
+        android:weightSum="100">
+
+        <ToggleButton
+            android:id="@+id/bolao_aberto_item_btnHomeTeam"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="43"
+            android:background="@drawable/toggle_selector"
+            android:requiresFadingEdge="vertical|horizontal" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+
+        <ToggleButton
+            android:id="@+id/bolao_aberto_item_btnEmpate"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="10"
+            android:background="@drawable/toggle_selector"
+            android:requiresFadingEdge="vertical|horizontal"
+            android:textOff="X"
+            android:textOn="X" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+
+        <ToggleButton
+            android:id="@+id/bolao_aberto_item_btnAwayTeam"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="43"
+            android:background="@drawable/toggle_selector"
+            android:requiresFadingEdge="vertical|horizontal" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

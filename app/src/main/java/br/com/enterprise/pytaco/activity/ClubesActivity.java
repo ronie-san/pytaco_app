@@ -21,7 +21,6 @@ import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.adapter.ClubeItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.Clube;
-import br.com.enterprise.pytaco.pojo.Jogo;
 import br.com.enterprise.pytaco.util.DialogView;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
@@ -126,7 +125,10 @@ public class ClubesActivity extends BaseRecyclerActivity {
     }
 
     private void btnBolaoClick() {
-
+        clube = new Clube();
+        clube.setId(1);
+        clube.setQtdFicha(usuario.getQtdFicha());
+        pStartActivity(MeusBoloesActivity.class);
     }
 
     private void btnAssociarClubeClick() {

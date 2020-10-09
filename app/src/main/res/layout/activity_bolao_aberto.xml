@@ -5,11 +5,16 @@
     android:background="@drawable/background_campo">
 
     <LinearLayout
-        android:id="@+id/jogos_selecionados_pnlCabecalho"
+        android:id="@+id/bolao_aberto_pnlCabecalho"
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_alignParentTop="true"
         android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30" />
 
         <ImageView
             android:layout_width="0dp"
@@ -20,46 +25,40 @@
             android:paddingVertical="20dp"
             android:scaleType="centerInside"
             android:src="@drawable/escudo_pitaco" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/jogos_selecionados_pnlBolao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/jogos_selecionados_pnlCabecalho"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
             android:gravity="center"
-            android:labelFor="@+id/jogos_selecionados_edtNomeBolao"
-            android:text="Nome do Bolão"
-            android:textAlignment="center"
-            android:textColor="@color/pytaco"
-            android:textSize="20sp" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/jogos_selecionados_edtNomeBolao"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:autofillHints=""
-            android:background="@drawable/edit"
-            android:gravity="center"
-            android:hint="Nome"
-            android:inputType="text"
-            android:maxLines="1" />
+            <ImageButton
+                android:id="@+id/bolao_aberto_btnVerApostas"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerInside"
+                android:src="@drawable/icone_buscar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="Apostas realizadas"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/jogos_selecionados_lsvJogosSelecionados"
+        android:id="@+id/bolao_aberto_lsvJogos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/jogos_selecionados_pnlRodape"
-        android:layout_below="@+id/jogos_selecionados_pnlBolao"
+        android:layout_above="@+id/bolao_aberto_pnlRodape"
+        android:layout_below="@+id/bolao_aberto_pnlCabecalho"
         android:divider="@android:color/transparent"
         android:dividerHeight="3dp"
         android:paddingTop="10dp"
@@ -70,8 +69,8 @@
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/jogos_selecionados_pnlRodape"
-        android:layout_below="@+id/jogos_selecionados_pnlBolao"
+        android:layout_above="@+id/bolao_aberto_pnlRodape"
+        android:layout_below="@+id/bolao_aberto_pnlCabecalho"
         android:fontFamily="@font/britanic"
         android:gravity="center_horizontal"
         android:paddingTop="10dp"
@@ -81,7 +80,7 @@
         android:visibility="gone" />
 
     <RelativeLayout
-        android:id="@+id/jogos_selecionados_pnlRodape"
+        android:id="@+id/bolao_aberto_pnlRodape"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -91,7 +90,7 @@
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/jogos_selecionados_btnConfirmar"
+            android:id="@+id/bolao_aberto_btnConfirmar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_troca_ficha">
+
+    <LinearLayout
+        android:id="@+id/meus_boloes_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:paddingVertical="10dp"
+            android:src="@drawable/escudo_pitaco" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="30"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/meus_boloes_imgFundoFicha"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/fundo_ficha_pytaco" />
+
+            <ImageView
+                android:id="@+id/meus_boloes_imgFicha"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignStart="@+id/meus_boloes_imgFundoFicha"
+                android:paddingVertical="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
+                android:src="@drawable/ficha_pytaco" />
+
+            <TextView
+                android:id="@+id/meus_boloes_lblQtdFicha"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/meus_boloes_imgFicha"
+                android:gravity="center_vertical|start"
+                android:maxLines="1"
+                android:textAlignment="viewStart"
+                android:textColor="@color/ficha"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/meus_boloes_pnlTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/meus_boloes_pnlCabecalho"
+        android:layout_marginHorizontal="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/meus_boloes_lblAbertos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_horizontal|bottom"
+            android:maxLines="1"
+            android:text="Abertos"
+            android:textAlignment="center"
+            android:textColor="@color/pytaco"
+            app:autoSizeMaxTextSize="50sp"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeTextType="uniform" />
+
+        <TextView
+            android:id="@+id/meus_boloes_lblEmAndamento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_horizontal|bottom"
+            android:maxLines="1"
+            android:paddingHorizontal="5dp"
+            android:text="Em Andamento"
+            android:textAlignment="center"
+            android:textColor="@color/pytaco"
+            app:autoSizeMaxTextSize="50sp"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeTextType="uniform" />
+
+        <TextView
+            android:id="@+id/meus_boloes_lblFinalizados"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_horizontal|bottom"
+            android:maxLines="1"
+            android:text="Finalizados"
+            android:textAlignment="center"
+            android:textColor="@color/pytaco"
+            app:autoSizeMaxTextSize="50sp"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meus_boloes_lsvBoloes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/meus_boloes_pnlTitulo"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:paddingVertical="10dp"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/meus_boloes_pnlTitulo"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="Sem bolões"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp"
+        android:visibility="gone" />
+</RelativeLayout>
