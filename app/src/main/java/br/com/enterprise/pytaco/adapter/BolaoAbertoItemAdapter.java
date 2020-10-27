@@ -26,28 +26,35 @@ public class BolaoAbertoItemAdapter extends CustomRecyclerAdapter<DetalheJogo, B
     }
 
     @Override
-    protected void pSetViewProperties(@NotNull DetalheJogo item, @NotNull final BolaoAbertoItemHolder holder) {
-        CompoundButton.OnCheckedChangeListener onCheckChange = new CompoundButton.OnCheckedChangeListener() {
+    protected void pSetViewProperties(@NotNull final DetalheJogo item, @NotNull final BolaoAbertoItemHolder holder) {
+        CompoundButton.OnCheckedChangeListener onChange = new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(@NotNull CompoundButton compoundButton, boolean b) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 pSetColor(compoundButton, b ? android.R.color.black : android.R.color.white);
-
-                if (compoundButton.equals(holder.getBtnAwayTeam())) {
-                    holder.getBtnEmpate().setChecked(false);
-                    holder.getBtnHomeTeam().setChecked(false);
-                } else if (compoundButton.equals(holder.getBtnEmpate())) {
-                    holder.getBtnAwayTeam().setChecked(false);
-                    holder.getBtnHomeTeam().setChecked(false);
-                } else if (compoundButton.equals(holder.getBtnHomeTeam())) {
-                    holder.getBtnEmpate().setChecked(false);
-                    holder.getBtnAwayTeam().setChecked(false);
-                }
+                item.setIdAposta((String) compoundButton.getTag());
             }
         };
 
-        holder.getBtnAwayTeam().setOnCheckedChangeListener(onCheckChange);
-        holder.getBtnEmpate().setOnCheckedChangeListener(onCheckChange);
-        holder.getBtnHomeTeam().setOnCheckedChangeListener(onCheckChange);
+        holder.getBtnHomeTeam().setText(item.getNome());
+        holder.getBtnHomeTeam().setTag(item.getIdTeam());
+        holder.getBtnHomeTeam().setOnCheckedChangeListener(onChange);
+
+        holder.getBtnEmpate().setTag("0");
+        holder.getBtnEmpate().setOnCheckedChangeListener(onChange);
+
+        holder.getBtnAwayTeam().setText(item.getNomeOtherTeam());
+        holder.getBtnAwayTeam().setTag(item.getIdOtherTeam());
+        holder.getBtnAwayTeam().setOnCheckedChangeListener(onChange);
+
+        if (item.getIdTeam().equals("")) {
+            holder.getBtnHomeTeam().setEnabled(false);
+            holder.getBtnEmpate().setEnabled(false);
+            holder.getBtnAwayTeam().setEnabled(false);
+        } else {
+            holder.getBtnHomeTeam().setEnabled(true);
+            holder.getBtnEmpate().setEnabled(true);
+            holder.getBtnAwayTeam().setEnabled(true);
+        }
     }
 
     private void pSetColor(@NotNull CompoundButton compoundButton, @ColorRes int color) {

@@ -282,10 +282,35 @@ public class PytacoRequestDAO extends BasicRequestDAO {
 
     public void listaJogosBolao(int idBolao, int idUsuario, String chaveAcesso) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("id_bolao", StringUtil.numberToStr(idBolao));
-        map.put("usuário", StringUtil.numberToStr(idUsuario));
+        map.put("id_do_bolao", StringUtil.numberToStr(idBolao));
+        map.put("usuario", StringUtil.numberToStr(idUsuario));
         map.put("chaveAcesso", chaveAcesso);
         activity.setPytacoRequest(PytacoRequestEnum.LISTA_JOGOS_BOLAO);
         pGetRequest("APIDetalhesJogos.php", map);
+    }
+
+    public void novaAposta(int idClube, int idBolao, int idUsuario, String chaveAcesso,
+                           Double valorBolao, Double qtdFicha, @NotNull String[] lstAposta) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("fk_clube", StringUtil.numberToStr(idClube));
+        map.put("fk_bolao", StringUtil.numberToStr(idBolao));
+        map.put("usuario", StringUtil.numberToStr(idUsuario));
+        map.put("chaveAcesso", chaveAcesso);
+        map.put("qtdFichasUsuarioClube", StringUtil.numberToStr(qtdFicha));
+        map.put("valorDoBolaoSelecionado", StringUtil.numberToStr(valorBolao));
+
+        for (int i = 1; i < lstAposta.length; i++) {
+            map.put("ap" + i, lstAposta[i]);
+        }
+
+        activity.setPytacoRequest(PytacoRequestEnum.NOVA_APOSTA);
+        pGetRequest("NovaAposta.php", map);
+    }
+
+    public void listaAposta(int idBolao) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("fk_bolao", StringUtil.numberToStr(idBolao));
+        activity.setPytacoRequest(PytacoRequestEnum.LISTA_APOSTAS);
+        pGetRequest("listaApostasBolao.php", map);
     }
 }

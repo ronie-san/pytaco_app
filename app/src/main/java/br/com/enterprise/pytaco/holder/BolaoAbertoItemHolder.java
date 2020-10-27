@@ -1,7 +1,7 @@
 package br.com.enterprise.pytaco.holder;
 
 import android.view.View;
-import android.widget.ToggleButton;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 
@@ -10,23 +10,23 @@ import br.com.enterprise.pytaco.adapter.CustomRecyclerAdapter;
 
 public class BolaoAbertoItemHolder extends CustomViewHolder {
 
-    private ToggleButton btnHomeTeam;
-    private ToggleButton btnEmpate;
-    private ToggleButton btnAwayTeam;
+    private RadioButton btnHomeTeam;
+    private RadioButton btnEmpate;
+    private RadioButton btnAwayTeam;
 
     public BolaoAbertoItemHolder(@NonNull View itemView, CustomRecyclerAdapter.OnLstItemClickListener listener) {
         super(itemView, listener);
     }
 
-    public ToggleButton getBtnHomeTeam() {
+    public RadioButton getBtnHomeTeam() {
         return btnHomeTeam;
     }
 
-    public ToggleButton getBtnEmpate() {
+    public RadioButton getBtnEmpate() {
         return btnEmpate;
     }
 
-    public ToggleButton getBtnAwayTeam() {
+    public RadioButton getBtnAwayTeam() {
         return btnAwayTeam;
     }
 

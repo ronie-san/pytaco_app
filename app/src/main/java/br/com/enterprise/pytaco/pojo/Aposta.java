@@ -3,7 +3,7 @@ package br.com.enterprise.pytaco.pojo;
 public class Aposta extends BaseEntity {
 
     private Integer pontos;
-    private Integer idUsuario;
+    private String nomeUsuario;
     private Double valorBolao;
     private Double percentualPremiacao;
 
@@ -15,12 +15,12 @@ public class Aposta extends BaseEntity {
         this.pontos = pontos;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public Double getValorBolao() {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/list_view_rounded"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingHorizontal="10dp"
+    android:weightSum="100">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20">
+
+        <TextView
+            android:id="@+id/aposta_realizada_item_lblId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="50">
+
+        <TextView
+            android:id="@+id/aposta_realizada_item_lblUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30">
+
+        <TextView
+            android:id="@+id/aposta_realizada_item_lblQtdPonto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="end|center_vertical"
+            android:maxLines="1"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</LinearLayout>

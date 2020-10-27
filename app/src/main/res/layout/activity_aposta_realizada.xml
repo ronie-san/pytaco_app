@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_campo">
+
+    <LinearLayout
+        android:id="@+id/aposta_realizada_pnlCabecalho"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="40"
+            android:adjustViewBounds="true"
+            android:paddingVertical="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/escudo_pitaco" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRÊMIO"
+                android:textColor="@color/ficha"
+                android:textSize="23sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/aposta_realizada_imgFundoPytaco"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/fundo_ficha_pytaco" />
+
+                <ImageView
+                    android:id="@+id/aposta_realizada_imgPytaco"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignStart="@+id/aposta_realizada_imgFundoPytaco"
+                    android:paddingVertical="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="0dp"
+                    android:src="@drawable/ficha_pytaco" />
+
+                <TextView
+                    android:id="@+id/aposta_realizada_lblValorPremio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toEndOf="@+id/aposta_realizada_imgPytaco"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:textColor="@color/ficha"
+                    app:autoSizeMaxTextSize="50sp"
+                    app:autoSizeMinTextSize="5sp"
+                    app:autoSizeTextType="uniform" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/aposta_realizada_lsvApostas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/aposta_realizada_pnlCabecalho"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:paddingTop="10dp"
+        android:requiresFadingEdge="vertical"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/aposta_realizada_pnlCabecalho"
+        android:fontFamily="@font/britanic"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:text="Sem apostas"
+        android:textColor="@color/pytaco"
+        android:textSize="25sp"
+        android:visibility="gone" />
+</RelativeLayout>
