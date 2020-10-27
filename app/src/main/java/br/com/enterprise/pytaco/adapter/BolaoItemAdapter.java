@@ -3,6 +3,7 @@ package br.com.enterprise.pytaco.adapter;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,13 +29,15 @@ public class BolaoItemAdapter extends CustomRecyclerAdapter<Bolao, BolaoItemHold
 
     @Override
     protected void pSetViewProperties(@NotNull Bolao item, @NotNull BolaoItemHolder holder) {
-        @ColorInt int cor = ContextCompat.getColor(holder.itemView.getContext(), android.R.color.white);
+        @ColorInt int colorDefault = pGetColor(holder, android.R.color.white);
+        @ColorInt int colorFicha = pGetColor(holder, R.color.ficha);
 
         switch (item.getStatus()) {
             //FINALIZADO
             case "0":
                 holder.getImgBolao().setImageResource(R.drawable.bolao_finalizado);
-                cor = ContextCompat.getColor(holder.itemView.getContext(), android.R.color.black);
+                colorDefault = ContextCompat.getColor(holder.itemView.getContext(), android.R.color.black);
+                colorFicha = pGetColor(holder, android.R.color.black);
                 break;
             //ABERTO
             case "1":
@@ -48,11 +51,16 @@ public class BolaoItemAdapter extends CustomRecyclerAdapter<Bolao, BolaoItemHold
                 break;
         }
 
-        holder.getLblTituloValor().setTextColor(cor);
+        holder.getLblTituloValor().setTextColor(colorDefault);
         holder.getLblValor().setText(StringUtil.numberToStr(item.getValor()));
 
-        holder.getLblTituloNome().setTextColor(cor);
-        holder.getLblNome().setTextColor(cor);
+        holder.getLblValor().setTextColor(colorFicha);
+        holder.getLblTituloNome().setTextColor(colorDefault);
+        holder.getLblNome().setTextColor(colorDefault);
         holder.getLblNome().setText(item.getNome());
+    }
+
+    private @ColorInt int pGetColor(@NotNull BolaoItemHolder holder, @ColorRes int color){
+        return ContextCompat.getColor(holder.itemView.getContext(),color);
     }
 }

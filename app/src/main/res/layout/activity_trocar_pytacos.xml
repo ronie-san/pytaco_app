@@ -108,7 +108,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/trocar_pytacos_imgFicha"
-                android:gravity="center"
+                android:gravity="center_vertical|start"
                 android:maxLines="1"
                 android:textColor="@color/ficha"
                 app:autoSizeMaxTextSize="50sp"

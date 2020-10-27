@@ -35,7 +35,7 @@ public class BolaoActivity extends BaseActivity {
                 btnCriarBolaoClick();
             }
         });
-//        btnCriarBolao.setVisibility(pGetVisible(pIsAgenteAdmin()));
+        btnCriarBolao.setVisibility(pGetVisible(pIsAgenteAdmin()));
 
         btnMeusBoloes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class BolaoActivity extends BaseActivity {
                 btnMembrosClick();
             }
         });
-//        btnMembros.setVisibility(pGetVisible(pIsAgenteAdmin()));
+        btnMembros.setVisibility(pGetVisible(pIsAgenteAdmin()));
 
         btnContador.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +65,7 @@ public class BolaoActivity extends BaseActivity {
                 btnContadorClick();
             }
         });
-//        btnContador.setVisibility(pGetVisible(pIsAgenteAdmin()));
+        btnContador.setVisibility(pGetVisible(pIsAgenteAdmin()));
 
         btnAdministrador.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,7 @@ public class BolaoActivity extends BaseActivity {
                 btnAdministradorClick();
             }
         });
-//        btnAdministrador.setVisibility(pGetVisible(pIsAgenteAdmin()));
+        btnAdministrador.setVisibility(pGetVisible(pIsAgenteAdmin()));
     }
 
     private boolean pIsAgenteAdmin() {

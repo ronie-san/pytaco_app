@@ -23,7 +23,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ApostaRealizadaActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:noHistory="true"
@@ -246,6 +245,15 @@
         </activity>
         <activity
             android:name=".activity.BolaoAbertoActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ApostaRealizadaActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
