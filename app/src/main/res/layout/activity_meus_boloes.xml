@@ -78,51 +78,72 @@
         android:orientation="horizontal"
         android:weightSum="100">
 
-        <TextView
-            android:id="@+id/meus_boloes_lblAbertos"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="25"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_horizontal|bottom"
-            android:maxLines="1"
-            android:text="Abertos"
-            android:textAlignment="center"
-            android:textColor="@color/pytaco"
-            app:autoSizeMaxTextSize="50sp"
-            app:autoSizeMinTextSize="5sp"
-            app:autoSizeTextType="uniform" />
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/meus_boloes_lblEmAndamento"
+            <TextView
+                android:id="@+id/meus_boloes_lblAbertos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Abertos"
+                android:textAlignment="center"
+                android:textColor="@color/pytaco"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="50"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_horizontal|bottom"
-            android:maxLines="1"
-            android:paddingHorizontal="5dp"
-            android:text="Em Andamento"
-            android:textAlignment="center"
-            android:textColor="@color/pytaco"
-            app:autoSizeMaxTextSize="50sp"
-            app:autoSizeMinTextSize="5sp"
-            app:autoSizeTextType="uniform" />
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/meus_boloes_lblFinalizados"
+            <TextView
+                android:id="@+id/meus_boloes_lblEmAndamento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingHorizontal="5dp"
+                android:text="Em Andamento"
+                android:textAlignment="center"
+                android:textColor="@color/pytaco"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="25"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_horizontal|bottom"
-            android:maxLines="1"
-            android:text="Finalizados"
-            android:textAlignment="center"
-            android:textColor="@color/pytaco"
-            app:autoSizeMaxTextSize="50sp"
-            app:autoSizeMinTextSize="5sp"
-            app:autoSizeTextType="uniform" />
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/meus_boloes_lblFinalizados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Finalizados"
+                android:textAlignment="center"
+                android:textColor="@color/pytaco"
+                app:autoSizeMaxTextSize="50sp"
+                app:autoSizeMinTextSize="5sp"
+                app:autoSizeTextType="uniform" />
+        </RelativeLayout>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

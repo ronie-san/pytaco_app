@@ -18,7 +18,10 @@
         <item name="android:navigationBarColor">@color/background_padrao</item>
     </style>
 
-    <style name="DateDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
+    <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
+    </style>
+
+    <style name="DateDialogTheme" parent="DialogTheme">
         <item name="colorAccent">@color/pytaco</item>
     </style>
 

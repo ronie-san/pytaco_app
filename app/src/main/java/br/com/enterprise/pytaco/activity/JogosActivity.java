@@ -89,16 +89,21 @@ public class JogosActivity extends BaseRecyclerActivity {
 
         if (adapter.getLst().get(position).getStatusShort().equals("NS")) {
             item.setMarcado(!item.isMarcado());
-            adapter.notifyItemChanged(position);
 
             if (item.isMarcado()) {
-                lstJogoSelecionado.add(item);
+                if (lstJogoSelecionado.size() < 10) {
+                    lstJogoSelecionado.add(item);
+                } else {
+                    pShowOkDialog("Atenção", "Máximo de 10 jogos por bolão");
+                    item.setMarcado(false);
+                }
             } else {
                 lstJogoSelecionado.remove(item);
             }
         } else {
             item.setMarcado(false);
-            adapter.notifyItemChanged(position);
         }
+
+        adapter.notifyItemChanged(position);
     }
 }

@@ -83,7 +83,7 @@ public class MembroSelecionadoActivity extends BaseActivity {
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.DialogTheme);
         builder.setTitle("Confirmação")
                 .setMessage("Deseja realmente desativar este membro?")
                 .setPositiveButton("Sim", dialogClickListener)

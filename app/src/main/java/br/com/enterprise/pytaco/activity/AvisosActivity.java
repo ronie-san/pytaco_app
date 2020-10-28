@@ -213,13 +213,14 @@ public class AvisosActivity extends BaseRecyclerActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == DialogInterface.BUTTON_POSITIVE) {
+                            dialogCriarAviso.getDialog().setOnCancelListener(null);
                             PytacoRequestDAO request = new PytacoRequestDAO(AvisosActivity.this);
                             request.excluirAviso(aviso.getIdTabela());
                         }
                     }
                 };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(AvisosActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(AvisosActivity.this, R.style.DialogTheme);
                 builder.setTitle("Confirmação")
                         .setMessage("Deseja realmente excluir este aviso?")
                         .setPositiveButton("Sim", dialogClickListener)
@@ -239,6 +240,13 @@ public class AvisosActivity extends BaseRecyclerActivity {
                 }
 
                 return false;
+            }
+        });
+
+        dialogCriarAviso.getDialog().setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                pLerAviso(aviso);
             }
         });
 

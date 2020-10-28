@@ -53,6 +53,7 @@ public class BolaoAbertoActivity extends BaseRecyclerActivity {
     private void btnConfirmarClick() {
         if (clube.getQtdFicha() < bolao.getValor()) {
             makeShortToast("Saldo insuficiente");
+            return;
         }
 
         List<String> lstAposta = new ArrayList<>();

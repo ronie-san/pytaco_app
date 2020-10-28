@@ -73,7 +73,7 @@ public abstract class BaseActivity extends Activity {
     }
 
     protected void pShowOkDialog(String title, String msg, DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this, R.style.DialogTheme);
         alert.setCancelable(false);
         alert.setTitle(title);
         alert.setPositiveButton("OK", listener);
