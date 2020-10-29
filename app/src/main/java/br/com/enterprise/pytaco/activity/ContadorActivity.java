@@ -55,7 +55,7 @@ public class ContadorActivity extends BaseRecyclerActivity {
 
         if (!pExisteDialogAberto()) {
             PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.listaMembros(clube.getId());
+            request.listaMembros(clube.getId(), usuario.getId(), clube.getTipoUsuario());
         }
     }
 
@@ -113,7 +113,7 @@ public class ContadorActivity extends BaseRecyclerActivity {
 
             lblContadores.setText(sb.toString());
         } catch (JSONException ignored) {
-
+            lblContadores.setText("Sem membros");
         } finally {
             adapter.notifyDataSetChanged();
         }
@@ -122,6 +122,7 @@ public class ContadorActivity extends BaseRecyclerActivity {
     @Override
     public void onError(@NotNull VolleyError error) {
         if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_MEMBROS)) {
+            lblContadores.setText("Sem membros");
             adapter.getLst().clear();
             adapter.notifyDataSetChanged();
         }

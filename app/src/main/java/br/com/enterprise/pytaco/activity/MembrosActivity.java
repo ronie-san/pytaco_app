@@ -73,6 +73,7 @@ public class MembrosActivity extends BaseRecyclerActivity {
 
             lblMembros.setText(sb.toString());
         } catch (JSONException ignored) {
+            lblMembros.setText("Sem membros");
         } finally {
             adapter.notifyDataSetChanged();
         }
@@ -91,6 +92,7 @@ public class MembrosActivity extends BaseRecyclerActivity {
     @Override
     public void onError(@NotNull VolleyError error) {
         if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_MEMBROS)) {
+            lblMembros.setText("Sem membros");
             adapter.getLst().clear();
             adapter.notifyDataSetChanged();
         }

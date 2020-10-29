@@ -38,8 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="30"
-            android:gravity="center"
-            android:text="1 Membro" />
+            android:gravity="center" />
 
     </LinearLayout>
 
@@ -69,6 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/membros_pnlItemCabecalho"
+        android:background="@drawable/background_membro"
         android:fontFamily="@font/britanic"
         android:gravity="center_horizontal"
         android:paddingVertical="10dp"

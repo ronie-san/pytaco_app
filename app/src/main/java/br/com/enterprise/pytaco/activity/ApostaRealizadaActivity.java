@@ -1,6 +1,7 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,11 +24,13 @@ import br.com.enterprise.pytaco.util.StringUtil;
 public class ApostaRealizadaActivity extends BaseRecyclerActivity {
 
     ApostaRealizadaAdapter adapter;
+    TextView lblValorPremio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aposta_realizada);
+        lblValorPremio = findViewById(R.id.aposta_realizada_lblValorPremio);
         RecyclerView lsvApostas = getRecyclerView();
         adapter = new ApostaRealizadaAdapter(this, new ArrayList<Aposta>(), R.layout.lst_aposta_realizada_item);
         lsvApostas.setAdapter(adapter);
@@ -58,6 +61,7 @@ public class ApostaRealizadaActivity extends BaseRecyclerActivity {
                 adapter.getLst().add(aposta);
             }
         } catch (JSONException ignored) {
+            lblValorPremio.setText("");
         } finally {
             adapter.notifyDataSetChanged();
         }
@@ -86,6 +90,7 @@ public class ApostaRealizadaActivity extends BaseRecyclerActivity {
     @Override
     public void onError(@NotNull VolleyError error) {
         if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_APOSTAS)) {
+            lblValorPremio.setText("");
             adapter.getLst().clear();
             adapter.notifyDataSetChanged();
         }
