@@ -46,19 +46,20 @@ public abstract class BasicRequestDAO {
         this.respListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(activity.getClass().getSimpleName(), response);
-                activity.onSucess(response);
+                if (!pSemInternet()) {
+                    Log.d(activity.getClass().getSimpleName(), response);
+                    activity.onSucess(response);
+                } else {
+                    pLancarErroSemInternet();
+                }
             }
         };
 
         this.errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-                if (!(error instanceof TimeoutError) || activeNetwork == null || activeNetwork.getType() != ConnectivityManager.TYPE_WIFI || activeNetwork.getType() != ConnectivityManager.TYPE_MOBILE) {
-                    activity.onError(new VolleyError("Sem conexão com a internet."));
+                if (!(error instanceof TimeoutError) || pSemInternet()) {
+                    pLancarErroSemInternet();
                 } else {
                     activity.onError(error);
                 }
@@ -139,6 +140,24 @@ public abstract class BasicRequestDAO {
     //endregion
 
     //region PRIVATE METHODS
+    private void pLancarErroSemInternet() {
+        activity.onError(new VolleyError("Sem conexão com a internet"));
+    }
+
+    private boolean pSemInternet() {
+        ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork == null) {
+            return true;
+        }
+
+        if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+            return activeNetwork.getState() != NetworkInfo.State.CONNECTED;
+        }
+
+        return true;
+    }
+
     private void pMakeRequest(@NotNull Request<String> request) {
         DefaultRetryPolicy policy = new DefaultRetryPolicy(3000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);

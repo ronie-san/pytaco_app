@@ -25,9 +25,25 @@
         <item name="colorAccent">@color/pytaco</item>
     </style>
 
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/britanic</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="TabTheme" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="tabGravity">center</item>
+        <item name="tabIndicatorColor">@color/pytaco</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabSelectedTextColor">@color/pytaco</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+        <item name="tabRippleColor">@color/pytaco</item>
+    </style>
+
     <style name="fonte_padrao">
         <item name="android:textSize">20sp</item>
-        <item name="fontFamily">@font/britanic</item>
+        <item name="android:fontFamily">@font/britanic</item>
     </style>
 
     <style name="label_login" parent="fonte_padrao">

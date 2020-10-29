@@ -1,12 +1,12 @@
 package br.com.enterprise.pytaco.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.VolleyError;
+import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -34,36 +34,59 @@ public class MeusBoloesActivity extends BaseRecyclerActivity {
         setContentView(R.layout.activity_meus_boloes);
 
         lblQtdFicha = findViewById(R.id.meus_boloes_lblQtdFicha);
-        TextView lblAbertos = findViewById(R.id.meus_boloes_lblAbertos);
-        TextView lblEmAndamento = findViewById(R.id.meus_boloes_lblEmAndamento);
-        TextView lblFinalizados = findViewById(R.id.meus_boloes_lblFinalizados);
+        TabLayout tblJogos = findViewById(R.id.meus_boloes_tblJogos);
+        tblJogos.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        lblAbertosClick();
+                        break;
+                    case 1:
+                        lblEmAndamentoClick();
+                        break;
+                    case 2:
+                        lblFinalizadosClick();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+//        TextView lblAbertos = findViewById(R.id.meus_boloes_lblAbertos);
+//        TextView lblEmAndamento = findViewById(R.id.meus_boloes_lblEmAndamento);
+//        TextView lblFinalizados = findViewById(R.id.meus_boloes_lblFinalizados);
         RecyclerView lsvBoloes = getRecyclerView();
         adapter = new BolaoItemAdapter(this, new ArrayList<Bolao>(), R.layout.lst_bolao_item);
         lsvBoloes.setAdapter(adapter);
 
-        lblAbertos.setText(StringUtil.textoSublinhado(lblAbertos.getText().toString()));
-        lblAbertos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lblAbertosClick();
-            }
-        });
+//        lblAbertos.setText(StringUtil.textoSublinhado(lblAbertos.getText().toString()));
+//        lblAbertos.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                lblAbertosClick();
+//            }
+//        });
 
-        lblEmAndamento.setText(StringUtil.textoSublinhado(lblEmAndamento.getText().toString()));
-        lblEmAndamento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lblEmAndamentoClick();
-            }
-        });
+//        lblEmAndamento.setText(StringUtil.textoSublinhado(lblEmAndamento.getText().toString()));
+//        lblEmAndamento.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                lblEmAndamentoClick();
+//            }
+//        });
 
-        lblFinalizados.setText(StringUtil.textoSublinhado(lblFinalizados.getText().toString()));
-        lblFinalizados.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lblFinalizadosClick();
-            }
-        });
+//        lblFinalizados.setText(StringUtil.textoSublinhado(lblFinalizados.getText().toString()));
+//        lblFinalizados.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                lblFinalizadosClick();
+//            }
+//        });
     }
 
     private void lblFinalizadosClick() {
