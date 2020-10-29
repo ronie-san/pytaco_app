@@ -50,9 +50,11 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         pGetRequest("listaAvisos.php", map);
     }
 
-    public void listaMembros(int idClube) {
+    public void listaMembros(int idClube, int idUsuario, String tipoUsuario) {
         HashMap<String, String> map = new HashMap<>();
         map.put("id_clube", String.valueOf(idClube));
+        map.put("fk_usuario", String.valueOf(idUsuario));
+        map.put("tipo_usuario", tipoUsuario);
         activity.setPytacoRequest(PytacoRequestEnum.LISTA_MEMBROS);
         pGetRequest("ListaMembros.php", map);
     }

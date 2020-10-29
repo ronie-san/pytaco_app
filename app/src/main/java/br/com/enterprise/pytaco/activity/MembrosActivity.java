@@ -84,7 +84,7 @@ public class MembrosActivity extends BaseRecyclerActivity {
 
         if (!pExisteDialogAberto()) {
             PytacoRequestDAO request = new PytacoRequestDAO(this);
-            request.listaMembros(clube.getId());
+            request.listaMembros(clube.getId(), usuario.getId(), clube.getTipoUsuario());
         }
     }
 
