@@ -92,6 +92,7 @@ public class ClubesActivity extends BaseRecyclerActivity {
     }
 
     private void btnComprasClick() {
+//        makeShortToast("Função indisponível no momento");
         pStartActivity(CompraActivity.class);
     }
 

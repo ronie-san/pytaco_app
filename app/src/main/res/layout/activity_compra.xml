@@ -57,7 +57,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/compras_imgPytaco"
-                android:gravity="center"
+                android:gravity="start|center_vertical"
                 android:maxLines="1"
                 android:textColor="@color/pytaco"
                 app:autoSizeMaxTextSize="50sp"

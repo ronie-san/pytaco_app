@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
+import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.activity.BaseActivity;
 import br.com.enterprise.pytaco.util.PytacoRequestEnum;
 import br.com.enterprise.pytaco.util.StringUtil;
@@ -13,8 +14,8 @@ public class PytacoRequestDAO extends BasicRequestDAO {
     public PytacoRequestDAO(BaseActivity activity) {
         super(activity);
         useKeyHeader = false;
-//        baseUrl = "http://easycliente.com.br/pitaco/php/"; //ANTIGO
-        baseUrl = "http://pytaco.com.br/pytaco/php/";
+//        baseUrl = "activity.getString(R.string.base_url_old)"; //ANTIGO
+        baseUrl = activity.getString(R.string.base_url);
     }
 
     public void criarConta(String login, String senha, String celular) {
@@ -77,13 +78,6 @@ public class PytacoRequestDAO extends BasicRequestDAO {
         activity.setPytacoRequest(PytacoRequestEnum.ASSOCIAR);
         pGetRequest("Associar.php", map);
     }
-
-//    public void atualizaPytacosTelaInicial(int idUsuario) {
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("id_usuario", String.valueOf(idUsuario));
-//        activity.setPytacoRequest(PytacoRequestEnum.ATUALIZA_PYTACOS);
-//        pGetRequest("AtualizaPytacosTelaInicial.php", map);
-//    }
 
     public void alteraSenha(int idUsuario, String senhaAtual, String senhaNova, String chaveAcesso) {
         HashMap<String, String> map = new HashMap<>();
@@ -240,6 +234,15 @@ public class PytacoRequestDAO extends BasicRequestDAO {
     public void listaPacoteCompra() {
         activity.setPytacoRequest(PytacoRequestEnum.LISTA_PACOTE_COMPRA);
         pGetRequest("ListaPacotes.php");
+    }
+
+    public void comprarPytacos(int idUsuario, String chaveAcesso, String pacote) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id_usuario", StringUtil.numberToStr(idUsuario));
+        map.put("chaveacesso", chaveAcesso);
+        map.put("cod_pacote", pacote);
+        activity.setPytacoRequest(PytacoRequestEnum.COMPRAR_PYTACOS);
+        pGetRequest("comprarPytacosGlobal.php", map);
     }
 
     public void listaJogos(String data) {

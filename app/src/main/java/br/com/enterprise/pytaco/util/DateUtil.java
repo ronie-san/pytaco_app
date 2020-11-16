@@ -1,5 +1,6 @@
 package br.com.enterprise.pytaco.util;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
@@ -26,6 +27,12 @@ public class DateUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date agora = Calendar.getInstance().getTime();
         return sdf.format(agora);
+    }
+
+    @NotNull
+    @Contract("_ -> new")
+    public static Date getDateTime(long time) {
+        return new Date(time);
     }
 
     @NotNull

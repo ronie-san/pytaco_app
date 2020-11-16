@@ -17,9 +17,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/escudo_pitaco"
+        android:icon="@drawable/icon_pytaco"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/escudo_pitaco"
+        android:roundIcon="@drawable/icon_pytaco"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">

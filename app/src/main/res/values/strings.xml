@@ -10,7 +10,11 @@
     <string name="admin">admin</string>
     <string name="lst_contador">lst_contador</string>
 
+    <string name="api_footbal_header">X-RapidAPI-Key</string>
     <string name="api_footbal_key">fdecd8152bmsh85452b4495c9e18p113131jsnba0f6981f4d3</string>
+    <string name="base_url_old">http://easycliente.com.br/pitaco/php/</string>
+    <string name="base_url">http://pytaco.com.br/pytaco/php/</string>
+    <string name="msg_sem_conexao">Sem conexão com a internet</string>
     <string name="valor_bolao">valor_bolao</string>
     <string name="percentual_bolao">percentual</string>
 </resources>

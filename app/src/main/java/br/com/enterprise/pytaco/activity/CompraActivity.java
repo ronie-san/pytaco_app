@@ -24,18 +24,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import br.com.enterprise.pytaco.R;
 import br.com.enterprise.pytaco.adapter.PacoteCompraItemAdapter;
 import br.com.enterprise.pytaco.dao.PytacoRequestDAO;
 import br.com.enterprise.pytaco.pojo.PacoteCompra;
-import br.com.enterprise.pytaco.util.PytacoRequestEnum;
+import br.com.enterprise.pytaco.util.DateUtil;
 import br.com.enterprise.pytaco.util.StringUtil;
 
 public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpdatedListener {
 
-    private String produtoComprado = "";
+    private PacoteCompra produtoComprado;
+    private Date dtCompra;
     private BillingClient billingClient;
     private List<SkuDetails> lstSkuDetails;
     private TextView lblQtdPytaco;
@@ -58,8 +62,9 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
 
         if (billingClient == null) {
             billingClient = BillingClient.newBuilder(this)
-                    .enablePendingPurchases()
-                    .setListener(this).build();
+                    //.enablePendingPurchases()
+                    .setListener(this)
+                    .build();
         }
 
         billingClient.startConnection(new BillingClientStateListener() {
@@ -82,10 +87,10 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
     private void pLoadSkus() {
         if (billingClient.isReady()) {
             List<String> skuList = new ArrayList<>();
-
-            for (PacoteCompra item : adapter.getLst()) {
-                skuList.add(item.getNome());
-            }
+            skuList.add("android.test.purchased");
+//            for (PacoteCompra item : adapter.getLst()) {
+//                skuList.add(item.getNome());
+//            }
 
             SkuDetailsParams params = SkuDetailsParams.newBuilder()
                     .setSkusList(skuList)
@@ -98,6 +103,7 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
                     if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK && list != null && !list.isEmpty()) {
                         pEnableScreen();
                         lstSkuDetails = list;
+//                        pTratarLista();
                     } else {
                         pServicoNaoDisponivel();
                     }
@@ -105,6 +111,30 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
             });
         } else {
             pServicoNaoDisponivel();
+        }
+    }
+
+    private void pTratarLista() {
+        boolean atualizar = false;
+
+        for (Iterator<PacoteCompra> iterator = adapter.getLst().iterator(); iterator.hasNext(); ) {
+            boolean remover = true;
+
+            for (SkuDetails sku : lstSkuDetails) {
+                if (iterator.next().getNome().equals(sku.getSku())) {
+                    remover = false;
+                    atualizar = true;
+                    break;
+                }
+            }
+
+            if (remover) {
+                iterator.remove();
+            }
+        }
+
+        if (atualizar) {
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -154,10 +184,45 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
         }
     }
 
-    private void pTratarCompra(@NotNull Purchase compra) {
-        if (compra.getSku().equals(produtoComprado) && compra.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
+    private void pTrataRespostaComprarPytacos(String response) {
+        try {
+            JSONObject resp = new JSONObject(response).getJSONArray("entry").getJSONObject(0);
+            usuario.setChaveAcesso(resp.getString("chaveacesso"));
+            Double qtdPytaco = StringUtil.strToNumber(resp.getString("qtdpytacosatualizado"));
+            usuario.setQtdPytaco(qtdPytaco);
+            lblQtdPytaco.setText(StringUtil.numberToStr(qtdPytaco));
+            pFinalizarCompra();
             makeShortToast("Compra realizada com sucesso");
+        } catch (JSONException ignored) {
         }
+    }
+
+    private void pFinalizarCompra() {
+        pDisableScreen();
+        pShowProgress();
+
+        try {
+
+        } finally {
+            pCancelLoading();
+            pEnableScreen();
+        }
+    }
+
+    private void pTratarCompra(@NotNull Purchase compra) {
+//        if (compra.getSku().equals(produtoComprado.getNome()) && compra.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
+        PytacoRequestDAO request = new PytacoRequestDAO(this);
+        request.comprarPytacos(usuario.getId(), usuario.getChaveAcesso(), produtoComprado.getNome());
+//        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (billingClient != null) {
+            billingClient.endConnection();
+        }
+
+        super.onDestroy();
     }
 
     @Override
@@ -172,9 +237,15 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
 
     @Override
     public void onError(@NotNull VolleyError error) {
-        if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_PACOTE_COMPRA)) {
-            adapter.getLst().clear();
-            adapter.notifyDataSetChanged();
+        switch (pytacoRequestEnum) {
+            case LISTA_PACOTE_COMPRA:
+                adapter.getLst().clear();
+                adapter.notifyDataSetChanged();
+                break;
+            case COMPRAR_PYTACOS:
+                break;
+            default:
+                break;
         }
 
         super.onError(error);
@@ -188,16 +259,21 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
     @Override
     public void onLstItemClick(int position) {
         if (lstSkuDetails != null && !lstSkuDetails.isEmpty()) {
+            dtCompra = Calendar.getInstance().getTime();
             PacoteCompra pacoteCompra = adapter.getLst().get(position);
             SkuDetails skuDetails = null;
+            produtoComprado = null;
 
-            for (SkuDetails item : lstSkuDetails) {
-                if (item.getSku().equals(pacoteCompra.getNome())) {
-                    skuDetails = item;
-                    produtoComprado = pacoteCompra.getNome();
-                    break;
-                }
-            }
+//            for (SkuDetails item : lstSkuDetails) {
+//                if (item.getSku().equals(pacoteCompra.getNome())) {
+//                    skuDetails = item;
+//                    produtoComprado = pacoteCompra;
+//                    break;
+//                }
+//            }
+
+            skuDetails = lstSkuDetails.get(0);
+            produtoComprado = pacoteCompra;
 
             assert skuDetails != null;
             BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
@@ -210,10 +286,19 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
     @Override
     public void onSucess(String response) {
         if (!this.isDestroyed()) {
-            if (pytacoRequestEnum.equals(PytacoRequestEnum.LISTA_PACOTE_COMPRA)) {
-                pCancelLoading();
-                pEnableScreen();
-                pTrataRespostaListaPacoteCompra(response);
+            switch (pytacoRequestEnum) {
+                case LISTA_PACOTE_COMPRA:
+                    pCancelLoading();
+                    pEnableScreen();
+                    pTrataRespostaListaPacoteCompra(response);
+                    break;
+                case COMPRAR_PYTACOS:
+                    pCancelLoading();
+                    pEnableScreen();
+                    pTrataRespostaComprarPytacos(response);
+                    break;
+                default:
+                    break;
             }
         }
         super.onSucess(response);
@@ -222,9 +307,16 @@ public class CompraActivity extends BaseRecyclerActivity implements PurchasesUpd
     @Override
     public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> list) {
         int resposta = billingResult.getResponseCode();
+
         if (resposta == BillingClient.BillingResponseCode.OK && list != null && !list.isEmpty()) {
+
             for (Purchase compra : list) {
+                Date purchaseTime = DateUtil.getDateTime(compra.getPurchaseTime());
+
+//                if (purchaseTime.after(dtCompra)) {
                 pTratarCompra(compra);
+                break;
+//                }
             }
         }
     }

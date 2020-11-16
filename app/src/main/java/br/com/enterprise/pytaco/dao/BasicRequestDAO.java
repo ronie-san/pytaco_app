@@ -80,7 +80,7 @@ public abstract class BasicRequestDAO {
                 if (useKeyHeader) {
                     HashMap<String, String> headers = new HashMap<>();
                     /*CHAVE DA API NECESSÁRIA PARA AUTENTICAÇÃO*/
-                    headers.put("X-RapidAPI-Key", activity.getString(R.string.api_footbal_key));
+                    headers.put(activity.getString(R.string.api_footbal_header), activity.getString(R.string.api_footbal_key));
                     return headers;
                 }
 
@@ -141,7 +141,7 @@ public abstract class BasicRequestDAO {
 
     //region PRIVATE METHODS
     private void pLancarErroSemInternet() {
-        activity.onError(new VolleyError("Sem conexão com a internet"));
+        activity.onError(new VolleyError(activity.getString(R.string.msg_sem_conexao)));
     }
 
     private boolean pSemInternet() {
